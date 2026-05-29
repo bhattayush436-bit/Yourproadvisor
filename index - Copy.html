@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExpertConnect | On-Demand Consultation</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray-text: #64748b;
+            --border: #e2e8f0;
+            --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background: #ffffff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-buttons .btn-alt {
+            text-decoration: none;
+            color: var(--dark);
+            margin-right: 1.5rem;
+            font-weight: 500;
+        }
+
+        /* Hero Split Section */
+        .hero {
+            margin-top: 4rem;
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            max-width: 800px;
+            margin: 0 auto 1.5rem auto;
+            color: var(--dark);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray-text);
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+        }
+
+        .split-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover { background-color: var(--primary-hover); }
+
+        .btn-secondary {
+            background-color: var(--dark);
+        }
+        .btn-secondary:hover { background-color: #1e293b; }
+
+        /* Main Marketplace Area */
+        .container {
+            max-width: 1100px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Category Filter Tabs */
+        .filters {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Expert Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .expert-tag {
+            align-self: flex-start;
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card .bio {
+            color: var(--gray-text);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .rate {
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        /* Booking Modal Setup */
+        .modal {
+            display: none; 
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: var(--card-shadow);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem; right: 1.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-text);
+        }
+
+        .time-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .time-box {
+            border: 2px solid var(--border);
+            padding: 0.75rem;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .time-box:hover, .time-box.selected {
+            border-color: var(--primary);
+            background: #eff6ff;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">Expert<span>Connect</span></a>
+        <div class="nav-buttons">
+            <a href="#" class="btn-alt">Log In</a>
+            <a href="#" class="btn">Join as Expert</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Connect with elite experts for 1-on-1 scheduled sessions</h1>
+        <p>Get instant clarity, unblock engineering blockers, or map out your strategy with verified professionals over targeted time blocks.</p>
+        <div class="split-buttons">
+            <a href="#marketplace" class="btn">Find an Advisor</a>
+            <a href="#" class="btn btn-secondary">Apply as an Expert</a>
+        </div>
+    </section>
+
+    <div class="container" id="marketplace">
+        <div class="section-header">
+            <h2>Available Experts</h2>
+            <div class="filters">
+                <button class="filter-btn active">All</button>
+                <button class="filter-btn">Tech</button>
+                <button class="filter-btn">Business</button>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- Expert Card 1 -->
+            <div class="card">
+                <div>
+                    <span class="expert-tag">Tech</span>
+                    <h3>Arjan Dev</h3>
+                    <p class="bio">Senior Hardware Engineer specializing in VLSI Frontend Architecture and custom RTL verification codebases.</p>
+                </div>
+                <div class="card-footer">
+                    <span class="rate">$50/hr</span>
+                    <button class="btn" onclick="openBooking('Arjan Dev')">Book Slot</button>
+                </div>
+            </div>
+
+            <!-- Expert Card 2 -->
+            <div class="card">
+                <div>
+                    <span class="expert-tag">Tech</span>
+                    <h3>Sarah Jenkins</h3>
+                    <p class="bio">Full-Stack Developer & Technical Lead. Expert in microservices, database architecture, and scaling dynamic web apps.</p>
+                </div>
+                <div class="card-footer">
+                    <span class="rate">$65/hr</span>
+                    <button class="btn" onclick="openBooking('Sarah Jenkins')">Book Slot</button>
+                </div>
+            </div>
+
+            <!-- Expert Card 3 -->
+            <div class="card">
+                <div>
+                    <span class="expert-tag">Business</span>
+                    <h3>Marcus Vance</h3>
+                    <p class="bio">Venture Strategist. Helps tech startup founders build solid investment pitches and go-to-market scaling plans.</p>
+                </div>
+                <div class="card-footer">
+                    <span class="rate">$80/hr</span>
+                    <button class="btn" onclick="openBooking('Marcus Vance')">Book Slot</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal Structure -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeBooking()">&times;</span>
+            <h3 id="modalTitle">Book Session</h3>
+            <p style="color: var(--gray-text); margin-top: 0.5rem;">Select your desired time block:</p>
+            
+            <div class="time-options">
+                <div class="time-box" onclick="selectTime(this)">15 Mins</div>
+                <div class="time-box" onclick="selectTime(this)">30 Mins</div>
+                <div class="time-box" onclick="selectTime(this)">60 Mins</div>
+            </div>
+
+            <button class="btn" style="width: 100%;" onclick="confirmBooking()">Confirm Request</button>
+        </div>
+    </div>
+
+    <script>
+        function openBooking(expertName) {
+            document.getElementById('modalTitle').innerText = "Book Session with " + expertName;
+            document.getElementById('bookingModal').style.display = 'flex';
+        }
+
+        function closeBooking() {
+            document.getElementById('bookingModal').style.display = 'none';
+        }
+
+        function selectTime(element) {
+            document.querySelectorAll('.time-box').forEach(box => box.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function confirmBooking() {
+            alert("Booking request submitted! (In a full website, this step would direct you to a payment gate or a calendar invite invite link.)");
+            closeBooking();
+        }
+    </script>
+</body>
+</html>

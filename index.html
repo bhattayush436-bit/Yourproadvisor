@@ -73,12 +73,12 @@
 
         .ai-response { margin-top: 1.5rem; padding: 1.25rem; background: #f5f3ff; border-left: 5px solid #7c3aed; border-radius: 4px 12px 12px 4px; display: none; }
 
-        .container { max-width: 1140px; margin: 4rem auto; padding: 0 2rem; }
+        .container { max-width: 1240px; margin: 4rem auto; padding: 0 2rem; }
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1.5rem; }
         .section-header h2 { font-size: 2rem; font-weight: 800; }
 
         .filters { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        .filter-btn { padding: 0.6rem 1.25rem; border: 1px solid var(--border); background: white; border-radius: 30px; cursor: pointer; font-weight: 600; color: var(--gray-text); }
+        .filter-btn { padding: 0.6rem 1.25rem; border: 1px solid var(--border); background: white; border-radius: 30px; cursor: pointer; font-weight: 600; color: var(--gray-text); font-size: 0.85rem; }
         .filter-btn.active, .filter-btn:hover { background-color: var(--dark); color: white; border-color: var(--dark); }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
@@ -129,8 +129,8 @@
     <nav>
         <a href="index.html" class="logo">YourProAdvisor</a>
         <div class="nav-buttons">
-            <a href="user.html" class="btn-alt">Log In / Sign Up</a>
-            <a href="advisor.html" class="btn">Become an Advisor</a>
+            <a href="user.html" id="userLink" class="btn-alt">Log In / Sign Up</a>
+            <a href="advisor.html" id="advisorLink" class="btn">Become an Advisor</a>
         </div>
     </nav>
 
@@ -139,7 +139,7 @@
         <p>Get instant clarity, tackle roadblocks, refine business operations, or elevate artistic direction via dynamic booking blocks.</p>
         <div class="split-buttons">
             <a href="#marketplace" class="btn">Find an Advisor</a>
-            <a href="advisor.html" class="btn btn-secondary">Apply as an Advisor</a>
+            <a href="advisor.html" id="heroAdvisorAction" class="btn btn-secondary">Apply as an Advisor</a>
         </div>
     </section>
 
@@ -150,7 +150,7 @@
             <h3 style="font-weight: 700;">Looking for a specific capability?</h3>
         </div>
         <div class="ai-input-wrapper">
-            <input type="text" id="aiPrompt" class="ai-input" placeholder="e.g., I want to review an investment pitch deck...">
+            <input type="text" id="aiPrompt" class="ai-input" placeholder="e.g., I want to build out a VLSI layout architecture code module...">
             <button class="btn btn-ai" onclick="askAI()">Find Matches</button>
         </div>
         <div id="aiResponse" class="ai-response"></div>
@@ -170,56 +170,22 @@
         </div>
 
         <div class="grid" id="expertsGrid">
-            <!-- Tech -->
+            <!-- Cards remain identical as preceding currency adjustment buildout -->
             <div class="card" data-category="Tech" data-keywords="hardware vlsi architecture engineering rtl chips circuits microprocessors">
-                <div>
-                    <span class="expert-tag">Tech & Hardware</span>
-                    <h3>Arjan Dev</h3>
-                    <p class="bio">Senior Hardware Engineer specializing in VLSI Frontend Architecture, custom microprocessors, and optimized RTL logic verification execution structures.</p>
-                </div>
-                <div class="card-footer">
-                    <span class="rate">$50/hr</span>
-                    <button class="btn" onclick="openBooking('Arjan Dev')">Book Slot</button>
-                </div>
+                <div><span class="expert-tag">Tech & Hardware</span><h3>Arjan Dev</h3><p class="bio">Senior Hardware Engineer specializing in VLSI Frontend Architecture, custom microprocessors, and optimized RTL logic verification execution structures.</p></div>
+                <div class="card-footer"><span class="rate">₹3,500/hr</span><button class="btn" onclick="openBooking('Arjan Dev')">Book Slot</button></div>
             </div>
-
-            <!-- Business -->
             <div class="card" data-category="Business" data-keywords="startup venture pitch marketing capital growth fundraising funding deck canvas models">
-                <div>
-                    <span class="expert-tag">Business & Startups</span>
-                    <h3>Marcus Vance</h3>
-                    <p class="bio">Venture Strategist. Helps alternative startup teams organize seed fundraising assets, pitch logic flow, and execute growth canvas models.</p>
-                </div>
-                <div class="card-footer">
-                    <span class="rate">$80/hr</span>
-                    <button class="btn" onclick="openBooking('Marcus Vance')">Book Slot</button>
-                </div>
+                <div><span class="expert-tag">Business & Startups</span><h3>Marcus Vance</h3><p class="bio">Venture Strategist. Helps alternative startup teams organize seed fundraising assets, pitch logic flow, and execute growth canvas models.</p></div>
+                <div class="card-footer"><span class="rate">₹5,000/hr</span><button class="btn" onclick="openBooking('Marcus Vance')">Book Slot</button></div>
             </div>
-
-            <!-- Career -->
             <div class="card" data-category="Career" data-keywords="career interview resume job executive corporate management strategy salary transition hire">
-                <div>
-                    <span class="expert-tag">Career Coaching</span>
-                    <h3>Elena Rostova</h3>
-                    <p class="bio">Executive Coach & Headhunter. Guides strategic mock technical/behavioral interviews, salary negotiation pathways, and high-impact corporate performance metrics.</p>
-                </div>
-                <div class="card-footer">
-                    <span class="rate">$70/hr</span>
-                    <button class="btn" onclick="openBooking('Elena Rostova')">Book Slot</button>
-                </div>
+                <div><span class="expert-tag">Career Coaching</span><h3>Elena Rostova</h3><p class="bio">Executive Coach & Headhunter. Guides strategic mock technical/behavioral interviews, salary negotiation pathways, and high-impact corporate performance metrics.</p></div>
+                <div class="card-footer"><span class="rate">₹4,000/hr</span><button class="btn" onclick="openBooking('Elena Rostova')">Book Slot</button></div>
             </div>
-
-            <!-- Music -->
             <div class="card" data-category="Music" data-keywords="music production mix master mixing mastering logic tracks design acoustics beats synth analog">
-                <div>
-                    <span class="expert-tag">Music & Production</span>
-                    <h3>Devon Cole</h3>
-                    <p class="bio">Platinum Sound Designer and Audio Specialist. Mentoring modern workflows in tracking, analog mix dynamics, hybrid stem structures, and acoustic balancing templates.</p>
-                </div>
-                <div class="card-footer">
-                    <span class="rate">$90/hr</span>
-                    <button class="btn" onclick="openBooking('Devon Cole')">Book Slot</button>
-                </div>
+                <div><span class="expert-tag">Music & Production</span><h3>Devon Cole</h3><p class="bio">Platinum Sound Designer and Audio Specialist. Mentoring modern workflows in tracking, analog mix dynamics, hybrid stem structures, and acoustic balancing templates.</p></div>
+                <div class="card-footer"><span class="rate">₹4,500/hr</span><button class="btn" onclick="openBooking('Devon Cole')">Book Slot</button></div>
             </div>
         </div>
     </div>
@@ -236,7 +202,6 @@
                 <div class="step-dot" id="dot3">3</div>
             </div>
 
-            <!-- STEP 1 -->
             <div class="modal-step active" id="step1">
                 <p style="color: var(--gray-text); font-size: 0.95rem;">Select your required session duration block:</p>
                 <div class="time-options">
@@ -247,7 +212,6 @@
                 <button class="btn" style="width: 100%; margin-top: 1rem;" onclick="goToStep(2)">Continue to Details</button>
             </div>
 
-            <!-- STEP 2 -->
             <div class="modal-step" id="step2">
                 <p style="color: var(--gray-text); font-size: 0.95rem; margin-bottom: 1rem;">Provide context so your advisor can prepare beforehand:</p>
                 <div class="form-group">
@@ -264,7 +228,6 @@
                 </div>
             </div>
 
-            <!-- STEP 3 -->
             <div class="modal-step" id="step3" style="text-align: center;">
                 <div class="success-graphic">✓</div>
                 <h4 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem;">Booking Order Logged!</h4>
@@ -278,6 +241,23 @@
         let currentExpert = "";
         let selectedDuration = "";
         let activeStep = 1;
+
+        // Session validation state check initialization routing logic
+        window.onload = function() {
+            const user = JSON.parse(localStorage.getItem('activeUser'));
+            const advisor = JSON.parse(localStorage.getItem('activeAdvisor'));
+
+            if (user) {
+                document.getElementById('userLink').innerText = `👤 Dashboard (${user.name})`;
+                document.getElementById('userLink').href = "user.html";
+            }
+            if (advisor) {
+                document.getElementById('advisorLink').innerText = `📈 Panel (${advisor.name})`;
+                document.getElementById('advisorLink').href = "advisor.html";
+                document.getElementById('heroAdvisorAction').innerText = "View Performance Panel";
+                document.getElementById('heroAdvisorAction').setAttribute('onclick', "window.location.href='advisor.html'");
+            }
+        };
 
         function askAI() {
             const prompt = document.getElementById('aiPrompt').value.toLowerCase().trim();
@@ -317,7 +297,9 @@
 
         function openBooking(expertName) {
             currentExpert = expertName; selectedDuration = "";
-            document.getElementById('userName').value = ""; document.getElementById('userContext').value = "";
+            const user = JSON.parse(localStorage.getItem('activeUser'));
+            document.getElementById('userName').value = user ? user.name : "";
+            document.getElementById('userContext').value = "";
             document.querySelectorAll('.time-box').forEach(box => box.classList.remove('selected'));
             document.getElementById('modalTitle').innerText = "Session Request with " + expertName;
             goToStep(1);

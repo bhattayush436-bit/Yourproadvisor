@@ -3,84 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Onboarding | YourProAdvisor</title>
+    <title>User Portal | YourProAdvisor</title>
     <style>
         :root {
             --primary: #059669;
+            --primary-hover: #047857;
             --dark: #0f172a;
             --light: #f8fafc;
             --border: #e2e8f0;
+            --gray-text: #64748b;
+            --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background: linear-gradient(135deg, #064e3b 0%, #022c22 100%); color: white; min-height: 100vh; padding: 6rem 2rem 2rem 2rem; }
+        body { background: #f1f5f9; color: var(--dark); min-height: 100vh; padding-top: 5rem; }
         
-        nav { background: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; left: 0; z-index: 100; }
+        nav { background: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; left: 0; z-index: 100; border-bottom: 1px solid var(--border); }
         .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; }
-        .nav-buttons .btn-alt { text-decoration: none; color: var(--dark); font-weight: 600; }
+        .nav-buttons .btn-alt { text-decoration: none; color: var(--dark); font-weight: 600; background: none; border: none; cursor: pointer; }
 
-        .panel-container { max-width: 600px; margin: 4rem auto 0 auto; text-align: center; }
-        .panel-container h2 { font-size: 2.25rem; font-weight: 800; margin-bottom: 1rem; }
-        .panel-container p { color: #94a3b8; margin-bottom: 2.5rem; }
+        .auth-container { max-width: 550px; margin: 4rem auto; padding: 0 1.5rem; }
+        .interactive-form { background: white; padding: 3rem; border-radius: 20px; box-shadow: var(--card-shadow); border: 1px solid var(--border); }
+        .interactive-form h2 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; text-align: center; }
+        .interactive-form p { color: var(--gray-text); text-align: center; margin-bottom: 2rem; font-size: 0.95rem; }
 
-        .interactive-form { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); padding: 3rem; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1); text-align: left; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-        @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; gap: 0; } }
-
-        label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; color: #cbd5e1; }
-        input, select { width: 100%; padding: 0.85rem 1rem; background: rgba(15, 23, 42, 0.6); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 10px; color: white; outline: none; margin-bottom: 1.5rem; }
+        label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--dark); }
+        input, select { width: 100%; padding: 0.85rem 1rem; background: var(--light); border: 2px solid var(--border); border-radius: 10px; color: var(--dark); outline: none; margin-bottom: 1.5rem; font-size: 0.95rem; }
         input:focus, select:focus { border-color: var(--primary); }
-        select option { background: #0f172a; color: white; }
 
-        .btn { background: var(--primary); color: white; padding: 0.85rem; width: 100%; border-radius: 10px; font-weight: 600; border: none; cursor: pointer; }
+        .btn { background: var(--primary); color: white; padding: 0.85rem; width: 100%; border-radius: 10px; font-weight: 600; border: none; cursor: pointer; font-size: 1rem; transition: background 0.2s; }
+        .btn:hover { background: var(--primary-hover); }
+
+        /* User Dashboard Specific Layout */
+        .dashboard-container { display: none; max-width: 1100px; margin: 2rem auto; padding: 0 2rem; }
+        .welcome-header { margin-bottom: 2.5rem; background: white; padding: 2rem; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--card-shadow); }
+        .welcome-header h2 { font-size: 1.8rem; font-weight: 800; color: var(--dark); }
+        .welcome-header p { color: var(--gray-text); font-size: 1rem; margin-top: 0.25rem; }
+        
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+        .match-card { background: white; border-radius: 16px; padding: 2rem; border: 1px solid var(--border); box-shadow: var(--card-shadow); display: flex; flex-direction: column; justify-content: space-between; }
+        .match-tag { align-self: flex-start; background: #e0f2fe; color: #0369a1; padding: 0.25rem 0.75rem; border-radius: 30px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1rem; }
+        .match-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .match-card .bio { color: var(--gray-text); font-size: 0.9rem; margin-bottom: 1.25rem; }
+        
+        .metric-row { display: flex; justify-content: space-between; background: var(--light); padding: 0.75rem 1rem; border-radius: 10px; margin-bottom: 0.5rem; font-size: 0.85rem; }
+        .metric-label { font-weight: 600; color: var(--gray-text); }
+        .metric-value { font-weight: 700; color: var(--dark); }
+        .rating-badge { color: #b45309; background: #fef3c7; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 800; }
     </style>
 </head>
 <body>
 
     <nav>
         <a href="index.html" class="logo">YourProAdvisor</a>
-        <div class="nav-buttons"><a href="index.html" class="btn-alt">Back to Directory</a></div>
+        <div class="nav-buttons">
+            <button class="btn-alt" id="logoutBtn" style="display:none;" onclick="logout()">Logout</button>
+            <a href="index.html" class="btn-alt" id="homeLink">Back to Marketplace</a>
+        </div>
     </nav>
 
-    <div class="panel-container">
-        <h2>Create Your Member Account</h2>
-        <p>Set up your profile to manage consultation blocks, log histories, and view smart match selections.</p>
-        
-        <form class="interactive-form" onsubmit="handleUserRegistration(event)">
-            <div class="form-row">
-                <div>
-                    <label for="usrName">Your Name</label>
-                    <input type="text" id="usrName" placeholder="Alex Rivera" required>
-                </div>
-                <div>
-                    <label for="usrEmail">Email Address</label>
-                    <input type="email" id="usrEmail" placeholder="alex@example.com" required>
-                </div>
+    <!-- AUTH WINDOW: LOGIN/REGISTER -->
+    <div class="auth-container" id="authWindow">
+        <form class="interactive-form" onsubmit="loginUser(event)">
+            <h2>Welcome Back</h2>
+            <p>Access your personalized user panel interface configuration.</p>
+            
+            <div>
+                <label for="usrName">Your Full Name</label>
+                <input type="text" id="usrName" placeholder="Alex Rivera" required>
             </div>
-            <div class="form-row">
-                <div>
-                    <label for="usrField">Your Field / Interest Focus</label>
-                    <select id="usrField">
-                        <option value="Entrepreneurship">Entrepreneurship & Startups</option>
-                        <option value="Engineering">Engineering & Design</option>
-                        <option value="Creative Arts">Creative Arts & Audio</option>
-                        <option value="General">General Upskilling</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="usrPassword">Password</label>
-                    <input type="password" id="usrPassword" placeholder="••••••••" required>
-                </div>
+            <div>
+                <label for="usrField">Your Target Focus Field</label>
+                <select id="usrField">
+                    <option value="Tech & Hardware">Tech & Hardware Engineering</option>
+                    <option value="Business & Startups">Business & Startups</option>
+                    <option value="Career Coaching">Career Coaching</option>
+                    <option value="Music & Production">Music & Production</option>
+                </select>
             </div>
-            <button type="submit" class="btn">Complete Account Registration</button>
+            <button type="submit" class="btn">Login & Launch Dashboard</button>
         </form>
     </div>
 
+    <!-- MAIN USER DASHBOARD WINDOW -->
+    <div class="dashboard-container" id="dashboardWindow">
+        <div class="welcome-header">
+            <h2 id="greetMessage">Welcome Back, User</h2>
+            <p id="focusMessage">Displaying verified elite advisors optimized for your domain preference track.</p>
+        </div>
+
+        <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1.5rem;">Recommended Advisors For You</h3>
+        <div class="dashboard-grid" id="matchedAdvisorsContainer">
+            <!-- Dynamic Injection Scope -->
+        </div>
+    </div>
+
     <script>
-        function handleUserRegistration(event) {
+        // Local Data Bank Simulation array
+        const mockAdvisors = [
+            { name: "Arjan Dev", domain: "Tech & Hardware", bio: "VLSI Frontend Architecture specialist and optimized RTL verification expert.", sessions: 142, rating: "4.9", exp: "12 Years" },
+            { name: "Ananya Iyer", domain: "Tech & Hardware", bio: "Embedded Systems design engineer and core firmware microprocessor architect.", sessions: 98, rating: "4.8", exp: "8 Years" },
+            { name: "Marcus Vance", domain: "Business & Startups", bio: "Venture strategist guiding pitch desk architecture and funding pipeline scaling execution.", sessions: 210, rating: "5.0", exp: "15 Years" },
+            { name: "Vikram Malhotra", domain: "Business & Startups", bio: "Growth canvas expert focused on financial scalability models and asset operations.", sessions: 85, rating: "4.7", exp: "9 Years" },
+            { name: "Elena Rostova", domain: "Career Coaching", bio: "Executive recruiter guiding salary negotiation tracks and mock interview evaluations.", sessions: 340, rating: "4.9", exp: "14 Years" },
+            { name: "Devon Cole", domain: "Music & Production", bio: "Platinum tracking designer specializing in analog stem dynamics and sound synthesis structures.", sessions: 115, rating: "4.9", exp: "10 Years" }
+        ];
+
+        window.onload = function() {
+            const activeUser = JSON.parse(localStorage.getItem('activeUser'));
+            if (activeUser) {
+                renderDashboard(activeUser);
+            }
+        };
+
+        function loginUser(event) {
             event.preventDefault();
-            const name = document.getElementById('usrName').value.trim();
-            alert(`Welcome aboard, ${name}! Your account has been initialized. Redirecting you to the home marketplace.`);
-            window.location.href = "index.html";
+            const userData = {
+                name: document.getElementById('usrName').value.trim(),
+                focus: document.getElementById('usrField').value
+            };
+            localStorage.setItem('activeUser', JSON.stringify(userData));
+            renderDashboard(userData);
+        }
+
+        function renderDashboard(user) {
+            document.getElementById('authWindow').style.display = 'none';
+            document.getElementById('dashboardWindow').style.display = 'block';
+            document.getElementById('logoutBtn').style.display = 'inline-block';
+            
+            document.getElementById('greetMessage').innerText = `👋 Welcome Back, ${user.name}`;
+            document.getElementById('focusMessage').innerText = `Here are the top-rated professionals specialized in ${user.focus}:`;
+
+            const container = document.getElementById('matchedAdvisorsContainer');
+            container.innerHTML = ""; // Clear existing elements
+
+            // Filter out advisor listings that exactly match user path selection interests
+            const matches = mockAdvisors.filter(adv => adv.domain === user.focus);
+
+            matches.forEach(adv => {
+                container.innerHTML += `
+                    <div class="match-card">
+                        <div>
+                            <span class="match-tag">${adv.domain}</span>
+                            <h3>${adv.name}</h3>
+                            <p class="bio">${adv.bio}</p>
+                        </div>
+                        <div>
+                            <div class="metric-row">
+                                <span class="metric-label">Experience</span>
+                                <span class="metric-value">${adv.exp}</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Platform Sessions</span>
+                                <span class="metric-value">${adv.sessions} completed</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">User Rating</span>
+                                <span class="metric-value"><span class="rating-badge">★ ${adv.rating}</span></span>
+                            </div>
+                            <a href="index.html#marketplace" class="btn" style="text-align:center; text-decoration:none; margin-top:1rem; display:block;">Book Consultation Slot</a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function logout() {
+            localStorage.removeItem('activeUser');
+            window.location.reload();
         }
     </script>
 </body>

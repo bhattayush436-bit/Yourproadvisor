@@ -18,21 +18,9 @@
             --ai-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
 
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
-
-        /* Navigation */
         nav {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(8px);
@@ -42,501 +30,107 @@
             align-items: center;
             border-bottom: 1px solid var(--border);
             position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
+            width: 100%; top: 0; z-index: 100;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
+            font-size: 1.5rem; font-weight: 800;
             background: var(--brand-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-decoration: none;
         }
 
-        .nav-buttons {
-            display: flex;
-            align-items: center;
-        }
-
         .nav-buttons .btn-alt {
-            text-decoration: none;
-            color: var(--dark);
-            margin-right: 1.5rem;
-            font-weight: 600;
-            font-size: 0.95rem;
-            background: none;
-            border: none;
-            cursor: pointer;
+            text-decoration: none; color: var(--dark);
+            margin-right: 1.5rem; font-weight: 600; font-size: 0.95rem;
             transition: color 0.2s;
         }
         .nav-buttons .btn-alt:hover { color: var(--primary); }
 
-        /* Profile Greeting Anchor */
-        .user-pill {
-            display: none;
-            background: #e0f2fe;
-            color: #0369a1;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-right: 1.5rem;
-            animation: scaleIn 0.3s forwards;
-        }
-
-        /* Hero Section */
         .hero {
-            margin-top: 4rem;
-            padding: 6rem 2rem 7rem 2rem;
+            margin-top: 4rem; padding: 6rem 2rem 7rem 2rem;
             background: radial-gradient(circle at top right, #f0fdf4 0%, #eff6ff 50%, #f5f3ff 100%);
             text-align: center;
         }
 
-        .hero h1 {
-            font-size: 3.2rem;
-            font-weight: 800;
-            max-width: 850px;
-            margin: 0 auto 1.5rem auto;
-            color: var(--dark);
-            letter-spacing: -0.025em;
-            line-height: 1.15;
-        }
+        .hero h1 { font-size: 3.2rem; font-weight: 800; max-width: 850px; margin: 0 auto 1.5rem auto; letter-spacing: -0.025em; }
+        .hero p { font-size: 1.25rem; color: var(--gray-text); max-width: 650px; margin: 0 auto 2.5rem auto; }
+        .split-buttons { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
 
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--gray-text);
-            max-width: 650px;
-            margin: 0 auto 2.5rem auto;
-        }
-
-        .split-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        /* AI Matchmaker Section */
         .ai-section {
-            max-width: 850px;
-            margin: -3.5rem auto 4rem auto;
-            background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
-            position: relative;
-            z-index: 10;
-            border: 1px solid #eef2f6;
+            max-width: 850px; margin: -3.5rem auto 4rem auto; background: white;
+            padding: 2.5rem; border-radius: 20px; box-shadow: var(--card-shadow);
+            position: relative; z-index: 10; border: 1px solid #eef2f6;
         }
 
-        .ai-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
+        .ai-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+        .ai-badge { background: var(--ai-gradient); color: white; padding: 0.3rem 0.75rem; border-radius: 30px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .ai-input-wrapper { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
+        .ai-input { flex: 1; padding: 1rem 1.25rem; border: 2px solid var(--border); border-radius: 12px; font-size: 1rem; outline: none; }
+        .ai-input:focus { border-color: #7c3aed; }
+        .btn-ai { background: var(--ai-gradient); color: white; padding: 0 1.75rem; }
 
-        .ai-badge {
-            background: var(--ai-gradient);
-            color: white;
-            padding: 0.3rem 0.75rem;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+        .ai-response { margin-top: 1.5rem; padding: 1.25rem; background: #f5f3ff; border-left: 5px solid #7c3aed; border-radius: 4px 12px 12px 4px; display: none; }
 
-        .ai-input-wrapper {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 1.25rem;
-        }
+        .container { max-width: 1140px; margin: 4rem auto; padding: 0 2rem; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1.5rem; }
+        .section-header h2 { font-size: 2rem; font-weight: 800; }
 
-        .ai-input {
-            flex: 1;
-            padding: 1rem 1.25rem;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.2s;
-        }
+        .filters { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .filter-btn { padding: 0.6rem 1.25rem; border: 1px solid var(--border); background: white; border-radius: 30px; cursor: pointer; font-weight: 600; color: var(--gray-text); }
+        .filter-btn.active, .filter-btn:hover { background-color: var(--dark); color: white; border-color: var(--dark); }
 
-        .ai-input:focus {
-            border-color: #7c3aed;
-            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
-        }
-
-        .btn-ai {
-            background: var(--ai-gradient);
-            color: white;
-            padding: 0 1.75rem;
-        }
-        .btn-ai:hover { opacity: 0.95; transform: translateY(-1px); }
-
-        .ai-response {
-            margin-top: 1.5rem;
-            padding: 1.25rem;
-            background: #f5f3ff;
-            border-left: 5px solid #7c3aed;
-            border-radius: 4px 12px 12px 4px;
-            display: none;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        /* Main Marketplace Area */
-        .container {
-            max-width: 1140px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2.5rem;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
-
-        .section-header h2 {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-        }
-
-        /* Category Filter Tabs */
-        .filters {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 0.6rem 1.25rem;
-            border: 1px solid var(--border);
-            background: white;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--gray-text);
-            transition: all 0.2s;
-        }
-
-        .filter-btn.active, .filter-btn:hover {
-            background-color: var(--dark);
-            color: white;
-            border-color: var(--dark);
-        }
-
-        /* Expert Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .card {
-            background: white;
-            border-radius: 16px;
-            padding: 2.25rem;
-            box-shadow: var(--card-shadow);
-            border: 1px solid #f1f5f9;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.08);
-        }
-
-        .card.highlighted {
-            border: 2px solid #7c3aed;
-            box-shadow: 0 0 25px rgba(124, 58, 237, 0.15);
-            transform: scale(1.03);
-        }
-
-        .expert-tag {
-            align-self: flex-start;
-            background: #ecfdf5;
-            color: #065f46;
-            padding: 0.3rem 0.85rem;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            margin-bottom: 1.25rem;
-            text-transform: uppercase;
-            letter-spacing: 0.025em;
-        }
-
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        .card { background: white; border-radius: 16px; padding: 2.25rem; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.08); }
+        .card.highlighted { border: 2px solid #7c3aed; box-shadow: 0 0 25px rgba(124, 58, 237, 0.15); transform: scale(1.03); }
+        
+        .expert-tag { align-self: flex-start; background: #ecfdf5; color: #065f46; padding: 0.3rem 0.85rem; border-radius: 30px; font-size: 0.75rem; font-weight: 700; margin-bottom: 1.25rem; text-transform: uppercase; }
         .card[data-category="Business"] .expert-tag { background: #fffbeb; color: #92400e; }
         .card[data-category="Career"] .expert-tag { background: #f0f9ff; color: #0369a1; }
         .card[data-category="Music"] .expert-tag { background: #fdf2f8; color: #9d174d; }
 
-        .card h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 0.6rem;
-        }
+        .card h3 { font-size: 1.4rem; margin-bottom: 0.6rem; }
+        .card .bio { color: var(--gray-text); font-size: 0.95rem; margin-bottom: 1.75rem; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1.25rem; }
+        .rate { font-size: 1.15rem; font-weight: 800; }
 
-        .card .bio {
-            color: var(--gray-text);
-            font-size: 0.95rem;
-            margin-bottom: 1.75rem;
-            line-height: 1.55;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--border);
-            padding-top: 1.25rem;
-            margin-top: 1rem;
-        }
-
-        .rate {
-            font-size: 1.15rem;
-            font-weight: 800;
-            color: var(--dark);
-        }
-
-        /* Generic Forms Formatting (Shared by Application Panels) */
-        .onboarding-panel {
-            display: none;
-            color: white;
-            padding: 5rem 2rem;
-            margin-top: 4rem;
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        .panel-bg-advisor { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); }
-        .panel-bg-user { background: linear-gradient(135deg, #064e3b 0%, #022c22 100%); }
-
-        .panel-container {
-            max-width: 700px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .panel-container h2 {
-            font-size: 2.25rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-        }
-
-        .panel-container p {
-            color: #94a3b8;
-            margin-bottom: 2.5rem;
-        }
-
-        .interactive-form {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            padding: 3rem;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: left;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        @media (max-width: 600px) {
-            .form-row { grid-template-columns: 1fr; gap: 0; }
-        }
-
-        .interactive-form label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #cbd5e1;
-        }
-
-        .interactive-form input, .interactive-form select, .interactive-form textarea {
-            width: 100%;
-            padding: 0.85rem 1rem;
-            background: rgba(15, 23, 42, 0.6);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: white;
-            outline: none;
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-            transition: border-color 0.2s;
-        }
-
-        .interactive-form input:focus, .interactive-form select:focus, .interactive-form textarea:focus {
-            border-color: var(--primary);
-        }
-
-        .interactive-form select option {
-            background: #0f172a;
-            color: white;
-        }
-
-        /* Buttons */
-        .btn {
-            background: var(--brand-gradient);
-            color: white;
-            padding: 0.75rem 1.75rem;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn:hover { opacity: 0.95; transform: translateY(-1px); }
+        .btn { background: var(--brand-gradient); color: white; padding: 0.75rem 1.75rem; border-radius: 10px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; display: inline-flex; align-items: center; }
         .btn-secondary { background: var(--dark); }
-        .btn-secondary:hover { background: #1e293b; }
 
-        /* Booking Modal Setup */
-        .modal {
-            display: none; 
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(8px);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 24px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-            position: relative;
-            animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        /* Step Indicators */
-        .step-indicator {
-            display: flex;
-            justify-content: space-between;
-            margin: 1.5rem 0 2rem 0;
-            position: relative;
-        }
-        .step-indicator::before {
-            content: '';
-            position: absolute;
-            top: 50%; left: 0; right: 0;
-            height: 2px;
-            background: var(--border);
-            z-index: 1;
-            transform: translateY(-50%);
-        }
-        .step-dot {
-            width: 32px; height: 32px;
-            background: white;
-            border: 2px solid var(--border);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            font-weight: 700;
-            position: relative;
-            z-index: 2;
-            color: var(--gray-text);
-            transition: all 0.2s;
-        }
+        /* Booking Modal Styling */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; padding: 2.5rem; border-radius: 24px; max-width: 500px; width: 90%; position: relative; }
+        
+        .step-indicator { display: flex; justify-content: space-between; margin: 1.5rem 0 2rem 0; position: relative; }
+        .step-indicator::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--border); z-index: 1; transform: translateY(-50%); }
+        .step-dot { width: 32px; height: 32px; background: white; border: 2px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; position: relative; z-index: 2; color: var(--gray-text); }
         .step-dot.active { border-color: var(--primary); background: var(--primary); color: white; }
         .step-dot.completed { border-color: var(--primary); background: #ecfdf5; color: var(--primary); }
 
         .modal-step { display: none; }
         .modal-step.active { display: block; }
+        .close-modal { position: absolute; top: 1.25rem; right: 1.5rem; font-size: 1.75rem; cursor: pointer; color: var(--gray-text); }
 
-        .close-modal {
-            position: absolute;
-            top: 1.25rem; right: 1.5rem;
-            font-size: 1.75rem;
-            cursor: pointer;
-            color: var(--gray-text);
-        }
-
-        .time-options {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.75rem;
-            margin: 1.5rem 0;
-        }
-
-        .time-box {
-            border: 2px solid var(--border);
-            padding: 1rem 0.5rem;
-            text-align: center;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: all 0.2s;
-        }
+        .time-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin: 1.5rem 0; }
+        .time-box { border: 2px solid var(--border); padding: 1rem 0.5rem; text-align: center; border-radius: 12px; cursor: pointer; font-weight: 700; }
         .time-box:hover { border-color: var(--primary); background: #f0fdf4; }
         .time-box.selected { border-color: var(--primary); background: var(--primary); color: white; }
 
-        .form-group {
-            margin-bottom: 1.25rem;
-            text-align: left;
-        }
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 0.85rem;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            outline: none;
-            font-size: 0.95rem;
-        }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); }
-
-        .success-graphic {
-            font-size: 4rem;
-            color: var(--primary);
-            margin: 1.5rem 0;
-        }
-
-        /* Animation Keyframes */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes modalPop { from { opacity: 0; transform: scale(0.95) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-        @keyframes scaleIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .form-group { margin-bottom: 1.25rem; text-align: left; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .form-group input, .form-group textarea { width: 100%; padding: 0.85rem; border: 2px solid var(--border); border-radius: 10px; outline: none; }
+        .success-graphic { font-size: 4rem; color: var(--primary); margin: 1.5rem 0; }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#" class="logo">YourProAdvisor</a>
+        <a href="index.html" class="logo">YourProAdvisor</a>
         <div class="nav-buttons">
-            <span class="user-pill" id="userGreetingPill"></span>
-            <button class="btn-alt" id="loginNavBtn" onclick="toggleOnboardingSection('user')">Log In</button>
-            <button class="btn-alt" onclick="toggleOnboardingSection('advisor')">Join as Advisor</button>
+            <a href="user.html" class="btn-alt">Log In / Sign Up</a>
+            <a href="advisor.html" class="btn">Become an Advisor</a>
         </div>
     </nav>
 
@@ -545,7 +139,7 @@
         <p>Get instant clarity, tackle roadblocks, refine business operations, or elevate artistic direction via dynamic booking blocks.</p>
         <div class="split-buttons">
             <a href="#marketplace" class="btn">Find an Advisor</a>
-            <button class="btn btn-secondary" onclick="toggleOnboardingSection('advisor')">Apply as an Advisor</button>
+            <a href="advisor.html" class="btn btn-secondary">Apply as an Advisor</a>
         </div>
     </section>
 
@@ -555,7 +149,6 @@
             <span class="ai-badge">AI Assistant</span>
             <h3 style="font-weight: 700;">Looking for a specific capability?</h3>
         </div>
-        <p style="color: var(--gray-text); font-size: 0.95rem;">Describe what you want to learn or achieve below:</p>
         <div class="ai-input-wrapper">
             <input type="text" id="aiPrompt" class="ai-input" placeholder="e.g., I want to review an investment pitch deck...">
             <button class="btn btn-ai" onclick="askAI()">Find Matches</button>
@@ -577,8 +170,8 @@
         </div>
 
         <div class="grid" id="expertsGrid">
-            <!-- Advisor 1: Tech -->
-            <div class="card" data-category="Tech" data-keywords="hardware vlsi architecture engineering engineering rtl chips circuits microprocessors system">
+            <!-- Tech -->
+            <div class="card" data-category="Tech" data-keywords="hardware vlsi architecture engineering rtl chips circuits microprocessors">
                 <div>
                     <span class="expert-tag">Tech & Hardware</span>
                     <h3>Arjan Dev</h3>
@@ -590,8 +183,8 @@
                 </div>
             </div>
 
-            <!-- Advisor 2: Business -->
-            <div class="card" data-category="Business" data-keywords="startup venture pitch marketing capital growth fundraising funding deck canvas models scale execution">
+            <!-- Business -->
+            <div class="card" data-category="Business" data-keywords="startup venture pitch marketing capital growth fundraising funding deck canvas models">
                 <div>
                     <span class="expert-tag">Business & Startups</span>
                     <h3>Marcus Vance</h3>
@@ -603,8 +196,8 @@
                 </div>
             </div>
 
-            <!-- Advisor 3: Career -->
-            <div class="card" data-category="Career" data-keywords="career interview resume job executive corporate management strategy salary transition hire headhunter resume audit">
+            <!-- Career -->
+            <div class="card" data-category="Career" data-keywords="career interview resume job executive corporate management strategy salary transition hire">
                 <div>
                     <span class="expert-tag">Career Coaching</span>
                     <h3>Elena Rostova</h3>
@@ -616,8 +209,8 @@
                 </div>
             </div>
 
-            <!-- Advisor 4: Music -->
-            <div class="card" data-category="Music" data-keywords="music production mix master mixing mastering logic tracks design acoustics beats synth analog logic audio">
+            <!-- Music -->
+            <div class="card" data-category="Music" data-keywords="music production mix master mixing mastering logic tracks design acoustics beats synth analog">
                 <div>
                     <span class="expert-tag">Music & Production</span>
                     <h3>Devon Cole</h3>
@@ -631,85 +224,6 @@
         </div>
     </div>
 
-    <!-- WINDOW SECTION 1: User Profile Creation Portal -->
-    <section class="onboarding-panel panel-bg-user" id="userRegisterSection">
-        <div class="panel-container">
-            <h2>Create Your Member Account</h2>
-            <p>Set up your consultation profile to book unlimited sessions, review tracking details, and gain customized AI advisor matches match frameworks.</p>
-            
-            <form class="interactive-form" onsubmit="handleUserRegistration(event)">
-                <div class="form-row">
-                    <div>
-                        <label for="usrName">Your Name</label>
-                        <input type="text" id="usrName" placeholder="e.g. Alex Rivera" required>
-                    </div>
-                    <div>
-                        <label for="usrEmail">Email Address</label>
-                        <input type="email" id="usrEmail" placeholder="alex@example.com" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div>
-                        <label for="usrField">Your Field / Interest Focus</label>
-                        <select id="usrField">
-                            <option value="Entrepreneurship">Entrepreneurship & Startups</option>
-                            <option value="Engineering">Engineering & Design</option>
-                            <option value="Creative Arts">Creative Arts & Audio</option>
-                            <option value="General">General Upskilling</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="usrPassword">Password</label>
-                        <input type="password" id="usrPassword" placeholder="••••••••" required>
-                    </div>
-                </div>
-                <button type="submit" class="btn" style="width: 100%;">Complete Account Registration</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- WINDOW SECTION 2: Apply as an Advisor Portal -->
-    <section class="onboarding-panel panel-bg-advisor" id="applyAdvisorSection">
-        <div class="panel-container">
-            <h2>Share your expertise. Set your terms.</h2>
-            <p>Join an elite global collective of consultants, engineers, specialists, and builders. Monetize your knowledge over custom micro-consulting blocks.</p>
-            
-            <form class="interactive-form" onsubmit="handleAdvisorApplication(event)">
-                <div class="form-row">
-                    <div>
-                        <label for="advName">Full Name</label>
-                        <input type="text" id="advName" placeholder="e.g. Jordan Smith" required>
-                    </div>
-                    <div>
-                        <label for="advEmail">Email Address</label>
-                        <input type="email" id="advEmail" placeholder="you@domain.com" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div>
-                        <label for="advCategory">Primary Expertise Area</label>
-                        <select id="advCategory" required>
-                            <option value="" disabled selected>Select Domain...</option>
-                            <option value="Tech">Tech & Hardware</option>
-                            <option value="Business">Business & Startups</option>
-                            <option value="Career">Career Coaching</option>
-                            <option value="Music">Music & Production</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="advRate">Desired Rate (USD / hr)</label>
-                        <input type="number" id="advRate" placeholder="e.g. 75" min="10" max="500" required>
-                    </div>
-                </div>
-                <div>
-                    <label for="advBio">Professional Summary / Bio</label>
-                    <textarea id="advBio" rows="4" placeholder="Briefly describe your baseline expertise focus..." required></textarea>
-                </div>
-                <button type="submit" class="btn" style="width: 100%;">Submit Application Profile</button>
-            </form>
-        </div>
-    </section>
-
     <!-- Multi-Step Interactive Booking Engine Modal Container -->
     <div class="modal" id="bookingModal">
         <div class="modal-content">
@@ -722,7 +236,7 @@
                 <div class="step-dot" id="dot3">3</div>
             </div>
 
-            <!-- STEP 1: TIME FRAME SELECT -->
+            <!-- STEP 1 -->
             <div class="modal-step active" id="step1">
                 <p style="color: var(--gray-text); font-size: 0.95rem;">Select your required session duration block:</p>
                 <div class="time-options">
@@ -733,7 +247,7 @@
                 <button class="btn" style="width: 100%; margin-top: 1rem;" onclick="goToStep(2)">Continue to Details</button>
             </div>
 
-            <!-- STEP 2: USER DETAILS INPUT -->
+            <!-- STEP 2 -->
             <div class="modal-step" id="step2">
                 <p style="color: var(--gray-text); font-size: 0.95rem; margin-bottom: 1rem;">Provide context so your advisor can prepare beforehand:</p>
                 <div class="form-group">
@@ -750,7 +264,7 @@
                 </div>
             </div>
 
-            <!-- STEP 3: SUCCESS SUCCESS CARD -->
+            <!-- STEP 3 -->
             <div class="modal-step" id="step3" style="text-align: center;">
                 <div class="success-graphic">✓</div>
                 <h4 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem;">Booking Order Logged!</h4>
@@ -764,110 +278,36 @@
         let currentExpert = "";
         let selectedDuration = "";
         let activeStep = 1;
-        let globalUserName = "";
 
-        // Toggles display state variables between client registration / expert applications smoothly
-        function toggleOnboardingSection(type) {
-            const advisorSec = document.getElementById('applyAdvisorSection');
-            const userSec = document.getElementById('userRegisterSection');
-
-            if (type === 'advisor') {
-                userSec.style.display = 'none';
-                advisorSec.style.display = 'block';
-                advisorSec.scrollIntoView({ behavior: 'smooth' });
-            } else if (type === 'user') {
-                advisorSec.style.display = 'none';
-                userSec.style.display = 'block';
-                userSec.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        // Handles user account generation pipelines
-        function handleUserRegistration(event) {
-            event.preventDefault();
-            globalUserName = document.getElementById('usrName').value.trim();
-            
-            // Adjust the upper system layout to showcase active authenticated statuses
-            document.getElementById('loginNavBtn').style.display = 'none';
-            const pill = document.getElementById('userGreetingPill');
-            pill.innerText = `👋 Hi, ${globalUserName}`;
-            pill.style.display = 'inline-block';
-
-            alert(`Welcome aboard, ${globalUserName}! Account verified. Your active credentials can now auto-fill booking pipelines across our advisor directory structure.`);
-            
-            event.target.reset();
-            document.getElementById('userRegisterSection').style.display = 'none';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Handles the Advisor application form framework
-        function handleAdvisorApplication(event) {
-            event.preventDefault();
-            const name = document.getElementById('advName').value.trim();
-            const category = document.getElementById('advCategory').value;
-
-            alert(`Thank you, ${name}!\n\nYour evaluation application for the ${category} marketplace track has been successfully saved. Our evaluation managers will reach out over email within 48 hours.`);
-            
-            event.target.reset();
-            document.getElementById('applyAdvisorSection').style.display = 'none';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // AI Matchmaker parsing engine
         function askAI() {
             const prompt = document.getElementById('aiPrompt').value.toLowerCase().trim();
             const responseBox = document.getElementById('aiResponse');
-            
-            if (!prompt) {
-                alert("Please share a target request description line.");
-                return;
-            }
+            if (!prompt) return alert("Please share a target request description line.");
 
-            document.querySelectorAll('.card').forEach(card => {
-                card.classList.remove('highlighted');
-                card.style.display = 'flex';
-            });
-
-            let matchedAdvisor = null;
-            let maxCount = 0;
+            document.querySelectorAll('.card').forEach(card => { card.classList.remove('highlighted'); card.style.display = 'flex'; });
+            let matchedAdvisor = null, maxCount = 0;
 
             document.querySelectorAll('.card').forEach(card => {
                 const keywords = card.getAttribute('data-keywords').split(' ');
-                const name = card.querySelector('h3').innerText;
                 let matches = 0;
-
                 keywords.forEach(word => { if (prompt.includes(word)) matches++; });
-
-                if (matches > maxCount) {
-                    maxCount = matches;
-                    matchedAdvisor = {
-                        el: card,
-                        name: name,
-                        tag: card.querySelector('.expert-tag').innerText
-                    };
-                }
+                if (matches > maxCount) { maxCount = matches; matchedAdvisor = { el: card, name: card.querySelector('h3').innerText, tag: card.querySelector('.expert-tag').innerText }; }
             });
 
             responseBox.style.display = 'block';
-
             if (matchedAdvisor && maxCount > 0) {
                 matchedAdvisor.el.classList.add('highlighted');
-                responseBox.innerHTML = `✨ <strong>System Recommends:</strong> We've highlighted <strong>${matchedAdvisor.name}</strong> (${matchedAdvisor.tag}) as the optimal match for your goals.`;
-                
-                document.querySelectorAll('.card').forEach(card => {
-                    if(!card.classList.contains('highlighted')) card.style.display = 'none';
-                });
+                responseBox.innerHTML = `✨ <strong>System Recommends:</strong> We've highlighted <strong>${matchedAdvisor.name}</strong> (${matchedAdvisor.tag}) as the optimal match.`;
+                document.querySelectorAll('.card').forEach(card => { if(!card.classList.contains('highlighted')) card.style.display = 'none'; });
             } else {
-                responseBox.innerHTML = `🔍 <strong>Notice:</strong> No precise semantic matches found. Displaying general pool metrics for direct browsing selection.`;
+                responseBox.innerHTML = `🔍 <strong>Notice:</strong> No precise matches found. Showing general pool metrics.`;
             }
         }
 
-        // Category selection styling engine
         function filterCategory(category, buttonElement) {
             document.getElementById('aiResponse').style.display = 'none';
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             buttonElement.classList.add('active');
-
             document.querySelectorAll('#expertsGrid .card').forEach(card => {
                 card.classList.remove('highlighted');
                 const cat = card.getAttribute('data-category');
@@ -875,15 +315,9 @@
             });
         }
 
-        // Modal interactions
         function openBooking(expertName) {
-            currentExpert = expertName;
-            selectedDuration = "";
-            
-            // Auto-populate context metrics if the active registration profiles are complete
-            document.getElementById('userName').value = globalUserName;
-            document.getElementById('userContext').value = "";
-            
+            currentExpert = expertName; selectedDuration = "";
+            document.getElementById('userName').value = ""; document.getElementById('userContext').value = "";
             document.querySelectorAll('.time-box').forEach(box => box.classList.remove('selected'));
             document.getElementById('modalTitle').innerText = "Session Request with " + expertName;
             goToStep(1);
@@ -891,22 +325,13 @@
         }
 
         function closeBooking() { document.getElementById('bookingModal').style.display = 'none'; }
-
-        function selectTime(element) {
-            document.querySelectorAll('.time-box').forEach(box => box.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedDuration = element.innerText;
-        }
+        function selectTime(element) { document.querySelectorAll('.time-box').forEach(box => box.classList.remove('selected')); element.classList.add('selected'); selectedDuration = element.innerText; }
 
         function goToStep(stepNum) {
-            if (stepNum === 2 && !selectedDuration) {
-                alert("Please select a session length to continue.");
-                return;
-            }
+            if (stepNum === 2 && !selectedDuration) return alert("Please select a session length to continue.");
             activeStep = stepNum;
             document.querySelectorAll('.modal-step').forEach(step => step.classList.remove('active'));
             document.getElementById(`step${stepNum}`).classList.add('active');
-
             document.getElementById('dot1').className = "step-dot" + (stepNum >= 1 ? " active" : "") + (stepNum > 1 ? " completed" : "");
             document.getElementById('dot2').className = "step-dot" + (stepNum >= 2 ? " active" : "") + (stepNum > 2 ? " completed" : "");
             document.getElementById('dot3').className = "step-dot" + (stepNum === 3 ? " active" : "");
@@ -915,19 +340,12 @@
         function submitBookingPipeline() {
             const name = document.getElementById('userName').value.trim();
             const notes = document.getElementById('userContext').value.trim();
-
-            if (!name || !notes) {
-                alert("Please complete all requested fields to submit your request.");
-                return;
-            }
-
-            document.getElementById('successSummary').innerHTML = `Your request for a <strong>${selectedDuration}</strong> block with <strong>${currentExpert}</strong> has been logged under the client reference profile for <strong>${name}</strong>.`;
+            if (!name || !notes) return alert("Please complete all fields.");
+            document.getElementById('successSummary').innerHTML = `Your request for a <strong>${selectedDuration}</strong> block with <strong>${currentExpert}</strong> has been logged under <strong>${name}</strong>. Our platform manages all payments directly to the expert.`;
             goToStep(3);
         }
 
-        window.onclick = function(e) {
-            if (e.target === document.getElementById('bookingModal')) closeBooking();
-        }
+        window.onclick = function(e) { if (e.target === document.getElementById('bookingModal')) closeBooking(); }
     </script>
 </body>
 </html>

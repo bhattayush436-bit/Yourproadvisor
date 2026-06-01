@@ -3,60 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join as Advisor | YourProAdvisor</title>
+    <title>Advisor Portal | YourProAdvisor</title>
     <style>
         :root {
             --primary: #059669;
+            --primary-hover: #047857;
             --dark: #0f172a;
             --light: #f8fafc;
             --border: #e2e8f0;
+            --gray-text: #64748b;
+            --card-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: white; min-height: 100vh; padding: 6rem 2rem 2rem 2rem; }
+        body { background: #0f172a; color: white; min-height: 100vh; padding-top: 5rem; }
         
-        nav { background: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; left: 0; z-index: 100; }
+        nav { background: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; left: 0; z-index: 100; border-bottom: 1px solid var(--border); }
         .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; }
-        .nav-buttons .btn-alt { text-decoration: none; color: var(--dark); font-weight: 600; }
+        .nav-buttons .btn-alt { text-decoration: none; color: var(--dark); font-weight: 600; background: none; border: none; cursor: pointer; }
 
-        .panel-container { max-width: 600px; margin: 4rem auto 0 auto; text-align: center; }
-        .panel-container h2 { font-size: 2.25rem; font-weight: 800; margin-bottom: 1rem; }
-        .panel-container p { color: #94a3b8; margin-bottom: 2.5rem; }
+        .panel-container { max-width: 650px; margin: 4rem auto; padding: 0 1.5rem; }
+        .panel-container h2 { font-size: 2.25rem; font-weight: 800; margin-bottom: 1rem; text-align: center; }
+        .panel-container p { color: #94a3b8; margin-bottom: 2.5rem; text-align: center; }
 
-        .interactive-form { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); padding: 3rem; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1); text-align: left; }
+        .interactive-form { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); padding: 3rem; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1); }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
         @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; gap: 0; } }
 
         label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; color: #cbd5e1; }
-        input, select, textarea { width: 100%; padding: 0.85rem 1rem; background: rgba(15, 23, 42, 0.6); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 10px; color: white; outline: none; margin-bottom: 1.5rem; }
+        input, select, textarea { width: 100%; padding: 0.85rem 1rem; background: rgba(15, 23, 42, 0.6); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 10px; color: white; outline: none; margin-bottom: 1.5rem; font-size: 0.95rem; }
         input:focus, select:focus, textarea:focus { border-color: var(--primary); }
         select option { background: #0f172a; color: white; }
 
-        .note-box {
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 10px;
-            padding: 1rem;
-            font-size: 0.85rem;
-            color: #cbd5e1;
-            margin-bottom: 1.5rem;
-            line-height: 1.4;
-        }
+        .note-box { background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 10px; padding: 1rem; font-size: 0.85rem; color: #cbd5e1; margin-bottom: 1.5rem; }
+        .btn { background: var(--primary); color: white; padding: 0.85rem; width: 100%; border-radius: 10px; font-weight: 600; border: none; cursor: pointer; font-size: 1rem; }
+        .btn:hover { background: var(--primary-hover); }
 
-        .btn { background: var(--primary); color: white; padding: 0.85rem; width: 100%; border-radius: 10px; font-weight: 600; border: none; cursor: pointer; }
+        /* Advisor Metric Dashboard Specific Styling */
+        .advisor-dashboard { display: none; max-width: 1000px; margin: 3rem auto; padding: 0 2rem; }
+        .dashboard-header { background: rgba(255, 255, 255, 0.05); padding: 2.5rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 2rem; }
+        .dashboard-header h2 { font-size: 2rem; font-weight: 800; text-align: left; margin-bottom: 0.25rem; background: linear-gradient(135deg, #059669 0%, #3b82f6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .dashboard-header p { text-align: left; color: #94a3b8; margin-bottom: 0; }
+        
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+        .metric-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 2rem; border-radius: 16px; text-align: center; }
+        .metric-card h4 { font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .metric-card .value { font-size: 2.2rem; font-weight: 800; color: white; }
+        .metric-card .value.green { color: #34d399; }
     </style>
 </head>
 <body>
 
     <nav>
         <a href="index.html" class="logo">YourProAdvisor</a>
-        <div class="nav-buttons"><a href="index.html" class="btn-alt">Back to Directory</a></div>
+        <div class="nav-buttons">
+            <button class="btn-alt" id="logoutBtn" style="display:none;" onclick="logout()">Logout</button>
+            <a href="index.html" class="btn-alt">Back to Directory</a>
+        </div>
     </nav>
 
-    <div class="panel-container">
+    <!-- ONBOARDING APPLICATION PORTAL FORM LAYER -->
+    <div class="panel-container" id="onboardingWindow">
         <h2>Share your expertise. Set your terms.</h2>
-        <p>Join our global advisory community. Our platform directly processes booking payouts to experts on a rolling monthly operational schedule.</p>
+        <p>Join our professional global advisor grid. Sign in or initialize your configuration matrix profile window below.</p>
         
-        <form class="interactive-form" onsubmit="handleAdvisorApplication(event)">
+        <form class="interactive-form" onsubmit="registerAdvisor(event)">
             <div class="form-row">
                 <div>
                     <label for="advName">Full Name</label>
@@ -72,40 +82,85 @@
                 <div>
                     <label for="advCategory">Primary Expertise Area</label>
                     <select id="advCategory" required>
-                        <option value="" disabled selected>Select Domain...</option>
-                        <option value="Tech">Tech & Hardware</option>
-                        <option value="Business">Business & Startups</option>
-                        <option value="Career">Career Coaching</option>
-                        <option value="Music">Music & Production</option>
+                        <option value="Tech & Hardware Engineering">Tech & Hardware Engineering</option>
+                        <option value="Business Operations & Scaling">Business Operations & Scaling</option>
+                        <option value="Executive Career Coaching">Executive Career Coaching</option>
+                        <option value="Music & Audio Production">Music & Audio Production</option>
                     </select>
                 </div>
                 <div>
-                    <label for="advLinkedin">LinkedIn Professional Profile URL</label>
+                    <label for="advLinkedin">LinkedIn Profile URL</label>
                     <input type="url" id="advLinkedin" placeholder="https://linkedin.com/in/username" required>
                 </div>
             </div>
 
             <div class="note-box">
-                💼 <strong>Platform Pricing Structure:</strong> Approved advisors do not set individual transaction pricing modules here. Earnings distribution metrics are completely managed and paid out afterwards by the system owners, subject to the standard active fixed monthly platform subscription access fee.
+                💼 <strong>Platform Remittance Agreement:</strong> Individual session rates are administrated directly by platform owners post-consultation execution. A fixed structural membership platform access charge applies on a rolling monthly framework billing calculation.
             </div>
 
-            <div>
-                <label for="advBio">Professional Summary / Focus Specialization</label>
-                <textarea id="advBio" rows="4" placeholder="Briefly describe your specialized track record milestones or background experience..." required></textarea>
-            </div>
-            
-            <button type="submit" class="btn">Submit Application Profile</button>
+            <button type="submit" class="btn">Launch Advisor Performance Panel</button>
         </form>
     </div>
 
+    <!-- ADVISOR ADMINISTRATIVE METRIC REPORTING DASHBOARD -->
+    <div class="advisor-dashboard" id="dashboardWindow">
+        <div class="dashboard-header">
+            <h2 id="advisorGreet">Advisor Workspace</h2>
+            <p id="advisorDomainPill">Verified Domain Expert Profile Matrix Connected</p>
+        </div>
+
+        <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; color: #cbd5e1;">Platform Lifecycle Performance Metrics</h3>
+        
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h4>Total Consultations</h4>
+                <div class="value">42</div>
+            </div>
+            <div class="metric-card">
+                <h4>Invested Time Blocks</h4>
+                <div class="value">68.5 Hrs</div>
+            </div>
+            <div class="metric-card">
+                <h4>Lifetime Platform Earnings</h4>
+                <div class="value green">₹1,44,500</div>
+            </div>
+            <div class="metric-card">
+                <h4>Subscription Status</h4>
+                <div class="value" style="font-size: 1.5rem; margin-top: 0.5rem; color: #60a5fa;">Active (Paid)</div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        function handleAdvisorApplication(event) {
+        window.onload = function() {
+            const activeAdvisor = JSON.parse(localStorage.getItem('activeAdvisor'));
+            if (activeAdvisor) {
+                renderDashboard(activeAdvisor);
+            }
+        };
+
+        function registerAdvisor(event) {
             event.preventDefault();
-            const name = document.getElementById('advName').value.trim();
-            const linkedin = document.getElementById('advLinkedin').value.trim();
-            
-            alert(`Thank you, ${name}!\n\nYour advisor credentials alongside profile link (${linkedin}) have been safely captured. Our team will review your background context. Payout frameworks will follow onboarding completion, minus standard platform monthly fees.`);
-            window.location.href = "index.html";
+            const advData = {
+                name: document.getElementById('advName').value.trim(),
+                category: document.getElementById('advCategory').value
+            };
+            localStorage.setItem('activeAdvisor', JSON.stringify(advData));
+            renderDashboard(advData);
+        }
+
+        function renderDashboard(advisor) {
+            document.getElementById('onboardingWindow').style.display = 'none';
+            document.getElementById('dashboardWindow').style.display = 'block';
+            document.getElementById('logoutBtn').style.display = 'inline-block';
+
+            document.getElementById('advisorGreet').innerText = `📈 Performance Panel: ${advisor.name}`;
+            document.getElementById('advisorDomainPill').innerText = `Domain Capability Track: ${advisor.category} | Monthly Subscription Account Valid`;
+        }
+
+        function logout() {
+            localStorage.removeItem('activeAdvisor');
+            window.location.reload();
         }
     </script>
 </body>

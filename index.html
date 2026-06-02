@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1200, initial-scale=1.0">
     <title>YourProAdvisor | Elite On-Demand Consultation</title>
     <style>
         :root {
@@ -19,135 +19,117 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background-color: var(--light); color: var(--dark); line-height: 1.6; padding-top: 4.5rem; }
+        
+        body { 
+            background-color: var(--light); 
+            color: var(--dark); 
+            line-height: 1.6; 
+            min-width: 1200px; /* Locks architecture bounds */
+            padding-top: 5rem;
+        }
 
-        /* Mobile-First Navigation */
+        /* Fixed Navigation Grid */
         nav {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(8px);
-            padding: 1rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
             position: fixed;
-            width: 100%; top: 0; left: 0; z-index: 100;
+            width: 100%; min-width: 1200px; top: 0; left: 0; z-index: 100;
         }
 
         .logo {
-            font-size: 1.25rem; font-weight: 800;
+            font-size: 1.5rem; font-weight: 800;
             background: var(--brand-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-decoration: none;
         }
 
-        .nav-buttons { display: flex; gap: 0.75rem; align-items: center; }
         .nav-buttons .btn-alt {
             text-decoration: none; color: var(--dark);
-            font-weight: 600; font-size: 0.85rem;
+            margin-right: 1.5rem; font-weight: 600; font-size: 0.95rem;
             transition: color 0.2s;
         }
-        .nav-buttons .btn { padding: 0.5rem 1rem; font-size: 0.85rem; }
+        .nav-buttons .btn-alt:hover { color: var(--primary); }
 
-        /* Responsive Hero Setup */
         .hero {
-            padding: 3rem 1rem 4rem 1rem;
+            padding: 6rem 2rem 7rem 2rem;
             background: radial-gradient(circle at top right, #f0fdf4 0%, #eff6ff 50%, #f5f3ff 100%);
             text-align: center;
         }
 
-        .hero h1 { font-size: 1.85rem; font-weight: 800; max-width: 850px; margin: 0 auto 1rem auto; letter-spacing: -0.025em; line-height: 1.2; }
-        .hero p { font-size: 1rem; color: var(--gray-text); max-width: 650px; margin: 0 auto 1.75rem auto; padding: 0 0.5rem; }
-        .split-buttons { display: flex; flex-direction: column; gap: 0.75rem; max-width: 300px; margin: 0 auto; }
+        .hero h1 { font-size: 3.2rem; font-weight: 800; max-width: 850px; margin: 0 auto 1.5rem auto; letter-spacing: -0.025em; line-height: 1.15; }
+        .hero p { font-size: 1.25rem; color: var(--gray-text); max-width: 650px; margin: 0 auto 2.5rem auto; }
+        .split-buttons { display: flex; justify-content: center; gap: 1.5rem; }
 
-        /* Matchmaker Component Optimization */
         .ai-section {
-            margin: -2rem 1rem 3rem 1rem; background: white;
-            padding: 1.5rem; border-radius: 16px; box-shadow: var(--card-shadow);
+            max-width: 850px; margin: -3.5rem auto 4rem auto; background: white;
+            padding: 2.5rem; border-radius: 20px; box-shadow: var(--card-shadow);
             position: relative; z-index: 10; border: 1px solid #eef2f6;
         }
 
-        .ai-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
-        .ai-header h3 { font-size: 1.1rem; }
-        .ai-badge { background: var(--ai-gradient); color: white; padding: 0.2rem 0.5rem; border-radius: 30px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; }
-        .ai-input-wrapper { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
-        .ai-input { width: 100%; padding: 0.85rem 1rem; border: 2px solid var(--border); border-radius: 10px; font-size: 0.95rem; outline: none; }
-        .btn-ai { background: var(--ai-gradient); color: white; padding: 0.85rem; width: 100%; justify-content: center; }
+        .ai-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+        .ai-badge { background: var(--ai-gradient); color: white; padding: 0.3rem 0.75rem; border-radius: 30px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .ai-input-wrapper { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
+        .ai-input { flex: 1; padding: 1rem 1.25rem; border: 2px solid var(--border); border-radius: 12px; font-size: 1rem; outline: none; }
+        .ai-input:focus { border-color: #7c3aed; }
+        .btn-ai { background: var(--ai-gradient); color: white; padding: 0 1.75rem; }
 
-        .ai-response { margin-top: 1.25rem; padding: 1rem; background: #f5f3ff; border-left: 4px solid #7c3aed; border-radius: 4px 10px 10px 4px; font-size: 0.9rem; display: none; }
+        .ai-response { margin-top: 1.5rem; padding: 1.25rem; background: #f5f3ff; border-left: 5px solid #7c3aed; border-radius: 4px 12px 12px 4px; display: none; }
 
-        /* Main Grid Space Layout */
-        .container { margin: 2rem auto; padding: 0 1rem; }
-        .section-header { margin-bottom: 1.5rem; }
-        .section-header h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; }
+        .container { max-width: 1140px; margin: 4rem auto; padding: 0; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; }
+        .section-header h2 { font-size: 2rem; font-weight: 800; }
 
-        /* Smooth Side-Scrolling Filters for Mobile viewports */
-        .filters { 
-            display: flex; gap: 0.5rem; overflow-x: auto; 
-            padding-bottom: 0.5rem; margin: 0 -1rem 1.5rem -1rem; padding-left: 1rem;
-            scrollbar-width: none; -webkit-overflow-scrolling: touch;
-        }
-        .filters::-webkit-scrollbar { display: none; }
-        .filter-btn { padding: 0.5rem 1rem; border: 1px solid var(--border); background: white; border-radius: 30px; cursor: pointer; font-weight: 600; color: var(--gray-text); font-size: 0.8rem; white-space: nowrap; flex-shrink: 0; }
+        .filters { display: flex; gap: 0.5rem; }
+        .filter-btn { padding: 0.6rem 1.25rem; border: 1px solid var(--border); background: white; border-radius: 30px; cursor: pointer; font-weight: 600; color: var(--gray-text); font-size: 0.85rem; }
         .filter-btn.active, .filter-btn:hover { background-color: var(--dark); color: white; border-color: var(--dark); }
 
-        /* Adaptive Cards System */
-        .grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
-        .card { background: white; border-radius: 16px; padding: 1.5rem; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; display: flex; flex-direction: column; justify-content: space-between; }
-        .expert-tag { align-self: flex-start; background: #ecfdf5; color: #065f46; padding: 0.25rem 0.65rem; border-radius: 30px; font-size: 0.7rem; font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; }
+        /* Multi-column grid interface remains intact across all viewing bounds */
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        .card { background: white; border-radius: 16px; padding: 2.25rem; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.08); }
+        .card.highlighted { border: 2px solid #7c3aed; box-shadow: 0 0 25px rgba(124, 58, 237, 0.15); transform: scale(1.03); }
         
-        .card h3 { font-size: 1.25rem; margin-bottom: 0.4rem; }
-        .card .bio { color: var(--gray-text); font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.5; }
-        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1rem; }
-        .rate { font-size: 1.1rem; font-weight: 800; }
+        .expert-tag { align-self: flex-start; background: #ecfdf5; color: #065f46; padding: 0.3rem 0.85rem; border-radius: 30px; font-size: 0.75rem; font-weight: 700; margin-bottom: 1.25rem; text-transform: uppercase; }
+        .card[data-category="Business"] .expert-tag { background: #fffbeb; color: #92400e; }
+        .card[data-category="Career"] .expert-tag { background: #f0f9ff; color: #0369a1; }
+        .card[data-category="Music"] .expert-tag { background: #fdf2f8; color: #9d174d; }
 
-        .btn { background: var(--brand-gradient); color: white; padding: 0.65rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; display: inline-flex; align-items: center; }
+        .card h3 { font-size: 1.4rem; margin-bottom: 0.6rem; }
+        .card .bio { color: var(--gray-text); font-size: 0.95rem; margin-bottom: 1.75rem; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1.25rem; }
+        .rate { font-size: 1.15rem; font-weight: 800; }
 
-        /* Responsive Modal Engine Overlays */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px); justify-content: center; align-items: flex-end; z-index: 1000; }
-        .modal-content { background: white; padding: 2rem 1.25rem; border-radius: 24px 24px 0 0; width: 100%; max-width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
+        .btn { background: var(--brand-gradient); color: white; padding: 0.75rem 1.75rem; border-radius: 10px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; display: inline-flex; align-items: center; }
+        .btn-secondary { background: var(--dark); }
+
+        /* Unified Fixed Modal Window */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; padding: 2.5rem; border-radius: 24px; width: 500px; position: relative; }
         
-        .step-indicator { display: flex; justify-content: space-between; margin: 1rem 0 1.5rem 0; position: relative; }
+        .step-indicator { display: flex; justify-content: space-between; margin: 1.5rem 0 2rem 0; position: relative; }
         .step-indicator::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--border); z-index: 1; transform: translateY(-50%); }
-        .step-dot { width: 28px; height: 28px; background: white; border: 2px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; position: relative; z-index: 2; color: var(--gray-text); }
+        .step-dot { width: 32px; height: 32px; background: white; border: 2px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; position: relative; z-index: 2; color: var(--gray-text); }
         .step-dot.active { border-color: var(--primary); background: var(--primary); color: white; }
         .step-dot.completed { border-color: var(--primary); background: #ecfdf5; color: var(--primary); }
 
         .modal-step { display: none; }
         .modal-step.active { display: block; }
-        .close-modal { position: absolute; top: 1rem; right: 1.25rem; font-size: 1.5rem; cursor: pointer; color: var(--gray-text); }
+        .close-modal { position: absolute; top: 1.25rem; right: 1.5rem; font-size: 1.75rem; cursor: pointer; color: var(--gray-text); }
 
-        .time-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin: 1.25rem 0; }
-        .time-box { border: 2px solid var(--border); padding: 0.75rem 0.25rem; text-align: center; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.85rem; }
+        .time-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin: 1.5rem 0; }
+        .time-box { border: 2px solid var(--border); padding: 1rem 0.5rem; text-align: center; border-radius: 12px; cursor: pointer; font-weight: 700; }
         .time-box.selected { border-color: var(--primary); background: var(--primary); color: white; }
 
-        .form-group { margin-bottom: 1rem; text-align: left; }
-        .form-group label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.4rem; }
-        .form-group input, .form-group textarea { width: 100%; padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px; outline: none; font-size: 0.9rem; }
-        .success-graphic { font-size: 3rem; color: var(--primary); margin: 1rem 0; }
-
-        /* RESPONSIVE BREAKPOINTS (DESKTOP SCALING UPGRADE) */
-        @media (min-width: 768px) {
-            body { padding-top: 5rem; }
-            nav { padding: 1rem 2rem; }
-            .logo { font-size: 1.5rem; }
-            .nav-buttons .btn-alt { margin-right: 1.5rem; font-size: 0.95rem; }
-            .nav-buttons .btn { padding: 0.75rem 1.75rem; font-size: 0.95rem; }
-            .hero { padding: 6rem 2rem 7rem 2rem; }
-            .hero h1 { font-size: 3.2rem; }
-            .hero p { font-size: 1.25rem; }
-            .split-buttons { flex-direction: row; max-width: none; justify-content: center; }
-            .ai-section { margin: -3.5rem auto 4rem auto; padding: 2.5rem; }
-            .ai-input-wrapper { flex-direction: row; }
-            .btn-ai { width: auto; }
-            .filters { margin: 0 0 2.5rem 0; padding-left: 0; overflow-x: visible; }
-            .filter-btn { font-size: 0.85rem; }
-            .grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
-            .card { padding: 2.25rem; }
-            .modal { align-items: center; }
-            .modal-content { border-radius: 24px; max-width: 500px; width: 90%; padding: 2.5rem; }
-        }
+        .form-group { margin-bottom: 1.25rem; text-align: left; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .form-group input, .form-group textarea { width: 100%; padding: 0.85rem; border: 2px solid var(--border); border-radius: 10px; outline: none; }
+        .success-graphic { font-size: 4rem; color: var(--primary); margin: 1.5rem 0; }
     </style>
 </head>
 <body>
@@ -155,8 +137,8 @@
     <nav>
         <a href="index.html" class="logo">YourProAdvisor</a>
         <div class="nav-buttons">
-            <a href="user.html" id="userLink" class="btn-alt">Log In</a>
-            <a href="advisor.html" id="advisorLink" class="btn">Join As Advisor</a>
+            <a href="user.html" id="userLink" class="btn-alt">Log In / Sign Up</a>
+            <a href="advisor.html" id="advisorLink" class="btn">Become an Advisor</a>
         </div>
     </nav>
 
@@ -172,7 +154,7 @@
     <div class="ai-section">
         <div class="ai-header">
             <span class="ai-badge">AI Assistant</span>
-            <h3>Looking for a specific capability?</h3>
+            <h3 style="font-weight: 700;">Looking for a specific capability?</h3>
         </div>
         <div class="ai-input-wrapper">
             <input type="text" id="aiPrompt" class="ai-input" placeholder="e.g., I want to build out a VLSI layout architecture...">
@@ -216,7 +198,7 @@
     <div class="modal" id="bookingModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeBooking()">&times;</span>
-            <h3 id="modalTitle" style="font-weight: 800; font-size: 1.25rem;">Book Consultation</h3>
+            <h3 id="modalTitle" style="font-weight: 800; font-size: 1.4rem;">Book Consultation</h3>
             
             <div class="step-indicator">
                 <div class="step-dot active" id="dot1">1</div>
@@ -225,117 +207,13 @@
             </div>
 
             <div class="modal-step active" id="step1">
-                <p style="color: var(--gray-text); font-size: 0.9rem;">Select session duration block:</p>
+                <p style="color: var(--gray-text); font-size: 0.95rem;">Select session duration block:</p>
                 <div class="time-options">
                     <div class="time-box" onclick="selectTime(this)">15 Mins</div>
                     <div class="time-box" onclick="selectTime(this)">30 Mins</div>
                     <div class="time-box" onclick="selectTime(this)">60 Mins</div>
                 </div>
-                <button class="btn" style="width: 100%; margin-top: 1rem; justify-content: center;" onclick="goToStep(2)">Continue to Details</button>
+                <button class="btn" style="width: 100%; margin-top: 1rem;" onclick="goToStep(2)">Continue to Details</button>
             </div>
 
             <div class="modal-step" id="step2">
-                <p style="color: var(--gray-text); font-size: 0.9rem; margin-bottom: 1rem;">Provide timeline context details:</p>
-                <div class="form-group">
-                    <label for="userName">Your Full Name</label>
-                    <input type="text" id="userName" placeholder="Alex Johnson">
-                </div>
-                <div class="form-group">
-                    <label for="userContext">What is your primary goal?</label>
-                    <textarea id="userContext" rows="3" placeholder="Describe your challenge or goal..."></textarea>
-                </div>
-                <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem;">
-                    <button class="btn btn-secondary" style="flex: 1; justify-content: center;" onclick="goToStep(1)">Back</button>
-                    <button class="btn" style="flex: 2; justify-content: center;" onclick="submitBookingPipeline()">Request Booking</button>
-                </div>
-            </div>
-
-            <div class="modal-step" id="step3" style="text-align: center;">
-                <div class="success-graphic">✓</div>
-                <h4 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem;">Booking Order Logged!</h4>
-                <p id="successSummary" style="color: var(--gray-text); font-size: 0.9rem; margin-bottom: 1.5rem;"></p>
-                <button class="btn btn-secondary" style="width: 100%; justify-content: center;" onclick="closeBooking()">Return to Advisors</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        let currentExpert = ""; let selectedDuration = ""; let activeStep = 1;
-
-        window.onload = function() {
-            const user = JSON.parse(localStorage.getItem('activeUser'));
-            const advisor = JSON.parse(localStorage.getItem('activeAdvisor'));
-            if (user) { document.getElementById('userLink').innerText = `👤 Dashboard`; document.getElementById('userLink').href = "user.html"; }
-            if (advisor) {
-                document.getElementById('advisorLink').innerText = `📈 Panel`; document.getElementById('advisorLink').href = "advisor.html";
-                document.getElementById('heroAdvisorAction').innerText = "View Performance Panel";
-                document.getElementById('heroAdvisorAction').setAttribute('onclick', "window.location.href='advisor.html'");
-            }
-        };
-
-        function askAI() {
-            const prompt = document.getElementById('aiPrompt').value.toLowerCase().trim();
-            const responseBox = document.getElementById('aiResponse');
-            if (!prompt) return alert("Please share a target request description line.");
-
-            document.querySelectorAll('.card').forEach(card => { card.classList.remove('highlighted'); card.style.display = 'flex'; });
-            let matchedAdvisor = null, maxCount = 0;
-
-            document.querySelectorAll('.card').forEach(card => {
-                const keywords = card.getAttribute('data-keywords').split(' ');
-                let matches = 0; keywords.forEach(word => { if (prompt.includes(word)) matches++; });
-                if (matches > maxCount) { maxCount = matches; matchedAdvisor = { el: card, name: card.querySelector('h3').innerText, tag: card.querySelector('.expert-tag').innerText }; }
-            });
-
-            responseBox.style.display = 'block';
-            if (matchedAdvisor && maxCount > 0) {
-                matchedAdvisor.el.classList.add('highlighted');
-                responseBox.innerHTML = `✨ <strong>System Recommends:</strong> We've highlighted <strong>${matchedAdvisor.name}</strong> (${matchedAdvisor.tag}) as the optimal match.`;
-                document.querySelectorAll('.card').forEach(card => { if(!card.classList.contains('highlighted')) card.style.display = 'none'; });
-            } else { responseBox.innerHTML = `🔍 <strong>Notice:</strong> No precise matches found. Showing general pool metrics.`; }
-        }
-
-        function filterCategory(category, buttonElement) {
-            document.getElementById('aiResponse').style.display = 'none';
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            buttonElement.classList.add('active');
-            document.querySelectorAll('#expertsGrid .card').forEach(card => {
-                card.classList.remove('highlighted'); const cat = card.getAttribute('data-category');
-                card.style.display = (category === 'All' || cat === category) ? 'flex' : 'none';
-            });
-        }
-
-        function openBooking(expertName) {
-            currentExpert = expertName; selectedDuration = "";
-            const user = JSON.parse(localStorage.getItem('activeUser'));
-            document.getElementById('userName').value = user ? user.name : ""; document.getElementById('userContext').value = "";
-            document.querySelectorAll('.time-box').forEach(box => box.classList.remove('selected'));
-            document.getElementById('modalTitle').innerText = "Session Request with " + expertName;
-            goToStep(1); document.getElementById('bookingModal').style.display = 'flex';
-        }
-
-        function closeBooking() { document.getElementById('bookingModal').style.display = 'none'; }
-        function selectTime(element) { document.querySelectorAll('.time-box').forEach(box => box.classList.remove('selected')); element.classList.add('selected'); selectedDuration = element.innerText; }
-
-        function goToStep(stepNum) {
-            if (stepNum === 2 && !selectedDuration) return alert("Please select a session length to continue.");
-            activeStep = stepNum;
-            document.querySelectorAll('.modal-step').forEach(step => step.classList.remove('active'));
-            document.getElementById(`step${stepNum}`).classList.add('active');
-            document.getElementById('dot1').className = "step-dot" + (stepNum >= 1 ? " active" : "") + (stepNum > 1 ? " completed" : "");
-            document.getElementById('dot2').className = "step-dot" + (stepNum >= 2 ? " active" : "") + (stepNum > 2 ? " completed" : "");
-            document.getElementById('dot3').className = "step-dot" + (stepNum === 3 ? " active" : "");
-        }
-
-        function submitBookingPipeline() {
-            const name = document.getElementById('userName').value.trim();
-            const notes = document.getElementById('userContext').value.trim();
-            if (!name || !notes) return alert("Please complete all fields.");
-            document.getElementById('successSummary').innerHTML = `Your request for a <strong>${selectedDuration}</strong> block with <strong>${currentExpert}</strong> has been logged under <strong>${name}</strong>. Our platform manages all payments directly to the expert.`;
-            goToStep(3);
-        }
-
-        window.onclick = function(e) { if (e.target === document.getElementById('bookingModal')) closeBooking(); }
-    </script>
-</body>
-</html>

@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YourProAdvisor | Strategic Guidance</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* --- Premium UI Variables --- */
     :root {
@@ -18,11 +17,12 @@
       --border-color: #e2e8f0;
     }
 
+    /* REVERTED: Using your original font preferences */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
@@ -73,42 +73,31 @@
       border-color: #cbd5e1;
     }
 
-    /* --- Hero Background Curve --- */
+    /* --- Hero Background Image Integration --- */
     .hero-wrapper {
       position: relative;
       width: 100%;
       overflow: hidden;
       padding-bottom: 60px;
-    }
-
-    .hero-bg-curve {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 50%;
-      height: 100%;
-      background: var(--bg-blue-light);
-      border-bottom-left-radius: 100px;
-      z-index: 0;
-      opacity: 0.5;
+      /* New professional background image with a soft white gradient fade for text readability */
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 45%, rgba(255, 255, 255, 0.1) 100%), 
+                  url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
     }
 
     /* --- Hero Layout --- */
     .hero-container {
       display: flex;
       align-items: center;
-      justify-content: space-between;
       max-width: 1400px;
       margin: 0 auto;
       padding: 40px 5%;
       position: relative;
       z-index: 1;
-      gap: 40px;
     }
 
     .hero-content {
       flex: 1;
-      max-width: 650px;
+      max-width: 700px; /* Constrained width so the background image shows on the right */
     }
 
     /* Hero Elements */
@@ -143,7 +132,7 @@
       color: var(--text-main);
       margin-bottom: 40px;
       line-height: 1.6;
-      max-width: 450px;
+      max-width: 480px;
     }
 
     /* AI Search Bar */
@@ -165,7 +154,7 @@
     }
 
     .search-icon {
-      color: #f59e0b; /* Sparkle color */
+      color: #f59e0b; 
       margin-right: 10px;
       font-size: 1.2rem;
     }
@@ -222,7 +211,7 @@
     .btn-main:hover { opacity: 0.9; }
 
     .btn-outline {
-      background: transparent;
+      background: var(--bg-white);
       color: var(--dark-blue);
       border: 1px solid var(--border-color);
       padding: 14px 28px;
@@ -276,22 +265,6 @@
       max-width: none;
     }
 
-    /* Hero Image */
-    .hero-image {
-      flex: 1;
-      display: flex;
-      justify-content: flex-end;
-      max-width: 600px;
-    }
-
-    .hero-image img {
-      width: 100%;
-      height: auto;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-      object-fit: cover;
-    }
-
     /* --- Stats Section --- */
     .stats-container {
       max-width: 1300px;
@@ -334,16 +307,18 @@
     /* --- Responsive Design --- */
     @media (max-width: 1024px) {
       .hero-content h1 { font-size: 3rem; }
-      .hero-bg-curve { width: 100%; border-bottom-left-radius: 0; }
     }
 
     @media (max-width: 860px) {
+      .hero-wrapper {
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 100%), 
+                    url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      }
       .hero-container { flex-direction: column; text-align: center; padding-top: 20px; }
       .hero-content { max-width: 100%; display: flex; flex-direction: column; align-items: center; }
       .features-list { justify-content: center; }
       .feature-item { text-align: left; }
       .search-wrapper { width: 100%; max-width: 500px; }
-      .hero-image { max-width: 100%; margin-top: 20px; }
       .stats-card { flex-direction: column; text-align: center; padding: 30px 20px; }
     }
 
@@ -359,19 +334,14 @@
 </head>
 <body>
 
-  <!-- Navigation -->
   <nav class="navbar">
     <a href="#" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
     <button class="btn-login" onclick="window.location.href='user-dashboard.html'">Log In</button>
   </nav>
 
   <div class="hero-wrapper">
-    <!-- Curved Background Element -->
-    <div class="hero-bg-curve"></div>
-
     <section class="hero-container">
       
-      <!-- Left Content -->
       <div class="hero-content">
         <div class="badge">
           ✨ 1-on-1 Expert Mentorship
@@ -387,7 +357,6 @@
           Don't guess your next career move. Connect directly with vetted industry experts for 1-on-1 mentorship.
         </p>
 
-        <!-- AI Matchmaker -->
         <div class="search-wrapper">
           <span class="search-icon">✨</span>
           <input type="text" placeholder="Describe your goal... e.g., 'I need help transitioning to Data Science'">
@@ -396,7 +365,6 @@
           </button>
         </div>
 
-        <!-- Action Buttons -->
         <div class="button-group">
           <button class="btn-main" onclick="window.location.href='user-dashboard.html'">
             👥 Browse All Advisors
@@ -406,7 +374,6 @@
           </button>
         </div>
 
-        <!-- Value Features -->
         <div class="features-list">
           <div class="feature-item">
             <div class="feature-icon">👤</div>
@@ -432,17 +399,9 @@
         </div>
 
       </div>
-
-      <!-- Right Image -->
-      <div class="hero-image">
-        <!-- Using a high-quality professional mentorship placeholder image from Unsplash to match the vibe -->
-        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80&w=800&h=800" alt="Two professionals sitting in front of a city skyline discussing strategy">
-      </div>
-
     </section>
   </div>
 
-  <!-- Stats Section -->
   <div class="stats-container">
     <div class="stats-card">
       <div class="stat-item">

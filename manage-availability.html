@@ -4,71 +4,50 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manage Availability | YourProAdvisor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root { --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; --text-logo: #1e3a8a; --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; --danger: #ef4444; }
+    :root { 
+      --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; 
+      --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; 
+      --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    }
+    
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
     body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
     
     .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; transition: color 0.2s; padding-right: 15px; }
-    .menu-toggle:hover { color: var(--primary-btn); }
     .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; }
     .sidebar.hidden { margin-left: -260px; }
     .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; backdrop-filter: blur(2px); }
-    .sidebar .logo { font-size: 1.4rem; font-weight: 800; color: var(--text-logo); text-decoration: none; margin-bottom: 40px; text-align: center; }
+    
+    .sidebar .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
+    .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
     .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 16px; border-radius: 6px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
     .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
     
     .main-content { flex: 1; padding: 40px; overflow-y: auto; }
-    .header { display: flex; align-items: center; margin-bottom: 40px; }
+    .header { display: flex; align-items: center; margin-bottom: 30px; }
     .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800;}
     
-    /* Premium Scheduling Styles */
-    .schedule-grid { display: grid; grid-template-columns: 1fr; gap: 30px; max-width: 1000px;}
-    @media (min-width: 1024px) { .schedule-grid { grid-template-columns: 1.5fr 1fr; } }
+    .availability-card { background: var(--card-bg); padding: 30px; border-radius: 8px; border: 1px solid var(--border-color); max-width: 800px; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05); }
+    .availability-card p { color: var(--text-sub); margin-bottom: 20px; font-size: 0.95rem; }
     
-    .schedule-card { background: var(--card-bg); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); }
-    .schedule-card h3 { color: var(--text-heading); margin-bottom: 25px; font-weight: 700; font-size: 1.2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; display: flex; justify-content: space-between; align-items: center;}
+    .day-row { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--border-color); }
+    .day-row:last-child { border-bottom: none; }
+    .day-name { font-weight: 600; color: var(--text-heading); width: 100px; }
+    .time-inputs { display: flex; align-items: center; gap: 10px; }
+    .time-inputs input { padding: 8px; border: 1px solid var(--border-color); border-radius: 6px; outline: none; }
     
-    .form-group { margin-bottom: 24px; }
-    .form-group label { display: block; font-size: 0.9rem; color: var(--text-sub); margin-bottom: 10px; font-weight: 600; }
-    
-    /* Interactive Day Pills */
-    .day-selector { display: flex; flex-wrap: wrap; gap: 10px; }
-    .day-pill { padding: 10px 16px; border-radius: 20px; border: 1px solid #cbd5e1; background: #ffffff; color: var(--text-sub); font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; outline: none;}
-    .day-pill.active { background: var(--primary-btn); color: #ffffff; border-color: var(--primary-btn); box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3); }
-    .day-pill:hover:not(.active) { border-color: var(--primary-btn); color: var(--primary-btn); }
-    
-    /* Time Inputs */
-    .time-group { display: flex; align-items: center; gap: 15px; }
-    .time-input-wrap { flex: 1; position: relative; }
-    .time-input-wrap input { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-size: 1rem; outline: none; transition: border 0.2s; background: #f8fafc;}
-    .time-input-wrap input:focus { border-color: var(--primary-btn); background: #ffffff;}
-    .time-separator { color: var(--text-sub); font-weight: 600; }
-    
-    .btn-save { background: var(--primary-btn); color: white; border: none; padding: 14px 28px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center;}
-    .btn-save:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
-    .btn-secondary { background: #ffffff; color: var(--text-heading); border: 1px solid var(--border-color); padding: 14px 28px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center;}
-    .btn-secondary:hover { background: #f1f5f9; border-color: #cbd5e1; }
-    
-    /* Active Schedule List */
-    .slot-list { display: flex; flex-direction: column; gap: 12px; }
-    .slot-item { display: flex; justify-content: space-between; align-items: center; padding: 16px; background: #f8fafc; border: 1px solid var(--border-color); border-radius: 8px; transition: border 0.2s;}
-    .slot-item:hover { border-color: #cbd5e1; }
-    .slot-info { display: flex; flex-direction: column; gap: 4px; }
-    .slot-days { font-weight: 700; color: var(--text-heading); font-size: 0.95rem;}
-    .slot-times { color: var(--text-sub); font-size: 0.85rem; display: flex; align-items: center; gap: 6px;}
-    .btn-delete { background: none; border: none; color: #94a3b8; cursor: pointer; font-size: 1.2rem; transition: color 0.2s; padding: 5px;}
-    .btn-delete:hover { color: var(--danger); }
-    
+    .btn-save { background: var(--primary-btn); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: 20px; width: 100%; font-size: 1rem; }
+
     @media (max-width: 768px) {
       .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
       .sidebar.active { left: 0; margin-left: 0; }
       .sidebar-overlay.active { display: block; }
       .main-content { padding: 20px; }
-      .header h1 { font-size: 1.6rem; }
-      .time-group { flex-direction: column; align-items: stretch; gap: 10px;}
-      .time-separator { display: none; }
+      .day-row { flex-direction: column; align-items: flex-start; gap: 10px; }
     }
   </style>
 </head>
@@ -76,7 +55,7 @@
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
   <aside class="sidebar" id="sidebar">
-    <a href="index.html" class="logo">YourProAdvisor</a>
+    <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
     <ul class="nav-links">
       <li><a href="advisor-dashboard.html">📊 Advisor Hub</a></li>
       <li><a href="manage-availability.html" class="active">📅 Manage Availability</a></li>
@@ -88,121 +67,49 @@
 
   <main class="main-content">
     <div class="header">
-      <div class="header-left" style="display: flex; align-items: center;">
-        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-        <h1>Manage Availability</h1>
-      </div>
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h1>Manage Availability</h1>
     </div>
     
-    <div class="schedule-grid">
+    <div class="availability-card">
+      <p>Set the weekly hours you are available to take consultation calls. Clients will only be able to book you during these times.</p>
       
-      <!-- Left Column: Add New Slots -->
-      <div class="schedule-creator">
-        
-        <!-- Recurring Weekly Hours -->
-        <div class="schedule-card" style="margin-bottom: 24px;">
-          <h3>Set Weekly Hours</h3>
-          
-          <div class="form-group">
-            <label>Select Days</label>
-            <div class="day-selector">
-              <button class="day-pill active" onclick="toggleDay(this)">Mon</button>
-              <button class="day-pill active" onclick="toggleDay(this)">Tue</button>
-              <button class="day-pill active" onclick="toggleDay(this)">Wed</button>
-              <button class="day-pill active" onclick="toggleDay(this)">Thu</button>
-              <button class="day-pill active" onclick="toggleDay(this)">Fri</button>
-              <button class="day-pill" onclick="toggleDay(this)">Sat</button>
-              <button class="day-pill" onclick="toggleDay(this)">Sun</button>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Available Hours</label>
-            <div class="time-group">
-              <div class="time-input-wrap">
-                <input type="time" value="09:00">
-              </div>
-              <span class="time-separator">to</span>
-              <div class="time-input-wrap">
-                <input type="time" value="17:00">
-              </div>
-            </div>
-          </div>
-          
-          <button class="btn-save">➕ Add Weekly Schedule</button>
+      <div class="day-row">
+        <div class="day-name">Monday</div>
+        <div class="time-inputs">
+          <input type="time" value="09:00"> <span>to</span> <input type="time" value="17:00">
         </div>
-
-        <!-- Date Override -->
-        <div class="schedule-card">
-          <h3>Date Overrides <span style="font-size: 0.8rem; color: var(--text-sub); font-weight: 500;">(Holidays / Exceptions)</span></h3>
-          
-          <div class="form-group">
-            <label>Specific Date</label>
-            <div class="time-input-wrap">
-              <input type="date">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Available Hours</label>
-            <div class="time-group">
-              <div class="time-input-wrap">
-                <input type="time">
-              </div>
-              <span class="time-separator">to</span>
-              <div class="time-input-wrap">
-                <input type="time">
-              </div>
-            </div>
-          </div>
-
-          <button class="btn-secondary">➕ Add Date Override</button>
-        </div>
-
       </div>
-
-      <!-- Right Column: Active Slots Display -->
-      <div class="schedule-viewer">
-        <div class="schedule-card">
-          <h3>Your Active Schedule</h3>
-          
-          <div class="slot-list">
-            <!-- Item 1 -->
-            <div class="slot-item">
-              <div class="slot-info">
-                <div class="slot-days">Mon, Tue, Wed, Thu, Fri</div>
-                <div class="slot-times">🕐 09:00 AM - 05:00 PM</div>
-              </div>
-              <button class="btn-delete" title="Remove slot">🗑️</button>
-            </div>
-
-            <!-- Item 2 -->
-            <div class="slot-item">
-              <div class="slot-info">
-                <div class="slot-days">Saturday</div>
-                <div class="slot-times">🕐 10:00 AM - 02:00 PM</div>
-              </div>
-              <button class="btn-delete" title="Remove slot">🗑️</button>
-            </div>
-            
-            <!-- Override Item -->
-            <div class="slot-item" style="border-left: 4px solid var(--text-logo);">
-              <div class="slot-info">
-                <div class="slot-days">July 4, 2026 (Override)</div>
-                <div class="slot-times">🛑 Unavailable (Off)</div>
-              </div>
-              <button class="btn-delete" title="Remove slot">🗑️</button>
-            </div>
-
-          </div>
+      <div class="day-row">
+        <div class="day-name">Tuesday</div>
+        <div class="time-inputs">
+          <input type="time" value="09:00"> <span>to</span> <input type="time" value="17:00">
+        </div>
+      </div>
+      <div class="day-row">
+        <div class="day-name">Wednesday</div>
+        <div class="time-inputs">
+          <input type="time" value="09:00"> <span>to</span> <input type="time" value="17:00">
+        </div>
+      </div>
+      <div class="day-row">
+        <div class="day-name">Thursday</div>
+        <div class="time-inputs">
+          <input type="time" value="09:00"> <span>to</span> <input type="time" value="17:00">
+        </div>
+      </div>
+      <div class="day-row">
+        <div class="day-name">Friday</div>
+        <div class="time-inputs">
+          <input type="time" value="09:00"> <span>to</span> <input type="time" value="17:00">
         </div>
       </div>
 
+      <button class="btn-save">Save Schedule</button>
     </div>
   </main>
 
   <script>
-    // Sidebar toggle functionality
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
       const overlay = document.getElementById('sidebarOverlay');
@@ -212,11 +119,6 @@
       } else { 
         sidebar.classList.toggle('hidden'); 
       }
-    }
-
-    // Day Pill UI toggle functionality
-    function toggleDay(element) {
-      element.classList.toggle('active');
     }
   </script>
 </body>

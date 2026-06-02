@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advisor Support | YourProAdvisor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
+    .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; padding-right: 15px; }
+    .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; overflow-y: auto;}
+    .sidebar.hidden { margin-left: -260px; }
+    .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; }
+    .sidebar .logo { display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
+    .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
+    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.9rem; padding: 10px 14px; border-radius: 6px; display: flex; align-items: center; gap: 10px; transition: 0.2s;}
+    .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
+    .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+    .header { display: flex; align-items: center; margin-bottom: 40px; }
+    .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800;}
+    
+    .support-grid { display: grid; grid-template-columns: 1fr; gap: 30px; max-width: 1000px; }
+    @media (min-width: 1024px) { .support-grid { grid-template-columns: 1.5fr 1fr; } }
+    .support-card { background: var(--card-bg); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); }
+    .support-card h2 { font-size: 1.4rem; color: var(--text-heading); margin-bottom: 20px;}
+    
+    .faq-item { margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-question { font-weight: 700; color: var(--text-heading); font-size: 1.05rem; margin-bottom: 8px; }
+    .faq-answer { color: var(--text-sub); font-size: 0.95rem; line-height: 1.5;}
+
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.9rem; color: var(--text-sub); margin-bottom: 8px; font-weight: 600; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; color: var(--text-heading); font-size: 0.95rem; background: #f8fafc; outline: none; }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .btn-submit { background: var(--primary-gradient); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 600; width: 100%; cursor: pointer;}
+
+    @media (max-width: 768px) {
+      .sidebar { position: fixed; left: -260px; height: 100vh; }
+      .sidebar.active { left: 0; }
+      .sidebar-overlay.active { display: block; }
+      .main-content { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+    <ul class="nav-links">
+      <li><a href="analytics-dashboard.html">📊 Analytics Dashboard</a></li>
+      <li><a href="manage-availability.html">📅 Manage Availability</a></li>
+      <li><a href="upcoming-sessions.html">🎥 Upcoming Sessions</a></li>
+      <li><a href="earnings-payouts.html">💰 Earnings & Payouts</a></li>
+      <li><a href="client-messages.html">💬 Client Messages</a></li>
+      <li><a href="reviews-ratings.html">⭐ Reviews & Ratings</a></li>
+      <li><a href="advisor-notifications.html">🔔 Notifications Center</a></li>
+      <li><a href="achievements-badges.html">🏆 Achievements & Badges</a></li>
+      <li><a href="advisor-support.html" class="active">❓ Support & Help</a></li>
+      <li><a href="profile-settings.html">⚙️ Profile Settings</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div class="header">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h1>Advisor Support Team</h1>
+    </div>
+
+    <div class="support-grid">
+      <div class="support-card">
+        <h2>Advisor FAQs</h2>
+        <div class="faq-item">
+          <div class="faq-question">When do payouts process?</div>
+          <div class="faq-answer">Payouts are processed automatically on the 1st of every month for all completed sessions in the prior month.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What if a client misses the call?</div>
+          <div class="faq-answer">If a client no-shows after 10 minutes, you can end the session. You will still receive full compensation for the booked time.</div>
+        </div>
+      </div>
+
+      <div class="support-card" style="background: #f8fafc; border-color: #e2e8f0;">
+        <h2>Contact Platform Support</h2>
+        <form>
+          <div class="form-group">
+            <label>Topic</label>
+            <select><option>Payout Issue</option><option>Dispute Session</option><option>Profile Help</option></select>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea placeholder="Describe your issue..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Submit Ticket</button>
+        </form>
+      </div>
+    </div>
+  </main>
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); document.getElementById('sidebarOverlay').classList.toggle('active'); }
+  </script>
+</body>
+</html>

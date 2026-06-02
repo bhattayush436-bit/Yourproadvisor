@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1200, initial-scale=1.0">
     <title>User Portal | YourProAdvisor</title>
     <style>
         :root {
@@ -15,49 +15,37 @@
             --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background: #f1f5f9; color: var(--dark); min-height: 100vh; padding-top: 4.5rem; }
+        body { background: #f1f5f9; color: var(--dark); min-height: 100vh; min-width: 1200px; padding-top: 5rem; }
         
-        nav { background: white; padding: 1rem; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; left: 0; z-index: 100; border-bottom: 1px solid var(--border); }
-        .logo { font-size: 1.25rem; font-weight: 800; color: var(--primary); text-decoration: none; }
-        .nav-buttons .btn-alt { text-decoration: none; color: var(--dark); font-weight: 600; font-size: 0.85rem; background: none; border: none; cursor: pointer; margin-left: 0.75rem;}
+        nav { background: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; min-width: 1200px; top: 0; left: 0; z-index: 100; border-bottom: 1px solid var(--border); }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; }
+        .nav-buttons .btn-alt { text-decoration: none; color: var(--dark); font-weight: 600; background: none; border: none; cursor: pointer; }
 
-        .auth-container { max-width: 100%; margin: 2rem auto; padding: 0 1rem; }
-        .interactive-form { background: white; padding: 2rem 1.25rem; border-radius: 20px; box-shadow: var(--card-shadow); border: 1px solid var(--border); }
-        .interactive-form h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem; text-align: center; }
-        .interactive-form p { color: var(--gray-text); text-align: center; margin-bottom: 1.5rem; font-size: 0.9rem; }
+        .auth-container { width: 550px; margin: 4rem auto; }
+        .interactive-form { background: white; padding: 3rem; border-radius: 20px; box-shadow: var(--card-shadow); border: 1px solid var(--border); }
+        .interactive-form h2 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; text-align: center; }
+        .interactive-form p { color: var(--gray-text); text-align: center; margin-bottom: 2rem; font-size: 0.95rem; }
 
-        label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.4rem; }
-        input, select { width: 100%; padding: 0.85rem; background: var(--light); border: 2px solid var(--border); border-radius: 10px; outline: none; margin-bottom: 1.25rem; font-size: 0.95rem; }
-        input:focus, select:focus { border-color: var(--primary); }
+        label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; }
+        input, select { width: 100%; padding: 0.85rem 1rem; background: var(--light); border: 2px solid var(--border); border-radius: 10px; color: var(--dark); outline: none; margin-bottom: 1.5rem; }
 
-        .btn { background: var(--primary); color: white; padding: 0.85rem; width: 100%; border-radius: 10px; font-weight: 600; border: none; cursor: pointer; font-size: 0.95rem; text-align: center; text-decoration: none; display: block;}
+        .btn { background: var(--primary); color: white; padding: 0.85rem; width: 100%; border-radius: 10px; font-weight: 600; border: none; cursor: pointer; font-size: 1rem; text-align: center; display: block; text-decoration: none; }
+        .btn:hover { background: var(--primary-hover); }
 
-        .dashboard-container { display: none; max-width: 1100px; margin: 1.5rem auto; padding: 0 1rem; }
-        .welcome-header { margin-bottom: 1.5rem; background: white; padding: 1.5rem; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--card-shadow); }
-        .welcome-header h2 { font-size: 1.5rem; font-weight: 800; }
-        .welcome-header p { color: var(--gray-text); font-size: 0.9rem; margin-top: 0.25rem; }
+        .dashboard-container { display: none; max-width: 1100px; margin: 2rem auto; padding: 0; }
+        .welcome-header { margin-bottom: 2.5rem; background: white; padding: 2rem; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--card-shadow); }
+        .welcome-header h2 { font-size: 1.8rem; font-weight: 800; }
         
-        .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
-        .match-card { background: white; border-radius: 16px; padding: 1.5rem; border: 1px solid var(--border); box-shadow: var(--card-shadow); display: flex; flex-direction: column; justify-content: space-between; }
-        .match-tag { align-self: flex-start; background: #e0f2fe; color: #0369a1; padding: 0.25rem 0.65rem; border-radius: 30px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.75rem; }
-        .match-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.4rem; }
-        .match-card .bio { color: var(--gray-text); font-size: 0.85rem; margin-bottom: 1.25rem; }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .match-card { background: white; border-radius: 16px; padding: 2rem; border: 1px solid var(--border); box-shadow: var(--card-shadow); display: flex; flex-direction: column; justify-content: space-between; }
+        .match-tag { align-self: flex-start; background: #e0f2fe; color: #0369a1; padding: 0.25rem 0.75rem; border-radius: 30px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1rem; }
+        .match-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .match-card .bio { color: var(--gray-text); font-size: 0.9rem; margin-bottom: 1.25rem; }
         
-        .metric-row { display: flex; justify-content: space-between; background: var(--light); padding: 0.6rem 0.85rem; border-radius: 8px; margin-bottom: 0.4rem; font-size: 0.8rem; }
+        .metric-row { display: flex; justify-content: space-between; background: var(--light); padding: 0.75rem 1rem; border-radius: 10px; margin-bottom: 0.5rem; font-size: 0.85rem; }
         .metric-label { font-weight: 600; color: var(--gray-text); }
         .metric-value { font-weight: 700; }
-        .rating-badge { color: #b45309; background: #fef3c7; padding: 0.1rem 0.3rem; border-radius: 4px; font-weight: 800; }
-
-        @media (min-width: 768px) {
-            body { padding-top: 5rem; }
-            nav { padding: 1rem 2rem; }
-            .logo { font-size: 1.5rem; }
-            .auth-container { max-width: 550px; margin: 4rem auto; }
-            .interactive-form { padding: 3rem; }
-            .dashboard-container { margin: 2rem auto; padding: 0 2rem; }
-            .welcome-header { padding: 2rem; }
-            .dashboard-grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
-        }
+        .rating-badge { color: #b45309; background: #fef3c7; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 800; }
     </style>
 </head>
 <body>
@@ -66,20 +54,20 @@
         <a href="index.html" class="logo">YourProAdvisor</a>
         <div class="nav-buttons">
             <button class="btn-alt" id="logoutBtn" style="display:none;" onclick="logout()">Logout</button>
-            <a href="index.html" class="btn-alt">Marketplace</a>
+            <a href="index.html" class="btn-alt">Back to Marketplace</a>
         </div>
     </nav>
 
     <div class="auth-container" id="authWindow">
         <form class="interactive-form" onsubmit="loginUser(event)">
             <h2>Welcome Back</h2>
-            <p>Access your personalized user profile hub window layout metrics.</p>
+            <p>Access your personalized user panel profile configuration.</p>
             <div>
                 <label for="usrName">Your Full Name</label>
                 <input type="text" id="usrName" placeholder="Alex Rivera" required>
             </div>
             <div>
-                <label for="usrField">Your Target Focus Field</label>
+                <label pour="usrField">Your Target Focus Field</label>
                 <select id="usrField">
                     <option value="Tech & Hardware">Tech & Hardware Engineering</option>
                     <option value="Business & Startups">Business & Startups</option>
@@ -93,10 +81,10 @@
 
     <div class="dashboard-container" id="dashboardWindow">
         <div class="welcome-header">
-            <h2 id="greetMessage">Welcome Back</h2>
-            <p id="focusMessage">Displaying verified elite advisors optimized for your preference track.</p>
+            <h2 id="greetMessage">Welcome Back, User</h2>
+            <p id="focusMessage">Displaying verified elite advisors optimized for your domain track.</p>
         </div>
-        <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 1rem;">Recommended Advisors For You</h3>
+        <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1.5rem;">Recommended Advisors For You</h3>
         <div class="dashboard-grid" id="matchedAdvisorsContainer"></div>
     </div>
 
@@ -129,15 +117,15 @@
             document.getElementById('greetMessage').innerText = `👋 Welcome Back, ${user.name}`;
             const container = document.getElementById('matchedAdvisorsContainer'); container.innerHTML = "";
             const matches = mockAdvisors.filter(adv => adv.domain === user.focus);
-            
+
             matches.forEach(adv => {
                 container.innerHTML += `
                     <div class="match-card">
                         <div><span class="match-tag">${adv.domain}</span><h3>${adv.name}</h3><p class="bio">${adv.bio}</p></div>
                         <div>
                             <div class="metric-row"><span class="metric-label">Experience</span><span class="metric-value">${adv.exp}</span></div>
-                            <div class="metric-row"><span class="metric-label">Sessions</span><span class="metric-value">${adv.sessions} completed</span></div>
-                            <div class="metric-row"><span class="metric-label">Rating</span><span class="metric-value"><span class="rating-badge">★ ${adv.rating}</span></span></div>
+                            <div class="metric-row"><span class="metric-label">Platform Sessions</span><span class="metric-value">${adv.sessions} completed</span></div>
+                            <div class="metric-row"><span class="metric-label">User Rating</span><span class="metric-value"><span class="rating-badge">★ ${adv.rating}</span></span></div>
                             <a href="index.html#marketplace" class="btn" style="margin-top:1rem;">Book Consultation Slot</a>
                         </div>
                     </div>`;

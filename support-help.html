@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support & Help | YourProAdvisor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);}
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
+    .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; padding-right: 15px; }
+    .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; }
+    .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; }
+    .sidebar .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; }
+    .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
+    .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
+    .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+    
+    .header { display: flex; align-items: center; margin-bottom: 40px; }
+    .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800;}
+
+    .support-grid { display: grid; grid-template-columns: 1fr; gap: 30px; max-width: 1000px; }
+    @media (min-width: 1024px) { .support-grid { grid-template-columns: 1.5fr 1fr; } }
+    
+    .support-card { background: var(--card-bg); padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 2px 10px rgba(0,0,0,0.02);}
+    .support-card h2 { font-size: 1.4rem; color: var(--text-heading); margin-bottom: 20px;}
+    
+    .faq-item { margin-bottom: 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+    .faq-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
+    .faq-question { font-weight: 700; color: var(--text-heading); font-size: 1.05rem; margin-bottom: 8px; }
+    .faq-answer { color: var(--text-sub); font-size: 0.95rem; line-height: 1.5;}
+
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 0.9rem; color: var(--text-sub); margin-bottom: 8px; font-weight: 600; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; color: var(--text-heading); font-size: 0.95rem; background: #f8fafc; outline: none; transition: border 0.2s;}
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--primary-btn); background: white;}
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .btn-submit { background: var(--primary-gradient); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; width: 100%; transition: opacity 0.2s;}
+    .btn-submit:hover { opacity: 0.9; }
+
+    @media (max-width: 768px) {
+      .sidebar { position: fixed; left: -260px; height: 100vh; }
+      .sidebar.active { left: 0; }
+      .sidebar-overlay.active { display: block; }
+      .main-content { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+    <ul class="nav-links">
+      <li><a href="user-dashboard.html">📊 Dashboard</a></li>
+      <li><a href="find-advisors.html">🔍 Find Advisors</a></li>
+      <li><a href="my-sessions.html">📅 My Sessions</a></li>
+      <li><a href="user-messages.html">💬 Messages</a></li>
+      <li><a href="wallet-payment.html">💳 Wallet & Payment</a></li>
+      <li><a href="notifications.html">🔔 Notifications</a></li>
+      <li><a href="support-help.html" class="active">❓ Support & Help</a></li>
+      <li><a href="user-settings.html">⚙️ Profile Settings</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div class="header">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h1>Support & Help Center</h1>
+    </div>
+
+    <div class="support-grid">
+      <div class="support-card">
+        <h2>Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+          <div class="faq-question">How do I reschedule a session?</div>
+          <div class="faq-answer">You can reschedule up to 24 hours before the session begins. Go to 'My Sessions', click on the upcoming meeting, and select 'Reschedule'.</div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">How does the wallet system work?</div>
+          <div class="faq-answer">You top up your wallet using a credit or debit card. When you book an advisor, the required amount is held in escrow and deducted only after the session successfully ends.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">What happens if the advisor doesn't show up?</div>
+          <div class="faq-answer">If an advisor misses a scheduled call without prior notice, you will receive a full automatic refund to your wallet within 24 hours.</div>
+        </div>
+      </div>
+
+      <div class="support-card" style="background: #f8fafc; border-color: #e2e8f0;">
+        <h2>Contact Support</h2>
+        <p style="color: var(--text-sub); font-size: 0.9rem; margin-bottom: 20px;">Need specific help? Send us a message and our team will get back to you within 24 hours.</p>
+        
+        <form>
+          <div class="form-group">
+            <label>Topic</label>
+            <select>
+              <option>Billing & Payments</option>
+              <option>Session Issue</option>
+              <option>Account Management</option>
+              <option>Report an Advisor</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea placeholder="Please describe your issue in detail..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Submit Ticket</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('active');
+      document.getElementById('sidebarOverlay').classList.toggle('active');
+    }
+  </script>
+</body>
+</html>

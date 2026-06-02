@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Find Advisors | YourProAdvisor</title>
+  
+  <!-- Added Google Web Fonts for 100% Mobile & Desktop consistency -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <style>
     /* --- Premium Corporate Variables --- */
     :root { 
@@ -22,7 +26,8 @@
       --ai-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
     }
     
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+    /* Using 'Inter' to fix the mobile font mismatch */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
     body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
     
     /* Sidebar & Toggle */
@@ -109,7 +114,7 @@
     .btn-ai:hover { transform: scale(1.02); }
 
     /* Advisor Results Grid */
-    .section-title { color: var(--text-heading); margin-bottom: 20px; font-size: 1.4rem; font-weight: 700; }
+    .section-title { color: var(--text-heading); margin-bottom: 20px; font-size: 1.4rem; font-weight: 700; display: flex; align-items: center; justify-content: space-between; }
     
     .advisor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; padding-bottom: 40px; }
     
@@ -117,12 +122,28 @@
       background: var(--card-bg); padding: 24px; border-radius: 12px; 
       border: 1px solid var(--border-color); box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04); 
       display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; 
+      position: relative; /* Added for the save button */
     }
     .advisor-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08); border-color: #cbd5e1; }
     
+    /* Save/Bookmark Button */
+    .btn-save-advisor {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+      color: #cbd5e1;
+    }
+    .btn-save-advisor.saved { color: #ef4444; } /* Red filled heart */
+    .btn-save-advisor:hover { transform: scale(1.1); }
+
     .advisor-header { display: flex; gap: 15px; margin-bottom: 20px; align-items: center;}
     .advisor-avatar { width: 55px; height: 55px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-    .advisor-name h4 { color: var(--text-heading); font-size: 1.2rem; font-weight: 700; margin-bottom: 3px;}
+    .advisor-name h4 { color: var(--text-heading); font-size: 1.2rem; font-weight: 700; margin-bottom: 3px; max-width: 80%;}
     .advisor-name p { color: var(--primary-btn); font-size: 0.9rem; font-weight: 600; }
     
     /* Stats Row (Rating, Sessions, Hours) */
@@ -191,12 +212,64 @@
       </div>
     </div>
     
+    <!-- Saved Advisors Section -->
+    <h2 class="section-title">Saved Advisors</h2>
+    
+    <div class="advisor-grid" style="border-bottom: 1px solid var(--border-color); margin-bottom: 30px;">
+      <!-- Saved Advisor 1 -->
+      <div class="advisor-card" style="border-color: #cbd5e1; background: #f8fafc;">
+        <button class="btn-save-advisor saved" title="Remove from saved">❤️</button>
+        <div class="advisor-header">
+          <div class="advisor-avatar">🚀</div>
+          <div class="advisor-name">
+            <h4>Sarah Jenkins</h4>
+            <p>Startup Strategy</p>
+          </div>
+        </div>
+        
+        <div class="stats-row">
+          <div class="stat-box">
+            <span class="stat-val"><span class="rating-star">★</span> 4.8</span>
+            <span class="stat-label">Rating</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-val">89</span>
+            <span class="stat-label">Sessions</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-val">60h</span>
+            <span class="stat-label">Invested</span>
+          </div>
+        </div>
+
+        <div class="pricing-title">Consultation Rates</div>
+        <div class="pricing-tiers">
+          <div class="price-pill">
+            <span class="price-time">15 min</span>
+            <span class="price-amt">$25</span>
+          </div>
+          <div class="price-pill">
+            <span class="price-time">30 min</span>
+            <span class="price-amt">$45</span>
+          </div>
+          <div class="price-pill">
+            <span class="price-time">60 min</span>
+            <span class="price-amt">$80</span>
+          </div>
+        </div>
+
+        <button class="btn-book">View Profile & Book</button>
+      </div>
+    </div>
+
+    <!-- Top Matches Section -->
     <h2 class="section-title">Top Matches for You</h2>
     
     <div class="advisor-grid">
       
-      <!-- Advisor Card 1 -->
+      <!-- Match 1 -->
       <div class="advisor-card">
+        <button class="btn-save-advisor" title="Save this advisor">🤍</button>
         <div class="advisor-header">
           <div class="advisor-avatar">⚙️</div>
           <div class="advisor-name">
@@ -239,8 +312,9 @@
         <button class="btn-book">View Profile & Book</button>
       </div>
 
-      <!-- Advisor Card 2 -->
+      <!-- Match 2 -->
       <div class="advisor-card">
+        <button class="btn-save-advisor" title="Save this advisor">🤍</button>
         <div class="advisor-header">
           <div class="advisor-avatar">💻</div>
           <div class="advisor-name">
@@ -277,50 +351,6 @@
           <div class="price-pill">
             <span class="price-time">60 min</span>
             <span class="price-amt">$90</span>
-          </div>
-        </div>
-
-        <button class="btn-book">View Profile & Book</button>
-      </div>
-
-      <!-- Advisor Card 3 -->
-      <div class="advisor-card">
-        <div class="advisor-header">
-          <div class="advisor-avatar">🚀</div>
-          <div class="advisor-name">
-            <h4>Sarah Jenkins</h4>
-            <p>Startup Strategy</p>
-          </div>
-        </div>
-        
-        <div class="stats-row">
-          <div class="stat-box">
-            <span class="stat-val"><span class="rating-star">★</span> 4.8</span>
-            <span class="stat-label">Rating</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-val">89</span>
-            <span class="stat-label">Sessions</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-val">60h</span>
-            <span class="stat-label">Invested</span>
-          </div>
-        </div>
-
-        <div class="pricing-title">Consultation Rates</div>
-        <div class="pricing-tiers">
-          <div class="price-pill">
-            <span class="price-time">15 min</span>
-            <span class="price-amt">$25</span>
-          </div>
-          <div class="price-pill">
-            <span class="price-time">30 min</span>
-            <span class="price-amt">$45</span>
-          </div>
-          <div class="price-pill">
-            <span class="price-time">60 min</span>
-            <span class="price-amt">$80</span>
           </div>
         </div>
 

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wallet & Payment | YourProAdvisor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { 
+      --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; 
+      --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; --success-green: #16a34a; 
+      --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
+    
+    .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; padding-right: 15px; }
+    .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; }
+    .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; backdrop-filter: blur(2px); }
+    .sidebar .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
+    .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
+    .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
+    
+    .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+    .header { display: flex; align-items: center; margin-bottom: 30px; }
+    .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800;}
+
+    .wallet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 40px; }
+    .balance-card { background: var(--primary-gradient); padding: 30px; border-radius: 16px; color: white; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2); display: flex; flex-direction: column; justify-content: space-between;}
+    .balance-card h3 { font-size: 1rem; font-weight: 500; opacity: 0.9; margin-bottom: 10px;}
+    .balance-card .amount { font-size: 2.8rem; font-weight: 800; margin-bottom: 20px;}
+    .btn-add-funds { background: white; color: var(--primary-btn); border: none; padding: 12px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: transform 0.2s;}
+    .btn-add-funds:hover { transform: translateY(-2px); }
+
+    .payment-methods { background: var(--card-bg); padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); }
+    .payment-methods h3 { color: var(--text-heading); margin-bottom: 20px; font-size: 1.2rem;}
+    .method-card { display: flex; align-items: center; justify-content: space-between; padding: 15px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 10px; }
+    .method-info { display: flex; align-items: center; gap: 15px; font-weight: 600; color: var(--text-heading); }
+    .btn-remove { color: #ef4444; background: none; border: none; cursor: pointer; font-weight: 600; font-size: 0.9rem;}
+
+    .transaction-history { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th, td { padding: 16px; border-bottom: 1px solid var(--border-color); }
+    th { background: #f8fafc; color: var(--text-sub); font-size: 0.85rem; text-transform: uppercase; font-weight: 600;}
+    td { color: var(--text-heading); font-size: 0.95rem; font-weight: 500; }
+    .amount-deduct { color: var(--text-heading); }
+    .amount-add { color: var(--success-green); font-weight: 700; }
+
+    @media (max-width: 768px) {
+      .sidebar { position: fixed; left: -260px; height: 100vh; }
+      .sidebar.active { left: 0; }
+      .sidebar-overlay.active { display: block; }
+      .main-content { padding: 20px; }
+      .header h1 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+    <ul class="nav-links">
+      <li><a href="user-dashboard.html">📊 Dashboard</a></li>
+      <li><a href="find-advisors.html">🔍 Find Advisors</a></li>
+      <li><a href="my-sessions.html">📅 My Sessions</a></li>
+      <li><a href="user-messages.html">💬 Messages</a></li>
+      <li><a href="wallet-payment.html" class="active">💳 Wallet & Payment</a></li>
+      <li><a href="notifications.html">🔔 Notifications</a></li>
+      <li><a href="support-help.html">❓ Support & Help</a></li>
+      <li><a href="user-settings.html">⚙️ Profile Settings</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div class="header">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h1>Wallet & Payment</h1>
+    </div>
+
+    <div class="wallet-grid">
+      <div class="balance-card">
+        <div>
+          <h3>Available Wallet Balance</h3>
+          <div class="amount">$120.00</div>
+        </div>
+        <button class="btn-add-funds">➕ Add Funds</button>
+      </div>
+
+      <div class="payment-methods">
+        <h3>Payment Methods</h3>
+        <div class="method-card">
+          <div class="method-info">
+            <span style="font-size: 1.5rem;">💳</span>
+            <span>Visa ending in 4242</span>
+          </div>
+          <button class="btn-remove">Remove</button>
+        </div>
+        <button class="btn-add-funds" style="background: var(--bg-color); color: var(--text-heading); border: 1px dashed var(--border-color); width: 100%; margin-top: 10px;">+ Add New Card</button>
+      </div>
+    </div>
+
+    <h2 style="color: var(--text-heading); font-size: 1.4rem; margin-bottom: 20px;">Transaction History</h2>
+    <div class="transaction-history" style="overflow-x: auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jun 01, 2026</td>
+            <td>Session with Dr. Ananya Sharma</td>
+            <td><span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">Completed</span></td>
+            <td class="amount-deduct">-$60.00</td>
+          </tr>
+          <tr>
+            <td>May 28, 2026</td>
+            <td>Wallet Top-up (Visa 4242)</td>
+            <td><span style="background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">Success</span></td>
+            <td class="amount-add">+$100.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('active');
+      document.getElementById('sidebarOverlay').classList.toggle('active');
+    }
+  </script>
+</body>
+</html>

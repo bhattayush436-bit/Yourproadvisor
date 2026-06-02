@@ -84,7 +84,7 @@
     /* Professional Button Styling */
     .btn {
       padding: 14px 32px;
-      border-radius: 6px; /* Slightly sharper corners for professional feel */
+      border-radius: 6px; 
       text-decoration: none;
       font-weight: 600;
       font-size: 1rem;
@@ -173,7 +173,7 @@
       display: none; 
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.6); /* Professional dark slate overlay */
+      background: rgba(15, 23, 42, 0.6); 
       z-index: 1000;
       justify-content: center;
       align-items: center;
@@ -210,7 +210,7 @@
     }
 
     .close-btn:hover {
-      color: #ef4444; /* Standard red for close action */
+      color: #ef4444; 
     }
 
     .form-group {
@@ -322,7 +322,7 @@
     <div class="modal-content">
       <button class="close-btn" onclick="closeModal('userModal')">&times;</button>
       <h2>Join to Find Advisors</h2>
-      <form onsubmit="handleLogin(event)">
+      <form onsubmit="handleUserLogin(event)">
         <div class="form-group">
           <label>Email Address</label>
           <input type="email" placeholder="you@example.com" required>
@@ -341,7 +341,7 @@
     <div class="modal-content">
       <button class="close-btn" onclick="closeModal('advisorModal')">&times;</button>
       <h2>Apply as an Advisor</h2>
-      <form onsubmit="handleLogin(event)">
+      <form onsubmit="handleAdvisorLogin(event)">
         <div class="form-group">
           <label>Email Address</label>
           <input type="email" placeholder="professional@example.com" required>
@@ -371,9 +371,16 @@
       document.body.style.overflow = 'auto';
     }
 
-    function handleLogin(event) {
+    // Handles normal user login
+    function handleUserLogin(event) {
       event.preventDefault();
       window.location.href = "dashboard.html"; 
+    }
+
+    // Handles advisor login/application
+    function handleAdvisorLogin(event) {
+      event.preventDefault();
+      window.location.href = "advisor-dashboard.html"; 
     }
 
     window.onclick = function(event) {

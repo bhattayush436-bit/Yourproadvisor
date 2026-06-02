@@ -2,136 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1200, initial-scale=1.0">
-    <title>User Portal | YourProAdvisor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Portal</title>
     <style>
-        :root {
-            --primary: #059669;
-            --primary-hover: #047857;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --border: #e2e8f0;
-            --gray-text: #64748b;
-            --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background: #f1f5f9; color: var(--dark); min-height: 100vh; min-width: 1200px; padding-top: 5rem; }
-        
-        nav { background: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; min-width: 1200px; top: 0; left: 0; z-index: 100; border-bottom: 1px solid var(--border); }
-        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; }
-        .nav-buttons .btn-alt { text-decoration: none; color: var(--dark); font-weight: 600; background: none; border: none; cursor: pointer; }
-
-        .auth-container { width: 550px; margin: 4rem auto; }
-        .interactive-form { background: white; padding: 3rem; border-radius: 20px; box-shadow: var(--card-shadow); border: 1px solid var(--border); }
-        .interactive-form h2 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; text-align: center; }
-        .interactive-form p { color: var(--gray-text); text-align: center; margin-bottom: 2rem; font-size: 0.95rem; }
-
-        label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; }
-        input, select { width: 100%; padding: 0.85rem 1rem; background: var(--light); border: 2px solid var(--border); border-radius: 10px; color: var(--dark); outline: none; margin-bottom: 1.5rem; }
-
-        .btn { background: var(--primary); color: white; padding: 0.85rem; width: 100%; border-radius: 10px; font-weight: 600; border: none; cursor: pointer; font-size: 1rem; text-align: center; display: block; text-decoration: none; }
-        .btn:hover { background: var(--primary-hover); }
-
-        .dashboard-container { display: none; max-width: 1100px; margin: 2rem auto; padding: 0; }
-        .welcome-header { margin-bottom: 2.5rem; background: white; padding: 2rem; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--card-shadow); }
-        .welcome-header h2 { font-size: 1.8rem; font-weight: 800; }
-        
-        .dashboard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-        .match-card { background: white; border-radius: 16px; padding: 2rem; border: 1px solid var(--border); box-shadow: var(--card-shadow); display: flex; flex-direction: column; justify-content: space-between; }
-        .match-tag { align-self: flex-start; background: #e0f2fe; color: #0369a1; padding: 0.25rem 0.75rem; border-radius: 30px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1rem; }
-        .match-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .match-card .bio { color: var(--gray-text); font-size: 0.9rem; margin-bottom: 1.25rem; }
-        
-        .metric-row { display: flex; justify-content: space-between; background: var(--light); padding: 0.75rem 1rem; border-radius: 10px; margin-bottom: 0.5rem; font-size: 0.85rem; }
-        .metric-label { font-weight: 600; color: var(--gray-text); }
-        .metric-value { font-weight: 700; }
-        .rating-badge { color: #b45309; background: #fef3c7; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 800; }
+        body { font-family: sans-serif; background: #f1f5f9; padding: 1rem; }
+        .form-box { background: white; padding: 2rem; border-radius: 15px; max-width: 400px; margin: 2rem auto; }
+        input, select { width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 1px solid #ccc; border-radius: 5px; }
+        .btn { width: 100%; padding: 0.8rem; background: #059669; color: white; border: none; border-radius: 5px; cursor: pointer; }
     </style>
 </head>
 <body>
-
-    <nav>
-        <a href="index.html" class="logo">YourProAdvisor</a>
-        <div class="nav-buttons">
-            <button class="btn-alt" id="logoutBtn" style="display:none;" onclick="logout()">Logout</button>
-            <a href="index.html" class="btn-alt">Back to Marketplace</a>
-        </div>
-    </nav>
-
-    <div class="auth-container" id="authWindow">
-        <form class="interactive-form" onsubmit="loginUser(event)">
-            <h2>Welcome Back</h2>
-            <p>Access your personalized user panel profile configuration.</p>
-            <div>
-                <label for="usrName">Your Full Name</label>
-                <input type="text" id="usrName" placeholder="Alex Rivera" required>
-            </div>
-            <div>
-                <label pour="usrField">Your Target Focus Field</label>
-                <select id="usrField">
-                    <option value="Tech & Hardware">Tech & Hardware Engineering</option>
-                    <option value="Business & Startups">Business & Startups</option>
-                    <option value="Career Coaching">Career Coaching</option>
-                    <option value="Music & Production">Music & Production</option>
-                </select>
-            </div>
-            <button type="submit" class="btn">Login & Launch Dashboard</button>
-        </form>
+    <div class="form-box" id="authBox">
+        <h2>Login</h2>
+        <input type="text" id="name" placeholder="Name">
+        <select id="field"><option>Tech</option><option>Business</option></select>
+        <button class="btn" onclick="login()">Login</button>
     </div>
-
-    <div class="dashboard-container" id="dashboardWindow">
-        <div class="welcome-header">
-            <h2 id="greetMessage">Welcome Back, User</h2>
-            <p id="focusMessage">Displaying verified elite advisors optimized for your domain track.</p>
-        </div>
-        <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 1.5rem;">Recommended Advisors For You</h3>
-        <div class="dashboard-grid" id="matchedAdvisorsContainer"></div>
-    </div>
-
+    <div id="dash" style="display:none;"><h2>Welcome!</h2><div id="content"></div></div>
     <script>
-        const mockAdvisors = [
-            { name: "Arjan Dev", domain: "Tech & Hardware", bio: "VLSI Frontend Architecture specialist and optimized RTL verification expert.", sessions: 142, rating: "4.9", exp: "12 Years" },
-            { name: "Ananya Iyer", domain: "Tech & Hardware", bio: "Embedded Systems design engineer and core firmware microprocessor architect.", sessions: 98, rating: "4.8", exp: "8 Years" },
-            { name: "Marcus Vance", domain: "Business & Startups", bio: "Venture strategist guiding pitch desk architecture and funding pipeline scaling execution.", sessions: 210, rating: "5.0", exp: "15 Years" },
-            { name: "Vikram Malhotra", domain: "Business & Startups", bio: "Growth canvas expert focused on financial scalability models and asset operations.", sessions: 85, rating: "4.7", exp: "9 Years" },
-            { name: "Elena Rostova", domain: "Career Coaching", bio: "Executive recruiter guiding salary negotiation tracks and mock interview evaluations.", sessions: 340, rating: "4.9", exp: "14 Years" },
-            { name: "Devon Cole", domain: "Music & Production", bio: "Platinum tracking designer specializing in analog stem dynamics and sound synthesis structures.", sessions: 115, rating: "4.9", exp: "10 Years" }
-        ];
-
-        window.onload = function() {
-            const activeUser = JSON.parse(localStorage.getItem('activeUser'));
-            if (activeUser) renderDashboard(activeUser);
-        };
-
-        function loginUser(event) {
-            event.preventDefault();
-            const userData = { name: document.getElementById('usrName').value.trim(), focus: document.getElementById('usrField').value };
-            localStorage.setItem('activeUser', JSON.stringify(userData));
-            renderDashboard(userData);
+        function login() {
+            const user = { name: document.getElementById('name').value, field: document.getElementById('field').value };
+            localStorage.setItem('activeUser', JSON.stringify(user));
+            location.reload();
         }
-
-        function renderDashboard(user) {
-            document.getElementById('authWindow').style.display = 'none';
-            document.getElementById('dashboardWindow').style.display = 'block';
-            document.getElementById('logoutBtn').style.display = 'inline-block';
-            document.getElementById('greetMessage').innerText = `👋 Welcome Back, ${user.name}`;
-            const container = document.getElementById('matchedAdvisorsContainer'); container.innerHTML = "";
-            const matches = mockAdvisors.filter(adv => adv.domain === user.focus);
-
-            matches.forEach(adv => {
-                container.innerHTML += `
-                    <div class="match-card">
-                        <div><span class="match-tag">${adv.domain}</span><h3>${adv.name}</h3><p class="bio">${adv.bio}</p></div>
-                        <div>
-                            <div class="metric-row"><span class="metric-label">Experience</span><span class="metric-value">${adv.exp}</span></div>
-                            <div class="metric-row"><span class="metric-label">Platform Sessions</span><span class="metric-value">${adv.sessions} completed</span></div>
-                            <div class="metric-row"><span class="metric-label">User Rating</span><span class="metric-value"><span class="rating-badge">★ ${adv.rating}</span></span></div>
-                            <a href="index.html#marketplace" class="btn" style="margin-top:1rem;">Book Consultation Slot</a>
-                        </div>
-                    </div>`;
-            });
+        if(localStorage.getItem('activeUser')) {
+            document.getElementById('authBox').style.display = 'none';
+            document.getElementById('dash').style.display = 'block';
+            document.getElementById('content').innerHTML = "View your recommended advisors here.";
         }
-        function logout() { localStorage.removeItem('activeUser'); window.location.reload(); }
     </script>
 </body>
 </html>

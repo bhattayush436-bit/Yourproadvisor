@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Advisor Dashboard | YourProAdvisor</title>
+  <title>Advisor Hub | YourProAdvisor</title>
   <style>
-    /* --- Professional Corporate Variables --- */
     :root {
       --bg-color: #f8fafc;
       --sidebar-bg: #ffffff;
@@ -17,324 +16,64 @@
       --border-color: #e2e8f0;
       --success-green: #16a34a;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      display: flex;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    /* --- Sidebar Navigation --- */
-    .sidebar {
-      width: 260px;
-      background-color: var(--sidebar-bg);
-      border-right: 1px solid var(--border-color);
-      padding: 24px 20px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .sidebar .logo {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: var(--text-logo);
-      text-decoration: none;
-      margin-bottom: 40px;
-      text-align: center;
-      letter-spacing: 0.5px;
-    }
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .nav-links li a {
-      text-decoration: none;
-      color: var(--text-sub);
-      font-weight: 600;
-      font-size: 0.95rem;
-      padding: 12px 16px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: all 0.2s ease;
-    }
-
-    .nav-links li a.active, .nav-links li a:hover {
-      background-color: #f1f5f9;
-      color: var(--primary-btn);
-    }
-
-    .logout-btn {
-      margin-top: auto;
-      text-align: center;
-      padding: 12px;
-      background: #ffffff;
-      color: #475569;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-
-    .logout-btn:hover {
-      background: #f1f5f9;
-      color: #ef4444;
-      border-color: #cbd5e1;
-    }
-
-    /* --- Main Content Area --- */
-    .main-content {
-      flex: 1;
-      padding: 40px;
-      overflow-y: auto;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 40px;
-    }
-
-    .header h1 {
-      color: var(--text-heading);
-      font-size: 2rem;
-      font-weight: 700;
-    }
-
-    .profile-badge {
-      background: #f0fdf4;
-      color: var(--success-green);
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      border: 1px solid #bbf7d0;
-    }
-
-    /* --- Sections Shared --- */
-    .section-title {
-      color: var(--text-heading);
-      margin-bottom: 20px;
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-top: 40px;
-    }
-
-    /* --- Subscription Plans --- */
-    .plans-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    .plan-card {
-      background: var(--card-bg);
-      padding: 30px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
-      position: relative;
-    }
-
-    .plan-card.popular {
-      border: 2px solid var(--primary-btn);
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
-    }
-
-    .popular-badge {
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--primary-btn);
-      color: white;
-      padding: 4px 12px;
-      border-radius: 12px;
-      font-size: 0.8rem;
-      font-weight: 700;
-    }
-
-    .plan-card h3 {
-      color: var(--text-heading);
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-
-    .plan-card .price {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--text-heading);
-      margin-bottom: 15px;
-    }
-
-    .plan-card .price span {
-      font-size: 1rem;
-      color: var(--text-sub);
-      font-weight: 500;
-    }
-
-    .plan-features {
-      list-style: none;
-      margin-bottom: 25px;
-      color: var(--text-sub);
-      font-size: 0.95rem;
-    }
-
-    .plan-features li {
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .plan-btn {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 12px;
-      background: var(--bg-color);
-      color: var(--text-heading);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-
-    .plan-card.popular .plan-btn {
-      background: var(--primary-btn);
-      color: white;
-      border-color: var(--primary-btn);
-    }
-
-    .plan-card.popular .plan-btn:hover {
-      background: #1d4ed8;
-    }
-
-    /* --- Leaderboard Table --- */
-    .leaderboard-container {
-      background: var(--card-bg);
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-      overflow: hidden;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-    }
-
-    th, td {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    th {
-      background: #f8fafc;
-      color: var(--text-sub);
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    td {
-      color: var(--text-heading);
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    .earning-text {
-      color: var(--success-green);
-      font-weight: 700;
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    
+    /* Responsive Base */
+    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
+    
+    /* Sidebar */
+    .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; }
+    .sidebar .logo { font-size: 1.4rem; font-weight: 800; color: var(--text-logo); text-decoration: none; margin-bottom: 40px; text-align: center; }
+    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 16px; border-radius: 6px; display: flex; align-items: center; gap: 12px; transition: 0.2s; }
+    .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
+    .logout-btn { margin-top: auto; text-align: center; padding: 12px; background: #ffffff; color: #475569; border: 1px solid var(--border-color); border-radius: 6px; text-decoration: none; font-weight: 600; }
+    
+    /* Main Content */
+    .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px; }
+    .header h1 { color: var(--text-heading); font-size: 2rem; }
+    .section-title { color: var(--text-heading); margin: 40px 0 20px; font-size: 1.4rem; font-weight: 700; }
+    
+    /* Leaderboard Table */
+    .table-responsive { width: 100%; overflow-x: auto; background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border-color); }
+    table { width: 100%; min-width: 700px; border-collapse: collapse; text-align: left; }
+    th, td { padding: 16px; border-bottom: 1px solid var(--border-color); }
+    th { background: #f8fafc; color: var(--text-sub); font-size: 0.9rem; text-transform: uppercase; }
+    td { color: var(--text-heading); font-size: 0.95rem; font-weight: 500; }
+    .earning-text { color: var(--success-green); font-weight: 700; }
+    
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      body { flex-direction: column; overflow-y: auto; height: auto; }
+      .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border-color); padding: 15px; }
+      .sidebar .logo { margin-bottom: 15px; }
+      .nav-links { flex-direction: row; overflow-x: auto; padding-bottom: 10px; }
+      .nav-links li a { white-space: nowrap; }
+      .logout-btn { margin-top: 15px; }
+      .main-content { padding: 20px; overflow-y: visible; }
     }
   </style>
 </head>
 <body>
-
-  <!-- Sidebar -->
   <aside class="sidebar">
     <a href="index.html" class="logo">YourProAdvisor</a>
     <ul class="nav-links">
-      <li><a href="#" class="active">📊 Advisor Hub</a></li>
-      <li><a href="#">📅 Manage Availability</a></li>
-      <li><a href="#">💰 Earnings & Payouts</a></li>
-      <li><a href="#">💬 Client Messages</a></li>
-      <li><a href="#">⚙️ Profile Settings</a></li>
+      <li><a href="advisor-dashboard.html" class="active">📊 Advisor Hub</a></li>
+      <li><a href="manage-availability.html">📅 Manage Availability</a></li>
+      <li><a href="earnings-payouts.html">💰 Earnings & Payouts</a></li>
+      <li><a href="client-messages.html">💬 Client Messages</a></li>
     </ul>
     <a href="index.html" class="logout-btn">Log Out</a>
   </aside>
 
-  <!-- Main Content -->
   <main class="main-content">
     <div class="header">
-      <h1>Advisor Portal</h1>
-      <div class="profile-badge">Accepting New Clients</div>
+      <h1>Advisor Hub</h1>
     </div>
-
-    <!-- Monthly Payout Subscriptions -->
-    <h2 class="section-title">Select Your Payout Plan</h2>
-    <div class="plans-grid">
-      
-      <div class="plan-card">
-        <h3>Standard</h3>
-        <div class="price">Free<span>/month</span></div>
-        <ul class="plan-features">
-          <li>✔️ 80% Payout on sessions</li>
-          <li>✔️ Up to 10 sessions/month</li>
-          <li>✔️ Standard visibility</li>
-        </ul>
-        <a href="#" class="plan-btn">Current Plan</a>
-      </div>
-
-      <div class="plan-card popular">
-        <div class="popular-badge">Most Popular</div>
-        <h3>Professional</h3>
-        <div class="price">$29<span>/month</span></div>
-        <ul class="plan-features">
-          <li>✔️ 90% Payout on sessions</li>
-          <li>✔️ Up to 40 sessions/month</li>
-          <li>✔️ Boosted search ranking</li>
-        </ul>
-        <a href="#" class="plan-btn">Upgrade to Pro</a>
-      </div>
-
-      <div class="plan-card">
-        <h3>Elite</h3>
-        <div class="price">$79<span>/month</span></div>
-        <ul class="plan-features">
-          <li>✔️ 100% Payout on sessions</li>
-          <li>✔️ Unlimited sessions</li>
-          <li>✔️ Dedicated account manager</li>
-        </ul>
-        <a href="#" class="plan-btn">Upgrade to Elite</a>
-      </div>
-
-    </div>
-
-    <!-- Peer Leaderboard -->
+    
     <h2 class="section-title">Top Advisors This Month</h2>
-    <div class="leaderboard-container">
+    <div class="table-responsive">
       <table>
         <thead>
           <tr>
@@ -342,8 +81,8 @@
             <th>Advisor Name</th>
             <th>Specialty</th>
             <th>Sessions</th>
-            <th>Hours</th>
-            <th>Earnings</th>
+            <th>This Month</th>
+            <th>All-Time Earnings</th>
           </tr>
         </thead>
         <tbody>
@@ -352,37 +91,20 @@
             <td>Dr. Ananya Sharma</td>
             <td>VLSI & Hardware</td>
             <td>42</td>
-            <td>55</td>
             <td class="earning-text">$8,400</td>
+            <td class="earning-text">$142,500</td>
           </tr>
           <tr>
             <td>#2</td>
             <td>Michael Chen</td>
             <td>Software Engineering</td>
             <td>38</td>
-            <td>45</td>
             <td class="earning-text">$6,850</td>
-          </tr>
-          <tr>
-            <td>#3</td>
-            <td>Sarah Jenkins</td>
-            <td>Startup Strategy</td>
-            <td>31</td>
-            <td>40</td>
-            <td class="earning-text">$6,200</td>
-          </tr>
-          <tr>
-            <td>#4</td>
-            <td>David Osei</td>
-            <td>Product Management</td>
-            <td>28</td>
-            <td>35</td>
-            <td class="earning-text">$5,100</td>
+            <td class="earning-text">$98,200</td>
           </tr>
         </tbody>
       </table>
     </div>
   </main>
-
 </body>
 </html>

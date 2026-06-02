@@ -8,13 +8,14 @@
   <style>
     :root { 
       --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; 
-      --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; 
+      --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; --success-green: #16a34a;
       --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
     }
     
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
     body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
     
+    /* --- Sidebar Setup --- */
     .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; transition: color 0.2s; padding-right: 15px; }
     .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; }
     .sidebar.hidden { margin-left: -260px; }
@@ -27,27 +28,53 @@
     .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 16px; border-radius: 6px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
     .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
     
+    /* --- Main Content --- */
     .main-content { flex: 1; padding: 40px; overflow-y: auto; }
     .header { display: flex; align-items: center; margin-bottom: 30px; }
     .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800;}
     
-    .availability-card { background: var(--card-bg); padding: 30px; border-radius: 8px; border: 1px solid var(--border-color); max-width: 800px; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05); }
-    .availability-card p { color: var(--text-sub); margin-bottom: 20px; font-size: 0.95rem; }
+    .availability-card { background: var(--card-bg); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); max-width: 800px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+    .availability-card p { color: var(--text-sub); margin-bottom: 30px; font-size: 0.95rem; line-height: 1.5; }
     
-    .day-row { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--border-color); }
+    /* --- Schedule Rows --- */
+    .day-row { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--border-color); gap: 15px; flex-wrap: wrap;}
     .day-row:last-child { border-bottom: none; }
-    .day-name { font-weight: 600; color: var(--text-heading); width: 100px; }
-    .time-inputs { display: flex; align-items: center; gap: 10px; }
-    .time-inputs input { padding: 8px; border: 1px solid var(--border-color); border-radius: 6px; outline: none; }
     
-    .btn-save { background: var(--primary-btn); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; margin-top: 20px; width: 100%; font-size: 1rem; }
+    .day-info { display: flex; align-items: center; gap: 15px; width: 140px; }
+    .day-name { font-weight: 600; color: var(--text-heading); }
+    
+    /* Toggle Switch */
+    .switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0;}
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .3s; border-radius: 34px; }
+    .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
+    input:checked + .slider { background-color: var(--primary-btn); }
+    input:checked + .slider:before { transform: translateX(20px); }
 
+    /* Time Inputs */
+    .time-inputs { display: flex; align-items: center; gap: 10px; flex-wrap: wrap;}
+    .time-inputs input { padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 8px; outline: none; font-size: 0.95rem; color: var(--text-heading); background: #f8fafc; transition: border 0.2s;}
+    .time-inputs input:focus { border-color: var(--primary-btn); background: white; }
+    .time-inputs span { color: var(--text-sub); font-weight: 500; font-size: 0.9rem;}
+    
+    /* Disabled State styling */
+    .day-row.disabled { opacity: 0.5; }
+    .day-row.disabled .time-inputs input { pointer-events: none; background: #e2e8f0; }
+
+    .btn-save { background: var(--primary-gradient); color: white; border: none; padding: 14px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 30px; width: 100%; font-size: 1rem; transition: opacity 0.2s;}
+    .btn-save:hover { opacity: 0.9; }
+
+    /* --- Mobile Responsiveness --- */
     @media (max-width: 768px) {
       .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
       .sidebar.active { left: 0; margin-left: 0; }
       .sidebar-overlay.active { display: block; }
       .main-content { padding: 20px; }
-      .day-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .day-row { flex-direction: column; align-items: flex-start; background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 15px;}
+      .day-row:last-child { margin-bottom: 0; }
+      .day-info { width: 100%; justify-content: space-between; }
+      .time-inputs { width: 100%; justify-content: space-between; }
+      .time-inputs input { width: 42%; text-align: center; }
     }
   </style>
 </head>
@@ -72,40 +99,93 @@
     </div>
     
     <div class="availability-card">
-      <p>Set the weekly hours you are available to take consultation calls. Clients will only be able to book you during these times.</p>
+      <p>Set the weekly hours you are available to take consultation calls. Toggle the switch off for days you do not wish to work.</p>
       
-      <div class="day-row">
-        <div class="day-name">Monday</div>
-        <div class="time-inputs">
-          <input type="time" value="09:00"> <span>to</span> <input type="time" value="17:00">
+      <!-- Monday -->
+      <div class="day-row" id="row-mon">
+        <div class="day-info">
+          <label class="switch">
+            <input type="checkbox" checked onchange="toggleDay('row-mon')">
+            <span class="slider"></span>
+          </label>
+          <span class="day-name">Monday</span>
         </div>
-      </div>
-      <div class="day-row">
-        <div class="day-name">Tuesday</div>
-        <div class="time-inputs">
-          <input type="time" value="09:00"> <span>to</span> <input type="time" value="17:00">
-        </div>
-      </div>
-      <div class="day-row">
-        <div class="day-name">Wednesday</div>
-        <div class="time-inputs">
-          <input type="time" value="09:00"> <span>to</span> <input type="time" value="17:00">
-        </div>
-      </div>
-      <div class="day-row">
-        <div class="day-name">Thursday</div>
-        <div class="time-inputs">
-          <input type="time" value="09:00"> <span>to</span> <input type="time" value="17:00">
-        </div>
-      </div>
-      <div class="day-row">
-        <div class="day-name">Friday</div>
         <div class="time-inputs">
           <input type="time" value="09:00"> <span>to</span> <input type="time" value="17:00">
         </div>
       </div>
 
-      <button class="btn-save">Save Schedule</button>
+      <!-- Tuesday -->
+      <div class="day-row" id="row-tue">
+        <div class="day-info">
+          <label class="switch">
+            <input type="checkbox" checked onchange="toggleDay('row-tue')">
+            <span class="slider"></span>
+          </label>
+          <span class="day-name">Tuesday</span>
+        </div>
+        <div class="time-inputs">
+          <input type="time" value="09:00"> <span>to</span> <input type="time" value="17:00">
+        </div>
+      </div>
+
+      <!-- Wednesday -->
+      <div class="day-row" id="row-wed">
+        <div class="day-info">
+          <label class="switch">
+            <input type="checkbox" checked onchange="toggleDay('row-wed')">
+            <span class="slider"></span>
+          </label>
+          <span class="day-name">Wednesday</span>
+        </div>
+        <div class="time-inputs">
+          <input type="time" value="09:00"> <span>to</span> <input type="time" value="17:00">
+        </div>
+      </div>
+
+      <!-- Thursday -->
+      <div class="day-row" id="row-thu">
+        <div class="day-info">
+          <label class="switch">
+            <input type="checkbox" checked onchange="toggleDay('row-thu')">
+            <span class="slider"></span>
+          </label>
+          <span class="day-name">Thursday</span>
+        </div>
+        <div class="time-inputs">
+          <input type="time" value="09:00"> <span>to</span> <input type="time" value="17:00">
+        </div>
+      </div>
+
+      <!-- Friday -->
+      <div class="day-row" id="row-fri">
+        <div class="day-info">
+          <label class="switch">
+            <input type="checkbox" checked onchange="toggleDay('row-fri')">
+            <span class="slider"></span>
+          </label>
+          <span class="day-name">Friday</span>
+        </div>
+        <div class="time-inputs">
+          <input type="time" value="09:00"> <span>to</span> <input type="time" value="17:00">
+        </div>
+      </div>
+      
+      <!-- Saturday (Default Off) -->
+      <div class="day-row disabled" id="row-sat">
+        <div class="day-info">
+          <label class="switch">
+            <input type="checkbox" onchange="toggleDay('row-sat')">
+            <span class="slider"></span>
+          </label>
+          <span class="day-name">Saturday</span>
+        </div>
+        <div class="time-inputs">
+          <input type="time" value="10:00"> <span>to</span> <input type="time" value="14:00">
+        </div>
+      </div>
+
+      <button class="btn-save" onclick="alert('Schedule saved successfully!')">Save Schedule Settings</button>
     </div>
   </main>
 
@@ -118,6 +198,17 @@
         overlay.classList.toggle('active'); 
       } else { 
         sidebar.classList.toggle('hidden'); 
+      }
+    }
+
+    // Function to gray out the row when the switch is turned off
+    function toggleDay(rowId) {
+      const row = document.getElementById(rowId);
+      const checkbox = row.querySelector('input[type="checkbox"]');
+      if(checkbox.checked) {
+        row.classList.remove('disabled');
+      } else {
+        row.classList.add('disabled');
       }
     }
   </script>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upcoming Sessions | YourProAdvisor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
+    .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; padding-right: 15px; }
+    .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; overflow-y: auto;}
+    .sidebar.hidden { margin-left: -260px; }
+    .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; backdrop-filter: blur(2px); }
+    .sidebar .logo { display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
+    .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
+    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.9rem; padding: 10px 14px; border-radius: 6px; display: flex; align-items: center; gap: 10px; transition: 0.2s;}
+    .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
+    .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+    
+    .header { display: flex; align-items: center; margin-bottom: 30px; }
+    .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800;}
+    .section-title { font-size: 1.3rem; font-weight: 700; color: var(--text-heading); margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;}
+    
+    .session-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    .session-card.today { border-left: 5px solid #10b981; }
+    .session-details { display: flex; gap: 20px; align-items: center; }
+    .client-avatar { width: 50px; height: 50px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--primary-btn); font-size: 1.2rem;}
+    .session-meta h4 { font-size: 1.1rem; color: var(--text-heading); margin-bottom: 5px; }
+    .session-meta p { color: var(--text-sub); font-size: 0.9rem; margin-bottom: 4px;}
+    .session-meta .topic { font-size: 0.85rem; font-weight: 600; color: var(--primary-btn); }
+    
+    .session-actions { display: flex; gap: 10px; }
+    .btn-join { background: var(--primary-gradient); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .btn-outline { background: white; border: 1px solid var(--border-color); padding: 10px 15px; border-radius: 8px; font-weight: 600; color: var(--text-heading); cursor: pointer; }
+    .btn-outline:hover { background: #f8fafc; }
+
+    @media (max-width: 768px) {
+      .sidebar { position: fixed; left: -260px; height: 100vh; }
+      .sidebar.active { left: 0; }
+      .sidebar-overlay.active { display: block; }
+      .main-content { padding: 20px; }
+      .session-card { flex-direction: column; align-items: flex-start; gap: 15px; }
+      .session-actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+    <ul class="nav-links">
+      <li><a href="analytics-dashboard.html">📊 Analytics Dashboard</a></li>
+      <li><a href="manage-availability.html">📅 Manage Availability</a></li>
+      <li><a href="upcoming-sessions.html" class="active">🎥 Upcoming Sessions</a></li>
+      <li><a href="earnings-payouts.html">💰 Earnings & Payouts</a></li>
+      <li><a href="client-messages.html">💬 Client Messages</a></li>
+      <li><a href="reviews-ratings.html">⭐ Reviews & Ratings</a></li>
+      <li><a href="advisor-notifications.html">🔔 Notifications Center</a></li>
+      <li><a href="achievements-badges.html">🏆 Achievements & Badges</a></li>
+      <li><a href="advisor-support.html">❓ Support & Help</a></li>
+      <li><a href="profile-settings.html">⚙️ Profile Settings</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div class="header">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h1>Upcoming Sessions</h1>
+    </div>
+
+    <h2 class="section-title">Today's Meetings</h2>
+    <div class="session-card today">
+      <div class="session-details">
+        <div class="client-avatar">AB</div>
+        <div class="session-meta">
+          <h4>Ayush Bhat</h4>
+          <p>Today, 11:30 AM - 12:30 PM IST</p>
+          <span class="topic">Topic: Verilog Testbenches & Verification Flow</span>
+        </div>
+      </div>
+      <div class="session-actions">
+        <button class="btn-join">Join Session Room</button>
+        <button class="btn-outline">Reschedule</button>
+      </div>
+    </div>
+
+    <h2 class="section-title" style="margin-top: 40px;">Upcoming Bookings</h2>
+    <div class="session-card">
+      <div class="session-details">
+        <div class="client-avatar">JD</div>
+        <div class="session-meta">
+          <h4>John Doe</h4>
+          <p>Jun 08, 02:00 PM - 02:30 PM IST</p>
+          <span class="topic">Topic: Resume Review & Interview Prep</span>
+        </div>
+      </div>
+      <div class="session-actions">
+        <button class="btn-outline" disabled style="opacity: 0.5;">Join (Not Started)</button>
+        <button class="btn-outline">Reschedule</button>
+      </div>
+    </div>
+  </main>
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); document.getElementById('sidebarOverlay').classList.toggle('active'); }
+  </script>
+</body>
+</html>

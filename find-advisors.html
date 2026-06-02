@@ -4,12 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Find Advisors | YourProAdvisor</title>
-  
-  <!-- Added Google Web Fonts for 100% Mobile & Desktop consistency -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
   <style>
-    /* --- Premium Corporate Variables --- */
     :root { 
       --bg-color: #f8fafc; 
       --sidebar-bg: #ffffff; 
@@ -26,11 +22,9 @@
       --ai-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
     }
     
-    /* Using 'Inter' to fix the mobile font mismatch */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
     body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
     
-    /* Sidebar & Toggle */
     .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; transition: color 0.2s; padding-right: 15px; }
     .menu-toggle:hover { color: var(--primary-btn); }
     
@@ -45,100 +39,28 @@
     .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
     .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
     
-    /* Main Content */
     .main-content { flex: 1; padding: 40px; overflow-y: auto; }
     .header { display: flex; align-items: center; margin-bottom: 30px; }
     .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800; letter-spacing: -0.5px;}
 
-    /* AI Search Section */
-    .ai-search-container {
-      background: var(--card-bg);
-      padding: 30px;
-      border-radius: 16px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-      margin-bottom: 40px;
-      text-align: center;
-    }
+    .ai-search-container { background: var(--card-bg); padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 40px; text-align: center; }
+    .ai-search-container h2 { color: var(--text-heading); font-size: 1.4rem; margin-bottom: 10px; }
+    .ai-search-container p { color: var(--text-sub); margin-bottom: 25px; font-size: 1rem; }
 
-    .ai-search-container h2 {
-      color: var(--text-heading);
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-    }
-
-    .ai-search-container p {
-      color: var(--text-sub);
-      margin-bottom: 25px;
-      font-size: 1rem;
-    }
-
-    .search-wrapper {
-      display: flex;
-      align-items: center;
-      background: var(--bg-offwhite);
-      border: 1px solid #cbd5e1;
-      border-radius: 50px;
-      padding: 8px 8px 8px 20px;
-      max-width: 800px;
-      margin: 0 auto;
-      transition: all 0.3s ease;
-    }
-    
-    .search-wrapper:focus-within {
-      border-color: #8b5cf6;
-      background: var(--bg-white);
-      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
-    }
-
-    .search-wrapper input {
-      flex: 1;
-      border: none;
-      outline: none;
-      font-size: 1.05rem;
-      color: var(--text-heading);
-      background: transparent;
-    }
-
-    .btn-ai {
-      background: var(--ai-gradient);
-      color: white;
-      border: none;
-      padding: 12px 28px;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
+    .search-wrapper { display: flex; align-items: center; background: var(--bg-offwhite); border: 1px solid #cbd5e1; border-radius: 50px; padding: 8px 8px 8px 20px; max-width: 800px; margin: 0 auto; transition: all 0.3s ease; }
+    .search-wrapper:focus-within { border-color: #8b5cf6; background: var(--bg-white); box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1); }
+    .search-wrapper input { flex: 1; border: none; outline: none; font-size: 1.05rem; color: var(--text-heading); background: transparent; }
+    .btn-ai { background: var(--ai-gradient); color: white; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: transform 0.2s; }
     .btn-ai:hover { transform: scale(1.02); }
 
-    /* Advisor Results Grid */
     .section-title { color: var(--text-heading); margin-bottom: 20px; font-size: 1.4rem; font-weight: 700; display: flex; align-items: center; justify-content: space-between; }
-    
     .advisor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; padding-bottom: 40px; }
     
-    .advisor-card { 
-      background: var(--card-bg); padding: 24px; border-radius: 12px; 
-      border: 1px solid var(--border-color); box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04); 
-      display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; 
-      position: relative; /* Added for the save button */
-    }
+    .advisor-card { background: var(--card-bg); padding: 24px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04); display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; position: relative; }
     .advisor-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08); border-color: #cbd5e1; }
     
-    /* Save/Bookmark Button */
-    .btn-save-advisor {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: none;
-      border: none;
-      font-size: 1.4rem;
-      cursor: pointer;
-      transition: transform 0.2s;
-      color: #cbd5e1;
-    }
-    .btn-save-advisor.saved { color: #ef4444; } /* Red filled heart */
+    .btn-save-advisor { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 1.4rem; cursor: pointer; transition: transform 0.2s; color: #cbd5e1; }
+    .btn-save-advisor.saved { color: #ef4444; } 
     .btn-save-advisor:hover { transform: scale(1.1); }
 
     .advisor-header { display: flex; gap: 15px; margin-bottom: 20px; align-items: center;}
@@ -146,19 +68,13 @@
     .advisor-name h4 { color: var(--text-heading); font-size: 1.2rem; font-weight: 700; margin-bottom: 3px; max-width: 80%;}
     .advisor-name p { color: var(--primary-btn); font-size: 0.9rem; font-weight: 600; }
     
-    /* Stats Row (Rating, Sessions, Hours) */
-    .stats-row { 
-      display: flex; justify-content: space-between; 
-      background: var(--bg-offwhite); padding: 12px; border-radius: 8px; 
-      margin-bottom: 20px; border: 1px solid var(--border-color);
-    }
+    .stats-row { display: flex; justify-content: space-between; background: var(--bg-offwhite); padding: 12px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--border-color); }
     .stat-box { text-align: center; flex: 1; border-right: 1px solid var(--border-color); }
     .stat-box:last-child { border-right: none; }
     .stat-val { display: block; font-weight: 800; color: var(--text-heading); font-size: 1.1rem; }
     .stat-label { font-size: 0.75rem; color: var(--text-sub); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;}
     .rating-star { color: var(--warning-gold); }
 
-    /* Pricing Section */
     .pricing-title { font-size: 0.85rem; color: var(--text-sub); font-weight: 600; margin-bottom: 10px; text-transform: uppercase;}
     .pricing-tiers { display: flex; gap: 10px; margin-bottom: 24px; }
     .price-pill { flex: 1; text-align: center; border: 1px solid var(--border-color); border-radius: 8px; padding: 10px 5px; transition: border 0.2s; cursor: default;}
@@ -191,6 +107,9 @@
       <li><a href="find-advisors.html" class="active">🔍 Find Advisors</a></li>
       <li><a href="my-sessions.html">📅 My Sessions</a></li>
       <li><a href="user-messages.html">💬 Messages</a></li>
+      <li><a href="wallet-payment.html">💳 Wallet & Payment</a></li>
+      <li><a href="notifications.html">🔔 Notifications</a></li>
+      <li><a href="support-help.html">❓ Support & Help</a></li>
       <li><a href="user-settings.html">⚙️ Profile Settings</a></li>
     </ul>
   </aside>
@@ -201,7 +120,6 @@
       <h1>Find Your Advisor</h1>
     </div>
 
-    <!-- AI Matchmaker Section -->
     <div class="ai-search-container">
       <h2>What field are you looking to explore?</h2>
       <p>Tell our AI what you need help with, and we'll instantly match you with the best professionals.</p>
@@ -212,11 +130,9 @@
       </div>
     </div>
     
-    <!-- Saved Advisors Section -->
     <h2 class="section-title">Saved Advisors</h2>
     
     <div class="advisor-grid" style="border-bottom: 1px solid var(--border-color); margin-bottom: 30px;">
-      <!-- Saved Advisor 1 -->
       <div class="advisor-card" style="border-color: #cbd5e1; background: #f8fafc;">
         <button class="btn-save-advisor saved" title="Remove from saved">❤️</button>
         <div class="advisor-header">
@@ -262,12 +178,9 @@
       </div>
     </div>
 
-    <!-- Top Matches Section -->
     <h2 class="section-title">Top Matches for You</h2>
     
     <div class="advisor-grid">
-      
-      <!-- Match 1 -->
       <div class="advisor-card">
         <button class="btn-save-advisor" title="Save this advisor">🤍</button>
         <div class="advisor-header">
@@ -312,7 +225,6 @@
         <button class="btn-book">View Profile & Book</button>
       </div>
 
-      <!-- Match 2 -->
       <div class="advisor-card">
         <button class="btn-save-advisor" title="Save this advisor">🤍</button>
         <div class="advisor-header">
@@ -356,7 +268,6 @@
 
         <button class="btn-book">View Profile & Book</button>
       </div>
-
     </div>
   </main>
 

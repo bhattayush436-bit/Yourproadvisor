@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Achievements & Badges | YourProAdvisor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
+    .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; padding-right: 15px; }
+    .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; overflow-y: auto;}
+    .sidebar.hidden { margin-left: -260px; }
+    .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; }
+    .sidebar .logo { display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
+    .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
+    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.9rem; padding: 10px 14px; border-radius: 6px; display: flex; align-items: center; gap: 10px; transition: 0.2s;}
+    .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
+    .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+    .header { display: flex; align-items: center; margin-bottom: 30px; }
+    .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800;}
+    
+    .badge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+    .badge-card { background: var(--card-bg); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+    .badge-icon { font-size: 3.5rem; margin-bottom: 15px; }
+    .badge-card h3 { color: var(--text-heading); font-size: 1.1rem; margin-bottom: 8px; font-weight: 700; }
+    .badge-card p { color: var(--text-sub); font-size: 0.9rem; line-height: 1.4; }
+    .badge-card.locked { opacity: 0.5; filter: grayscale(100%); }
+
+    @media (max-width: 768px) {
+      .sidebar { position: fixed; left: -260px; height: 100vh; }
+      .sidebar.active { left: 0; }
+      .sidebar-overlay.active { display: block; }
+      .main-content { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+    <ul class="nav-links">
+      <li><a href="analytics-dashboard.html">📊 Analytics Dashboard</a></li>
+      <li><a href="manage-availability.html">📅 Manage Availability</a></li>
+      <li><a href="upcoming-sessions.html">🎥 Upcoming Sessions</a></li>
+      <li><a href="earnings-payouts.html">💰 Earnings & Payouts</a></li>
+      <li><a href="client-messages.html">💬 Client Messages</a></li>
+      <li><a href="reviews-ratings.html">⭐ Reviews & Ratings</a></li>
+      <li><a href="advisor-notifications.html">🔔 Notifications Center</a></li>
+      <li><a href="achievements-badges.html" class="active">🏆 Achievements & Badges</a></li>
+      <li><a href="advisor-support.html">❓ Support & Help</a></li>
+      <li><a href="profile-settings.html">⚙️ Profile Settings</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div class="header">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h1>Achievements & Badges</h1>
+    </div>
+    
+    <p style="color: var(--text-sub); margin-bottom: 30px; font-size: 1.05rem;">Badges display publicly on your profile, helping you stand out and attract more clients.</p>
+
+    <div class="badge-grid">
+      <div class="badge-card">
+        <div class="badge-icon">👑</div>
+        <h3>Top Mentor</h3>
+        <p>Awarded to the top 5% of advisors based on client conversion rates.</p>
+      </div>
+      <div class="badge-card">
+        <div class="badge-icon">💯</div>
+        <h3>100 Sessions Club</h3>
+        <p>Successfully completed 100+ mentorship sessions on the platform.</p>
+      </div>
+      <div class="badge-card">
+        <div class="badge-icon">⭐</div>
+        <h3>5-Star Advisor</h3>
+        <p>Maintained a perfect 5.0 rating across 10 or more consecutive reviews.</p>
+      </div>
+      <div class="badge-card locked">
+        <div class="badge-icon">⚡</div>
+        <h3>Fast Responder</h3>
+        <p>Maintains an average message response time of under 1 hour. (Locked)</p>
+      </div>
+    </div>
+  </main>
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); document.getElementById('sidebarOverlay').classList.toggle('active'); }
+  </script>
+</body>
+</html>

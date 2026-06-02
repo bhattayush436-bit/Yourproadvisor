@@ -3,69 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Earnings | YourProAdvisor</title>
+  <title>Earnings & Payouts | YourProAdvisor</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root { 
-      --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; 
-      --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; --success-green: #16a34a; 
-      --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-    }
-    
+    :root { --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
     body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
-    
-    .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; transition: color 0.2s; padding-right: 15px; }
-    .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; }
+    .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; padding-right: 15px; }
+    .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; overflow-y: auto;}
     .sidebar.hidden { margin-left: -260px; }
-    .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; backdrop-filter: blur(2px); }
-    
-    .sidebar .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
-    .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    
+    .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; }
+    .sidebar .logo { display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
+    .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
     .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 16px; border-radius: 6px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
+    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.9rem; padding: 10px 14px; border-radius: 6px; display: flex; align-items: center; gap: 10px; transition: 0.2s;}
     .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
-    
     .main-content { flex: 1; padding: 40px; overflow-y: auto; }
     .header { display: flex; align-items: center; margin-bottom: 30px; }
     .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800;}
-    .section-title { color: var(--text-heading); margin: 30px 0 20px; font-size: 1.4rem; font-weight: 700; }
-    
     .payout-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px; }
-    .payout-card { background: var(--card-bg); padding: 30px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);}
-    .payout-card h3 { color: var(--text-heading); font-size: 1.1rem; margin-bottom: 10px; font-weight: 700; }
+    .payout-card { background: var(--card-bg); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.02);}
+    .payout-card h3 { color: var(--text-heading); font-size: 1.1rem; margin-bottom: 10px; }
+    .payout-card .amount { font-size: 2.5rem; font-weight: 800; color: var(--text-heading); }
+    .payout-card .status { display: inline-block; padding: 6px 14px; background: #f1f5f9; border-radius: 20px; font-size: 0.85rem; margin-top: 15px; font-weight: 600; }
+    .history-container { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; padding: 20px;}
     
-    .payout-card .amount { font-size: 2.2rem; font-weight: 700; color: #94a3b8; font-style: italic; letter-spacing: 1px; }
-    .payout-card .status { display: inline-block; padding: 5px 12px; background: #f1f5f9; border-radius: 20px; font-size: 0.85rem; margin-top: 15px; font-weight: 600; }
-    .status.empty { background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; }
-    
-    .history-container { background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05); min-height: 250px; display: flex; align-items: center; justify-content: center; }
-    
-    .empty-state { text-align: center; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
-    .empty-state-icon { width: 70px; height: 70px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 20px; color: #94a3b8; }
-    .empty-state h3 { color: var(--text-heading); font-size: 1.25rem; font-weight: 700; margin-bottom: 10px; }
-    .empty-state p { color: var(--text-sub); font-size: 0.95rem; max-width: 380px; line-height: 1.5; }
-
     @media (max-width: 768px) {
-      .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
-      .sidebar.active { left: 0; margin-left: 0; }
+      .sidebar { position: fixed; left: -260px; height: 100vh; }
+      .sidebar.active { left: 0; }
       .sidebar-overlay.active { display: block; }
       .main-content { padding: 20px; }
-      .header h1 { font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
   <aside class="sidebar" id="sidebar">
     <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
     <ul class="nav-links">
-      <li><a href="advisor-dashboard.html">📊 Advisor Hub</a></li>
+      <li><a href="analytics-dashboard.html">📊 Analytics Dashboard</a></li>
       <li><a href="manage-availability.html">📅 Manage Availability</a></li>
+      <li><a href="upcoming-sessions.html">🎥 Upcoming Sessions</a></li>
       <li><a href="earnings-payouts.html" class="active">💰 Earnings & Payouts</a></li>
       <li><a href="client-messages.html">💬 Client Messages</a></li>
+      <li><a href="reviews-ratings.html">⭐ Reviews & Ratings</a></li>
+      <li><a href="advisor-notifications.html">🔔 Notifications Center</a></li>
+      <li><a href="achievements-badges.html">🏆 Achievements & Badges</a></li>
+      <li><a href="advisor-support.html">❓ Support & Help</a></li>
       <li><a href="profile-settings.html">⚙️ Profile Settings</a></li>
     </ul>
   </aside>
@@ -79,37 +63,23 @@
     <div class="payout-grid">
       <div class="payout-card">
         <h3>This Month (Pending)</h3>
-        <div class="amount">null</div>
-        <div class="status empty">No pending payouts</div>
+        <div class="amount">$2,840.00</div>
+        <div class="status" style="background: #fef3c7; color: #b45309;">Pending Payout (1st of Month)</div>
       </div>
       <div class="payout-card">
         <h3>Previous Month (Paid)</h3>
-        <div class="amount">null</div>
-        <div class="status empty">No previous payouts</div>
+        <div class="amount">$2,100.00</div>
+        <div class="status" style="background: #dcfce7; color: #166534;">Deposited to Bank Acc</div>
       </div>
     </div>
-
-    <h2 class="section-title">Transaction History</h2>
+    
+    <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 20px;">Recent Transactions</h2>
     <div class="history-container">
-      <div class="empty-state">
-        <div class="empty-state-icon">💸</div>
-        <h3>No earnings to display</h3>
-        <p>Once you complete your first consultation session, your earnings and payout history will be tracked and displayed here.</p>
-      </div>
+      <p style="color: var(--text-sub); text-align: center; padding: 40px 0;">Payout history will populate here once the cycle closes.</p>
     </div>
   </main>
-
   <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('sidebarOverlay');
-      if (window.innerWidth <= 768) { 
-        sidebar.classList.toggle('active'); 
-        overlay.classList.toggle('active'); 
-      } else { 
-        sidebar.classList.toggle('hidden'); 
-      }
-    }
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); document.getElementById('sidebarOverlay').classList.toggle('active'); }
   </script>
 </body>
 </html>

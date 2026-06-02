@@ -3,13 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Find Advisors | YourProAdvisor</title>
-  
-  <!-- Added Google Web Fonts for 100% Mobile & Desktop consistency -->
+  <title>User Dashboard | YourProAdvisor</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
   <style>
-    /* --- Premium Corporate Variables --- */
     :root { 
       --bg-color: #f8fafc; 
       --sidebar-bg: #ffffff; 
@@ -21,16 +17,12 @@
       --card-bg: #ffffff; 
       --border-color: #e2e8f0; 
       --success-green: #16a34a; 
-      --warning-gold: #f59e0b;
       --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-      --ai-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
     }
     
-    /* Using 'Inter' to fix the mobile font mismatch */
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
     body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
     
-    /* Sidebar & Toggle */
     .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; transition: color 0.2s; padding-right: 15px; }
     .menu-toggle:hover { color: var(--primary-btn); }
     
@@ -45,139 +37,48 @@
     .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
     .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
     
-    /* Main Content */
     .main-content { flex: 1; padding: 40px; overflow-y: auto; }
-    .header { display: flex; align-items: center; margin-bottom: 30px; }
+    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; }
+    .header-left { display: flex; align-items: center; }
     .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800; letter-spacing: -0.5px;}
-
-    /* AI Search Section */
-    .ai-search-container {
-      background: var(--card-bg);
-      padding: 30px;
-      border-radius: 16px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-      margin-bottom: 40px;
-      text-align: center;
-    }
-
-    .ai-search-container h2 {
-      color: var(--text-heading);
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-    }
-
-    .ai-search-container p {
-      color: var(--text-sub);
-      margin-bottom: 25px;
-      font-size: 1rem;
-    }
-
-    .search-wrapper {
-      display: flex;
-      align-items: center;
-      background: var(--bg-offwhite);
-      border: 1px solid #cbd5e1;
-      border-radius: 50px;
-      padding: 8px 8px 8px 20px;
-      max-width: 800px;
-      margin: 0 auto;
-      transition: all 0.3s ease;
-    }
     
-    .search-wrapper:focus-within {
-      border-color: #8b5cf6;
-      background: var(--bg-white);
-      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
-    }
-
-    .search-wrapper input {
-      flex: 1;
-      border: none;
-      outline: none;
-      font-size: 1.05rem;
-      color: var(--text-heading);
-      background: transparent;
-    }
-
-    .btn-ai {
-      background: var(--ai-gradient);
-      color: white;
-      border: none;
-      padding: 12px 28px;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .btn-ai:hover { transform: scale(1.02); }
-
-    /* Advisor Results Grid */
-    .section-title { color: var(--text-heading); margin-bottom: 20px; font-size: 1.4rem; font-weight: 700; display: flex; align-items: center; justify-content: space-between; }
+    .widget-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 40px; }
+    .widget-card { background: var(--card-bg); padding: 24px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05); }
+    .widget-card h3 { color: var(--text-sub); font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; }
+    .widget-card .number { font-size: 2.2rem; font-weight: 800; color: var(--text-heading); }
     
-    .advisor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; padding-bottom: 40px; }
-    
-    .advisor-card { 
-      background: var(--card-bg); padding: 24px; border-radius: 12px; 
-      border: 1px solid var(--border-color); box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04); 
-      display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; 
-      position: relative; /* Added for the save button */
-    }
+    .section-title { color: var(--text-heading); margin-bottom: 20px; font-size: 1.4rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+    .view-all { font-size: 0.9rem; color: var(--primary-btn); text-decoration: none; font-weight: 600; }
+    .view-all:hover { text-decoration: underline; }
+
+    .session-card { background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05); border-left: 4px solid var(--primary-btn);}
+    .session-info h4 { color: var(--text-heading); font-size: 1.1rem; margin-bottom: 4px; font-weight: 700; }
+    .session-info p { color: var(--text-sub); font-size: 0.95rem; display: flex; align-items: center; gap: 8px; }
+    .btn-join { background: var(--primary-btn); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    .btn-join:hover { background: var(--primary-hover); }
+
+    .advisor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px; }
+    .advisor-card { background: var(--card-bg); padding: 24px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04); transition: transform 0.2s, box-shadow 0.2s; }
     .advisor-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08); border-color: #cbd5e1; }
     
-    /* Save/Bookmark Button */
-    .btn-save-advisor {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: none;
-      border: none;
-      font-size: 1.4rem;
-      cursor: pointer;
-      transition: transform 0.2s;
-      color: #cbd5e1;
-    }
-    .btn-save-advisor.saved { color: #ef4444; } /* Red filled heart */
-    .btn-save-advisor:hover { transform: scale(1.1); }
-
-    .advisor-header { display: flex; gap: 15px; margin-bottom: 20px; align-items: center;}
-    .advisor-avatar { width: 55px; height: 55px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-    .advisor-name h4 { color: var(--text-heading); font-size: 1.2rem; font-weight: 700; margin-bottom: 3px; max-width: 80%;}
-    .advisor-name p { color: var(--primary-btn); font-size: 0.9rem; font-weight: 600; }
+    .advisor-header { display: flex; gap: 15px; margin-bottom: 15px; align-items: center;}
+    .advisor-avatar { width: 50px; height: 50px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .advisor-name h4 { color: var(--text-heading); font-size: 1.1rem; font-weight: 700; }
+    .advisor-name p { color: var(--primary-btn); font-size: 0.85rem; font-weight: 600; }
     
-    /* Stats Row (Rating, Sessions, Hours) */
-    .stats-row { 
-      display: flex; justify-content: space-between; 
-      background: var(--bg-offwhite); padding: 12px; border-radius: 8px; 
-      margin-bottom: 20px; border: 1px solid var(--border-color);
-    }
-    .stat-box { text-align: center; flex: 1; border-right: 1px solid var(--border-color); }
-    .stat-box:last-child { border-right: none; }
-    .stat-val { display: block; font-weight: 800; color: var(--text-heading); font-size: 1.1rem; }
-    .stat-label { font-size: 0.75rem; color: var(--text-sub); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;}
-    .rating-star { color: var(--warning-gold); }
-
-    /* Pricing Section */
-    .pricing-title { font-size: 0.85rem; color: var(--text-sub); font-weight: 600; margin-bottom: 10px; text-transform: uppercase;}
-    .pricing-tiers { display: flex; gap: 10px; margin-bottom: 24px; }
-    .price-pill { flex: 1; text-align: center; border: 1px solid var(--border-color); border-radius: 8px; padding: 10px 5px; transition: border 0.2s; cursor: default;}
-    .price-pill:hover { border-color: var(--primary-btn); background: var(--bg-blue-light); }
-    .price-time { display: block; font-size: 0.8rem; color: var(--text-sub); font-weight: 500; margin-bottom: 4px; }
-    .price-amt { display: block; font-size: 1.1rem; font-weight: 800; color: var(--text-heading); }
-
-    .btn-book { background: var(--dark-blue); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; width: 100%; font-size: 1rem; margin-top: auto;}
-    .btn-book:hover { background: var(--text-heading); opacity: 0.9; }
-
+    .advisor-card .bio { color: var(--text-sub); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5; }
+    
+    .btn-outline { display: block; width: 100%; text-align: center; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-weight: 600; text-decoration: none; transition: all 0.2s; }
+    .btn-outline:hover { background: #f8fafc; border-color: #94a3b8; }
+    
     @media (max-width: 768px) {
       .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
       .sidebar.active { left: 0; margin-left: 0; }
       .sidebar-overlay.active { display: block; }
       .main-content { padding: 20px; }
       .header h1 { font-size: 1.6rem; }
-      .search-wrapper { flex-direction: column; background: transparent; border: none; padding: 0; gap: 10px;}
-      .search-wrapper input { width: 100%; background: var(--bg-white); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px; text-align: center; }
-      .btn-ai { width: 100%; border-radius: 8px; padding: 14px; }
+      .session-card { flex-direction: column; align-items: flex-start; gap: 15px; }
+      .btn-join { width: 100%; }
     }
   </style>
 </head>
@@ -187,89 +88,56 @@
   <aside class="sidebar" id="sidebar">
     <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
     <ul class="nav-links">
-      <li><a href="user-dashboard.html">📊 Dashboard</a></li>
-      <li><a href="find-advisors.html" class="active">🔍 Find Advisors</a></li>
+      <li><a href="user-dashboard.html" class="active">📊 Dashboard</a></li>
+      <li><a href="find-advisors.html">🔍 Find Advisors</a></li>
       <li><a href="my-sessions.html">📅 My Sessions</a></li>
       <li><a href="user-messages.html">💬 Messages</a></li>
+      <li><a href="wallet-payment.html">💳 Wallet & Payment</a></li>
+      <li><a href="notifications.html">🔔 Notifications</a></li>
+      <li><a href="support-help.html">❓ Support & Help</a></li>
       <li><a href="user-settings.html">⚙️ Profile Settings</a></li>
     </ul>
   </aside>
 
   <main class="main-content">
     <div class="header">
-      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-      <h1>Find Your Advisor</h1>
-    </div>
-
-    <!-- AI Matchmaker Section -->
-    <div class="ai-search-container">
-      <h2>What field are you looking to explore?</h2>
-      <p>Tell our AI what you need help with, and we'll instantly match you with the best professionals.</p>
-      
-      <div class="search-wrapper">
-        <input type="text" placeholder="e.g., 'I need an expert in VLSI front-end design and Verilog'...">
-        <button class="btn-ai">✨ Match Me</button>
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <h1>Welcome back, Ayush 👋</h1>
       </div>
     </div>
     
-    <!-- Saved Advisors Section -->
-    <h2 class="section-title">Saved Advisors</h2>
-    
-    <div class="advisor-grid" style="border-bottom: 1px solid var(--border-color); margin-bottom: 30px;">
-      <!-- Saved Advisor 1 -->
-      <div class="advisor-card" style="border-color: #cbd5e1; background: #f8fafc;">
-        <button class="btn-save-advisor saved" title="Remove from saved">❤️</button>
-        <div class="advisor-header">
-          <div class="advisor-avatar">🚀</div>
-          <div class="advisor-name">
-            <h4>Sarah Jenkins</h4>
-            <p>Startup Strategy</p>
-          </div>
-        </div>
-        
-        <div class="stats-row">
-          <div class="stat-box">
-            <span class="stat-val"><span class="rating-star">★</span> 4.8</span>
-            <span class="stat-label">Rating</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-val">89</span>
-            <span class="stat-label">Sessions</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-val">60h</span>
-            <span class="stat-label">Invested</span>
-          </div>
-        </div>
-
-        <div class="pricing-title">Consultation Rates</div>
-        <div class="pricing-tiers">
-          <div class="price-pill">
-            <span class="price-time">15 min</span>
-            <span class="price-amt">$25</span>
-          </div>
-          <div class="price-pill">
-            <span class="price-time">30 min</span>
-            <span class="price-amt">$45</span>
-          </div>
-          <div class="price-pill">
-            <span class="price-time">60 min</span>
-            <span class="price-amt">$80</span>
-          </div>
-        </div>
-
-        <button class="btn-book">View Profile & Book</button>
+    <div class="widget-grid">
+      <div class="widget-card">
+        <h3>Upcoming Sessions</h3>
+        <div class="number">1</div>
+      </div>
+      <div class="widget-card">
+        <h3>Saved Advisors</h3>
+        <div class="number">3</div>
+      </div>
+      <div class="widget-card">
+        <h3>Hours Consulted</h3>
+        <div class="number">0</div>
       </div>
     </div>
 
-    <!-- Top Matches Section -->
-    <h2 class="section-title">Top Matches for You</h2>
+    <h2 class="section-title">Next Scheduled Session</h2>
+    <div class="session-card">
+      <div class="session-info">
+        <h4>System Architecture Review</h4>
+        <p>📅 Tomorrow, 10:00 AM IST • 👨‍💻 with Michael Chen</p>
+      </div>
+      <button class="btn-join">Join Video Call</button>
+    </div>
+
+    <div class="section-title">
+      <h2>Recommended for You</h2>
+      <a href="find-advisors.html" class="view-all">View All →</a>
+    </div>
     
     <div class="advisor-grid">
-      
-      <!-- Match 1 -->
       <div class="advisor-card">
-        <button class="btn-save-advisor" title="Save this advisor">🤍</button>
         <div class="advisor-header">
           <div class="advisor-avatar">⚙️</div>
           <div class="advisor-name">
@@ -277,44 +145,11 @@
             <p>VLSI & Hardware Design</p>
           </div>
         </div>
-        
-        <div class="stats-row">
-          <div class="stat-box">
-            <span class="stat-val"><span class="rating-star">★</span> 4.9</span>
-            <span class="stat-label">Rating</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-val">142</span>
-            <span class="stat-label">Sessions</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-val">95h</span>
-            <span class="stat-label">Invested</span>
-          </div>
-        </div>
-
-        <div class="pricing-title">Consultation Rates</div>
-        <div class="pricing-tiers">
-          <div class="price-pill">
-            <span class="price-time">15 min</span>
-            <span class="price-amt">$20</span>
-          </div>
-          <div class="price-pill">
-            <span class="price-time">30 min</span>
-            <span class="price-amt">$35</span>
-          </div>
-          <div class="price-pill" style="border-color: var(--primary-btn); background: var(--bg-blue-light);">
-            <span class="price-time">60 min</span>
-            <span class="price-amt">$60</span>
-          </div>
-        </div>
-
-        <button class="btn-book">View Profile & Book</button>
+        <p class="bio">Senior engineer specializing in Verilog, front-end verification, and ASIC design flow methodologies.</p>
+        <a href="#" class="btn-outline">View Profile & Book</a>
       </div>
 
-      <!-- Match 2 -->
       <div class="advisor-card">
-        <button class="btn-save-advisor" title="Save this advisor">🤍</button>
         <div class="advisor-header">
           <div class="advisor-avatar">💻</div>
           <div class="advisor-name">
@@ -322,41 +157,21 @@
             <p>Software Engineering</p>
           </div>
         </div>
-        
-        <div class="stats-row">
-          <div class="stat-box">
-            <span class="stat-val"><span class="rating-star">★</span> 5.0</span>
-            <span class="stat-label">Rating</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-val">308</span>
-            <span class="stat-label">Sessions</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-val">210h</span>
-            <span class="stat-label">Invested</span>
-          </div>
-        </div>
-
-        <div class="pricing-title">Consultation Rates</div>
-        <div class="pricing-tiers">
-          <div class="price-pill">
-            <span class="price-time">15 min</span>
-            <span class="price-amt">$30</span>
-          </div>
-          <div class="price-pill">
-            <span class="price-time">30 min</span>
-            <span class="price-amt">$50</span>
-          </div>
-          <div class="price-pill">
-            <span class="price-time">60 min</span>
-            <span class="price-amt">$90</span>
-          </div>
-        </div>
-
-        <button class="btn-book">View Profile & Book</button>
+        <p class="bio">Ex-FAANG Tech Lead. Helping engineers crack technical interviews and build scalable backend systems.</p>
+        <a href="#" class="btn-outline">View Profile & Book</a>
       </div>
 
+      <div class="advisor-card">
+        <div class="advisor-header">
+          <div class="advisor-avatar">🚀</div>
+          <div class="advisor-name">
+            <h4>Sarah Jenkins</h4>
+            <p>Startup Strategy</p>
+          </div>
+        </div>
+        <p class="bio">Serial founder and YC alumni. Mentoring early-stage founders on product-market fit and fundraising.</p>
+        <a href="#" class="btn-outline">View Profile & Book</a>
+      </div>
     </div>
   </main>
 

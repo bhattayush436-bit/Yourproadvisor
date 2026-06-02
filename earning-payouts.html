@@ -42,7 +42,10 @@
     .payout-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px; }
     .payout-card { background: var(--card-bg); padding: 30px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);}
     .payout-card h3 { color: var(--text-heading); font-size: 1.1rem; margin-bottom: 10px; font-weight: 700; }
-    .payout-card .amount { font-size: 2.8rem; font-weight: 800; color: var(--text-heading); /* Defaulted to heading color for $0 */ }
+    
+    /* Adjusted amount styling for null text */
+    .payout-card .amount { font-size: 2.2rem; font-weight: 700; color: #94a3b8; font-style: italic; letter-spacing: 1px; }
+    
     .payout-card .status { display: inline-block; padding: 5px 12px; background: #f1f5f9; border-radius: 20px; font-size: 0.85rem; margin-top: 15px; font-weight: 600; }
     .status.empty { background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; }
     
@@ -86,16 +89,16 @@
       </div>
     </div>
     
-    <!-- Balance Cards Displaying Zero -->
+    <!-- Balance Cards Displaying null -->
     <div class="payout-grid">
       <div class="payout-card">
         <h3>This Month (Pending)</h3>
-        <div class="amount">$0.00</div>
+        <div class="amount">null</div>
         <div class="status empty">No pending payouts</div>
       </div>
       <div class="payout-card">
         <h3>Previous Month (Paid)</h3>
-        <div class="amount">$0.00</div>
+        <div class="amount">null</div>
         <div class="status empty">No previous payouts</div>
       </div>
     </div>

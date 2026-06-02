@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YourProAdvisor | Elite On-Demand Consultation</title>
+    <title>YourProAdvisor | Elite 1-on-1 Consultation Platform</title>
     <style>
         :root {
             --primary: #059669;
             --primary-hover: #047857;
-            --secondary: #6366f1;
+            --secondary: #4f46e5;
             --dark: #0f172a;
             --light: #f8fafc;
             --gray-text: #64748b;
@@ -21,7 +21,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
         body { background-color: var(--light); color: var(--dark); line-height: 1.6; padding-top: 4.5rem; }
 
-        /* CLEANED HORIZONTAL NAV BAR */
+        /* NAVIGATION HEADER */
         nav {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(8px);
@@ -43,12 +43,6 @@
             white-space: nowrap;
         }
 
-        .nav-buttons { 
-            display: flex; 
-            align-items: center;
-            justify-content: flex-end;
-        }
-
         .nav-buttons .btn-alt {
             text-decoration: none; color: var(--dark);
             font-weight: 600; font-size: 0.9rem;
@@ -57,35 +51,74 @@
         }
         .nav-buttons .btn-alt:hover { color: var(--primary); }
 
-        /* Content Blocks */
+        /* HERO SECTION */
         .hero {
-            padding: 3rem 1rem 4rem 1rem;
+            padding: 4rem 1rem 5rem 1rem;
             background: radial-gradient(circle at top right, #f0fdf4 0%, #eff6ff 50%, #f5f3ff 100%);
             text-align: center;
         }
 
-        .hero h1 { font-size: 2rem; font-weight: 800; max-width: 850px; margin: 0 auto 1rem auto; letter-spacing: -0.025em; line-height: 1.2; }
-        .hero p { font-size: 1rem; color: var(--gray-text); max-width: 650px; margin: 0 auto 1.75rem auto; }
+        /* Trust Badge Component */
+        .trust-badge-mini {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hero h1 { font-size: 2.2rem; font-weight: 800; max-width: 850px; margin: 0 auto 1rem auto; letter-spacing: -0.025em; line-height: 1.2; color: var(--dark); }
+        .hero p { font-size: 1.1rem; color: var(--gray-text); max-width: 650px; margin: 0 auto 2rem auto; }
         .split-buttons { display: flex; flex-direction: column; gap: 0.75rem; max-width: 300px; margin: 0 auto; }
 
+        /* LIVE STATS RIBBON */
+        .stats-ribbon {
+            background: white;
+            border-y: 1px solid var(--border);
+            padding: 2rem 1rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+        .stat-item h3 { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+        .stat-item p { font-size: 0.85rem; color: var(--gray-text); font-weight: 600; text-transform: uppercase; }
+
+        /* AI MATCHMAKER CONTAINER */
         .ai-section {
-            margin: -2rem 1rem 3rem 1rem; background: white;
+            margin: -2rem 1rem 4rem 1rem; background: white;
             padding: 1.5rem; border-radius: 16px; box-shadow: var(--card-shadow);
             position: relative; z-index: 10; border: 1px solid #eef2f6;
         }
-
         .ai-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
-        .ai-header h3 { font-size: 1.1rem; }
+        .ai-header h3 { font-size: 1.1rem; font-weight: 700; }
         .ai-badge { background: var(--ai-gradient); color: white; padding: 0.2rem 0.5rem; border-radius: 30px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; }
         .ai-input-wrapper { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
         .ai-input { width: 100%; padding: 0.85rem 1rem; border: 2px solid var(--border); border-radius: 10px; font-size: 0.95rem; outline: none; }
         .btn-ai { background: var(--ai-gradient); color: white; padding: 0.85rem; width: 100%; justify-content: center; }
-
         .ai-response { margin-top: 1.25rem; padding: 1rem; background: #f5f3ff; border-left: 4px solid #7c3aed; border-radius: 4px 10px 10px 4px; font-size: 0.9rem; display: none; }
 
-        .container { margin: 2rem auto; padding: 0 1rem; max-width: 1140px; }
+        /* TRUST BLUEPRINT: HOW IT WORKS */
+        .blueprint-section { padding: 4rem 1rem; background: #ffffff; text-align: center; border-bottom: 1px solid var(--border); }
+        .blueprint-section h2 { font-size: 1.75rem; font-weight: 800; margin-bottom: 2rem; }
+        .blueprint-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 1140px; margin: 0 auto; }
+        .step-card { padding: 1.5rem; text-align: left; background: var(--light); border-radius: 12px; border: 1px solid var(--border); }
+        .step-num { font-size: 1.5rem; font-weight: 800; color: var(--secondary); margin-bottom: 0.5rem; }
+        .step-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .step-card p { font-size: 0.9rem; color: var(--gray-text); }
+
+        /* DIRECTORY CATALOG AREA */
+        .container { margin: 4rem auto; padding: 0 1rem; max-width: 1140px; }
         .section-header { margin-bottom: 1.5rem; }
-        .section-header h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1rem; }
+        .section-header h2 { font-size: 1.75rem; font-weight: 800; margin-bottom: 1rem; }
 
         .filters { 
             display: flex; gap: 0.5rem; overflow-x: auto; 
@@ -96,25 +129,31 @@
         .filter-btn { padding: 0.5rem 1rem; border: 1px solid var(--border); background: white; border-radius: 30px; cursor: pointer; font-weight: 600; color: var(--gray-text); font-size: 0.8rem; white-space: nowrap; flex-shrink: 0; }
         .filter-btn.active, .filter-btn:hover { background-color: var(--dark); color: white; border-color: var(--dark); }
 
-        .grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
-        .card { background: white; border-radius: 16px; padding: 1.5rem; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; display: flex; flex-direction: column; justify-content: space-between; }
+        /* ADVOCATE/ADVISOR GRID SYSTEM */
+        .grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        .card { background: white; border-radius: 16px; padding: 1.75rem; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; display: flex; flex-direction: column; justify-content: space-between; }
         .card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.08); }
         .card.highlighted { border: 2px solid #7c3aed; box-shadow: 0 0 25px rgba(124, 58, 237, 0.15); transform: scale(1.02); }
         
-        .expert-tag { align-self: flex-start; background: #ecfdf5; color: #065f46; padding: 0.25rem 0.65rem; border-radius: 30px; font-size: 0.7rem; font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; }
+        .card-top { position: relative; }
+        .expert-tag { align-self: flex-start; background: #ecfdf5; color: #065f46; padding: 0.3rem 0.85rem; border-radius: 30px; font-size: 0.7rem; font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; display: inline-block; }
         .card[data-category="Business"] .expert-tag { background: #fffbeb; color: #92400e; }
         .card[data-category="Career"] .expert-tag { background: #f0f9ff; color: #0369a1; }
         .card[data-category="Music"] .expert-tag { background: #fdf2f8; color: #9d174d; }
 
-        .card h3 { font-size: 1.25rem; margin-bottom: 0.4rem; }
-        .card .bio { color: var(--gray-text); font-size: 0.9rem; margin-bottom: 1.5rem; }
-        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1rem; }
-        .rate { font-size: 1.1rem; font-weight: 800; }
+        /* Trust Checkmark Badge on Profiles */
+        .verified-title { display: flex; align-items: center; gap: 0.4rem; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .badge-verified { color: var(--primary); font-size: 1rem; font-weight: 900; }
 
-        .btn { background: var(--brand-gradient); color: white; padding: 0.65rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; display: inline-flex; align-items: center; }
+        .card .bio { color: var(--gray-text); font-size: 0.95rem; margin-bottom: 1.5rem; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1.25rem; }
+        .rate { font-size: 1.2rem; font-weight: 800; color: var(--dark); }
+
+        /* BUTTON FRAMEWORKS */
+        .btn { background: var(--brand-gradient); color: white; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; display: inline-flex; align-items: center; }
         .btn-secondary { background: var(--dark); }
 
-        /* Booking Modals */
+        /* BOOKING MODAL MECHANICS */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px); justify-content: center; align-items: flex-end; z-index: 1000; }
         .modal-content { background: white; padding: 2rem 1.25rem; border-radius: 24px 24px 0 0; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
         
@@ -137,22 +176,29 @@
         .form-group input, .form-group textarea { width: 100%; padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px; outline: none; font-size: 0.9rem; }
         .success-graphic { font-size: 3rem; color: var(--primary); margin: 1rem 0; }
 
+        /* WIDE SCREEN DESKTOP RESPONSIVE SCALE UP */
         @media (min-width: 768px) {
             body { padding-top: 5rem; }
             nav { padding: 1rem 2rem; }
             .logo { font-size: 1.5rem; }
-            .nav-buttons .btn-alt { font-size: 0.95rem; }
             .hero { padding: 6rem 2rem 7rem 2rem; }
             .hero h1 { font-size: 3.2rem; }
             .hero p { font-size: 1.25rem; }
             .split-buttons { flex-direction: row; max-width: none; justify-content: center; }
-            .ai-section { margin: -3.5rem auto 4rem auto; padding: 2.5rem; max-width: 850px; }
+            
+            .stats-ribbon { grid-template-columns: repeat(4, 1fr); max-width: 1140px; margin: 0 auto; border-radius: 16px; border: 1px solid var(--border); position: relative; margin-top: -3rem; z-index: 20; }
+            .ai-section { margin: 3rem auto 4rem auto; padding: 2.5rem; max-width: 850px; }
             .ai-input-wrapper { flex-direction: row; }
             .btn-ai { width: auto; }
+            
+            .blueprint-section { padding: 5rem 2rem; }
+            .blueprint-grid { grid-template-columns: repeat(3, 1fr); }
+            
             .filters { margin: 0 0 2.5rem 0; padding-left: 0; overflow-x: visible; }
             .filter-btn { font-size: 0.85rem; }
-            .grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
-            .card { padding: 2.25rem; }
+            .grid { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; }
+            .card { padding: 2.5rem; }
+            
             .modal { align-items: center; }
             .modal-content { border-radius: 24px; max-width: 500px; width: 90%; padding: 2.5rem; }
         }
@@ -168,26 +214,69 @@
     </nav>
 
     <section class="hero">
+        <div class="trust-badge-mini">🛡️ 100% Verified Top Advisors</div>
         <h1>Connect with elite professionals for 1-on-1 scheduled sessions</h1>
-        <p>Get instant clarity, tackle roadblocks, refine business operations, or elevate artistic direction via dynamic booking blocks.</p>
+        <p>Get instant clarity, tackle roadblocks, refine business operations, or elevate artistic direction via secure, dynamic booking blocks.</p>
         <div class="split-buttons">
             <a href="#marketplace" class="btn">Find an Advisor</a>
             <a href="advisor.html" id="heroAdvisorAction" class="btn btn-secondary">Apply as an Advisor</a>
         </div>
     </section>
 
+    <!-- TRUST METRICS PANEL -->
+    <section class="stats-ribbon">
+        <div class="stat-item">
+            <h3>99.4%</h3>
+            <p>Satisfaction Rate</p>
+        </div>
+        <div class="stat-item">
+            <h3>15,000+</h3>
+            <p>Sessions Logged</p>
+        </div>
+        <div class="stat-item">
+            <h3>400+</h3>
+            <p>Verified Experts</p>
+        </div>
+        <div class="stat-item">
+            <h3>Secure</h3>
+            <p>Escrow Payments</p>
+        </div>
+    </section>
+
     <!-- AI Matchmaker Section -->
     <div class="ai-section">
         <div class="ai-header">
-            <span class="ai-badge">AI Assistant</span>
-            <h3>Looking for a specific capability?</h3>
+            <span class="ai-badge">AI Matchmaker</span>
+            <h3>Describe your issue to find the ideal professional</h3>
         </div>
         <div class="ai-input-wrapper">
-            <input type="text" id="aiPrompt" class="ai-input" placeholder="e.g., I want to build out a VLSI layout architecture...">
+            <input type="text" id="aiPrompt" class="ai-input" placeholder="e.g., I need to build out an RTL micro-architecture block...">
             <button class="btn btn-ai" onclick="askAI()">Find Matches</button>
         </div>
         <div id="aiResponse" class="ai-response"></div>
     </div>
+
+    <!-- HOW IT WORKS BLUEPRINT -->
+    <section class="blueprint-section">
+        <h2>Consultation Blueprint in 3 Simple Steps</h2>
+        <div class="blueprint-grid">
+            <div class="step-card">
+                <div class="step-num">01</div>
+                <h4>Select Verified Advisor</h4>
+                <p>Browse backgrounds, verified customer feedback rating indices, and specialized expertise portfolios across our global system catalog.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">02</div>
+                <h4>Pick a Time Block</h4>
+                <p>Choose an optimized time duration framework matching your precise roadmap deadline challenges.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">03</div>
+                <h4>Connect 1-on-1 Securely</h4>
+                <p>Conduct your dedicated consultation room session safely with professional privacy infrastructure guidelines.</p>
+            </div>
+        </div>
+    </section>
 
     <!-- Marketplace Section -->
     <div class="container" id="marketplace">
@@ -204,19 +293,35 @@
 
         <div class="grid" id="expertsGrid">
             <div class="card" data-category="Tech" data-keywords="hardware vlsi architecture engineering rtl chips circuits microprocessors">
-                <div><span class="expert-tag">Tech & Hardware</span><h3>Arjan Dev</h3><p class="bio">Senior Hardware Engineer specializing in VLSI Frontend Architecture, custom microprocessors, and optimized RTL logic verification structures.</p></div>
+                <div class="card-top">
+                    <span class="expert-tag">Tech & Hardware</span>
+                    <div class="verified-title">Arjan Dev <span class="badge-verified">✓</span></div>
+                    <p class="bio">Senior Hardware Engineer specializing in VLSI Frontend Architecture, custom microprocessors, and optimized RTL logic verification structures.</p>
+                </div>
                 <div class="card-footer"><span class="rate">₹3,500/hr</span><button class="btn" onclick="openBooking('Arjan Dev')">Book Slot</button></div>
             </div>
             <div class="card" data-category="Business" data-keywords="startup venture pitch marketing capital growth fundraising funding deck canvas models">
-                <div><span class="expert-tag">Business & Startups</span><h3>Marcus Vance</h3><p class="bio">Venture Strategist. Helps alternative startup teams organize seed fundraising assets, pitch logic flow, and execute growth canvas models.</p></div>
+                <div class="card-top">
+                    <span class="expert-tag">Business & Startups</span>
+                    <div class="verified-title">Marcus Vance <span class="badge-verified">✓</span></div>
+                    <p class="bio">Venture Strategist. Helps alternative startup teams organize seed fundraising assets, pitch logic flow, and execute growth canvas models.</p>
+                </div>
                 <div class="card-footer"><span class="rate">₹5,000/hr</span><button class="btn" onclick="openBooking('Marcus Vance')">Book Slot</button></div>
             </div>
             <div class="card" data-category="Career" data-keywords="career interview resume job executive corporate management strategy salary transition hire">
-                <div><span class="expert-tag">Career Coaching</span><h3>Elena Rostova</h3><p class="bio">Executive Coach & Headhunter. Guides strategic mock technical/behavioral interviews, salary negotiation pathways, and high-impact corporate performance metrics.</p></div>
+                <div class="card-top">
+                    <span class="expert-tag">Career Coaching</span>
+                    <div class="verified-title">Elena Rostova <span class="badge-verified">✓</span></div>
+                    <p class="bio">Executive Coach & Headhunter. Guides strategic mock technical/behavioral interviews, salary negotiation pathways, and high-impact corporate performance metrics.</p>
+                </div>
                 <div class="card-footer"><span class="rate">₹4,000/hr</span><button class="btn" onclick="openBooking('Elena Rostova')">Book Slot</button></div>
             </div>
             <div class="card" data-category="Music" data-keywords="music production mix master mixing mastering logic tracks design acoustics beats synth analog">
-                <div><span class="expert-tag">Music & Production</span><h3>Devon Cole</h3><p class="bio">Platinum Sound Designer and Audio Specialist. Mentoring modern workflows in tracking, analog mix dynamics, hybrid stem structures, and acoustic balancing templates.</p></div>
+                <div class="card-top">
+                    <span class="expert-tag">Music & Production</span>
+                    <div class="verified-title">Devon Cole <span class="badge-verified">✓</span></div>
+                    <p class="bio">Platinum Sound Designer and Audio Specialist. Mentoring modern workflows in tracking, analog mix dynamics, hybrid stem structures, and acoustic balancing templates.</p>
+                </div>
                 <div class="card-footer"><span class="rate">₹4,500/hr</span><button class="btn" onclick="openBooking('Devon Cole')">Book Slot</button></div>
             </div>
         </div>
@@ -288,7 +393,7 @@
             document.querySelectorAll('.card').forEach(card => {
                 const keywords = card.getAttribute('data-keywords').split(' ');
                 let matches = 0; keywords.forEach(word => { if (prompt.includes(word)) matches++; });
-                if (matches > maxCount) { maxCount = matches; matchedAdvisor = { el: card, name: card.querySelector('h3').innerText, tag: card.querySelector('.expert-tag').innerText }; }
+                if (matches > maxCount) { maxCount = matches; matchedAdvisor = { el: card, name: card.querySelector('.verified-title').innerText.replace('✓', '').trim(), tag: card.querySelector('.expert-tag').innerText }; }
             });
 
             responseBox.style.display = 'block';

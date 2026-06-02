@@ -2,218 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1200, initial-scale=1.0">
-    <title>YourProAdvisor | Elite On-Demand Consultation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YourProAdvisor | Elite Consultation</title>
     <style>
         :root {
-            --primary: #059669;
-            --primary-hover: #047857;
-            --secondary: #6366f1;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --gray-text: #64748b;
-            --border: #e2e8f0;
-            --card-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+            --primary: #059669; --dark: #0f172a; --light: #f8fafc;
             --brand-gradient: linear-gradient(135deg, #059669 0%, #3b82f6 100%);
-            --ai-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
         }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background-color: var(--light); color: var(--dark); line-height: 1.6; padding-top: 4rem; }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-        
-        body { 
-            background-color: var(--light); 
-            color: var(--dark); 
-            line-height: 1.6; 
-            min-width: 1200px; /* Locks architecture bounds */
-            padding-top: 5rem;
-        }
+        nav { background: white; padding: 1rem; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 100; border-bottom: 1px solid #e2e8f0; }
+        .logo { font-size: 1.2rem; font-weight: 800; color: var(--primary); text-decoration: none; }
+        .nav-buttons a { font-size: 0.8rem; font-weight: 600; text-decoration: none; color: var(--dark); margin-left: 0.5rem; }
 
-        /* Fixed Navigation Grid */
-        nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            position: fixed;
-            width: 100%; min-width: 1200px; top: 0; left: 0; z-index: 100;
-        }
-
-        .logo {
-            font-size: 1.5rem; font-weight: 800;
-            background: var(--brand-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
-        }
-
-        .nav-buttons .btn-alt {
-            text-decoration: none; color: var(--dark);
-            margin-right: 1.5rem; font-weight: 600; font-size: 0.95rem;
-            transition: color 0.2s;
-        }
-        .nav-buttons .btn-alt:hover { color: var(--primary); }
-
-        .hero {
-            padding: 6rem 2rem 7rem 2rem;
-            background: radial-gradient(circle at top right, #f0fdf4 0%, #eff6ff 50%, #f5f3ff 100%);
-            text-align: center;
-        }
-
-        .hero h1 { font-size: 3.2rem; font-weight: 800; max-width: 850px; margin: 0 auto 1.5rem auto; letter-spacing: -0.025em; line-height: 1.15; }
-        .hero p { font-size: 1.25rem; color: var(--gray-text); max-width: 650px; margin: 0 auto 2.5rem auto; }
-        .split-buttons { display: flex; justify-content: center; gap: 1.5rem; }
-
-        .ai-section {
-            max-width: 850px; margin: -3.5rem auto 4rem auto; background: white;
-            padding: 2.5rem; border-radius: 20px; box-shadow: var(--card-shadow);
-            position: relative; z-index: 10; border: 1px solid #eef2f6;
-        }
-
-        .ai-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
-        .ai-badge { background: var(--ai-gradient); color: white; padding: 0.3rem 0.75rem; border-radius: 30px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
-        .ai-input-wrapper { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
-        .ai-input { flex: 1; padding: 1rem 1.25rem; border: 2px solid var(--border); border-radius: 12px; font-size: 1rem; outline: none; }
-        .ai-input:focus { border-color: #7c3aed; }
-        .btn-ai { background: var(--ai-gradient); color: white; padding: 0 1.75rem; }
-
-        .ai-response { margin-top: 1.5rem; padding: 1.25rem; background: #f5f3ff; border-left: 5px solid #7c3aed; border-radius: 4px 12px 12px 4px; display: none; }
-
-        .container { max-width: 1140px; margin: 4rem auto; padding: 0; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; }
-        .section-header h2 { font-size: 2rem; font-weight: 800; }
-
-        .filters { display: flex; gap: 0.5rem; }
-        .filter-btn { padding: 0.6rem 1.25rem; border: 1px solid var(--border); background: white; border-radius: 30px; cursor: pointer; font-weight: 600; color: var(--gray-text); font-size: 0.85rem; }
-        .filter-btn.active, .filter-btn:hover { background-color: var(--dark); color: white; border-color: var(--dark); }
-
-        /* Multi-column grid interface remains intact across all viewing bounds */
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-        .card { background: white; border-radius: 16px; padding: 2.25rem; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease; }
-        .card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.08); }
-        .card.highlighted { border: 2px solid #7c3aed; box-shadow: 0 0 25px rgba(124, 58, 237, 0.15); transform: scale(1.03); }
-        
-        .expert-tag { align-self: flex-start; background: #ecfdf5; color: #065f46; padding: 0.3rem 0.85rem; border-radius: 30px; font-size: 0.75rem; font-weight: 700; margin-bottom: 1.25rem; text-transform: uppercase; }
-        .card[data-category="Business"] .expert-tag { background: #fffbeb; color: #92400e; }
-        .card[data-category="Career"] .expert-tag { background: #f0f9ff; color: #0369a1; }
-        .card[data-category="Music"] .expert-tag { background: #fdf2f8; color: #9d174d; }
-
-        .card h3 { font-size: 1.4rem; margin-bottom: 0.6rem; }
-        .card .bio { color: var(--gray-text); font-size: 0.95rem; margin-bottom: 1.75rem; }
-        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1.25rem; }
-        .rate { font-size: 1.15rem; font-weight: 800; }
-
-        .btn { background: var(--brand-gradient); color: white; padding: 0.75rem 1.75rem; border-radius: 10px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; display: inline-flex; align-items: center; }
-        .btn-secondary { background: var(--dark); }
-
-        /* Unified Fixed Modal Window */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(8px); justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: white; padding: 2.5rem; border-radius: 24px; width: 500px; position: relative; }
-        
-        .step-indicator { display: flex; justify-content: space-between; margin: 1.5rem 0 2rem 0; position: relative; }
-        .step-indicator::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--border); z-index: 1; transform: translateY(-50%); }
-        .step-dot { width: 32px; height: 32px; background: white; border: 2px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; position: relative; z-index: 2; color: var(--gray-text); }
-        .step-dot.active { border-color: var(--primary); background: var(--primary); color: white; }
-        .step-dot.completed { border-color: var(--primary); background: #ecfdf5; color: var(--primary); }
-
-        .modal-step { display: none; }
-        .modal-step.active { display: block; }
-        .close-modal { position: absolute; top: 1.25rem; right: 1.5rem; font-size: 1.75rem; cursor: pointer; color: var(--gray-text); }
-
-        .time-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin: 1.5rem 0; }
-        .time-box { border: 2px solid var(--border); padding: 1rem 0.5rem; text-align: center; border-radius: 12px; cursor: pointer; font-weight: 700; }
-        .time-box.selected { border-color: var(--primary); background: var(--primary); color: white; }
-
-        .form-group { margin-bottom: 1.25rem; text-align: left; }
-        .form-group label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .form-group input, .form-group textarea { width: 100%; padding: 0.85rem; border: 2px solid var(--border); border-radius: 10px; outline: none; }
-        .success-graphic { font-size: 4rem; color: var(--primary); margin: 1.5rem 0; }
+        .hero { padding: 3rem 1rem; text-align: center; background: #eff6ff; }
+        .hero h1 { font-size: 1.7rem; margin-bottom: 1rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; padding: 1rem; }
+        .card { background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0; }
+        .btn { display: block; width: 100%; padding: 0.8rem; background: var(--primary); color: white; text-align: center; border-radius: 8px; text-decoration: none; font-weight: 600; margin-top: 1rem; }
     </style>
 </head>
 <body>
-
     <nav>
         <a href="index.html" class="logo">YourProAdvisor</a>
         <div class="nav-buttons">
-            <a href="user.html" id="userLink" class="btn-alt">Log In / Sign Up</a>
-            <a href="advisor.html" id="advisorLink" class="btn">Become an Advisor</a>
+            <a href="user.html">Login</a>
+            <a href="advisor.html" style="background:var(--primary); color:white; padding:0.5rem; border-radius:5px;">Advisor</a>
         </div>
     </nav>
-
     <section class="hero">
-        <h1>Connect with elite professionals for 1-on-1 scheduled sessions</h1>
-        <p>Get instant clarity, tackle roadblocks, refine business operations, or elevate artistic direction via dynamic booking blocks.</p>
-        <div class="split-buttons">
-            <a href="#marketplace" class="btn">Find an Advisor</a>
-            <a href="advisor.html" id="heroAdvisorAction" class="btn btn-secondary">Apply as an Advisor</a>
-        </div>
+        <h1>Connect with elite professionals</h1>
+        <p>Expert consultation at your fingertips.</p>
     </section>
-
-    <div class="ai-section">
-        <div class="ai-header">
-            <span class="ai-badge">AI Assistant</span>
-            <h3 style="font-weight: 700;">Looking for a specific capability?</h3>
-        </div>
-        <div class="ai-input-wrapper">
-            <input type="text" id="aiPrompt" class="ai-input" placeholder="e.g., I want to build out a VLSI layout architecture...">
-            <button class="btn btn-ai" onclick="askAI()">Find Matches</button>
-        </div>
-        <div id="aiResponse" class="ai-response"></div>
+    <div class="grid" id="marketplace">
+        <div class="card"><h3>Arjan Dev</h3><p>Tech Expert</p><a href="#" class="btn">Book</a></div>
+        <div class="card"><h3>Marcus Vance</h3><p>Business Expert</p><a href="#" class="btn">Book</a></div>
+        <div class="card"><h3>Elena Rostova</h3><p>Career Coach</p><a href="#" class="btn">Book</a></div>
     </div>
-
-    <div class="container" id="marketplace">
-        <div class="section-header">
-            <h2>Available Advisors</h2>
-            <div class="filters">
-                <button class="filter-btn active" onclick="filterCategory('All', this)">All Experts</button>
-                <button class="filter-btn" onclick="filterCategory('Tech', this)">Tech & Hardware</button>
-                <button class="filter-btn" onclick="filterCategory('Business', this)">Business & Startups</button>
-                <button class="filter-btn" onclick="filterCategory('Career', this)">Career Coaching</button>
-                <button class="filter-btn" onclick="filterCategory('Music', this)">Music & Production</button>
-            </div>
-        </div>
-
-        <div class="grid" id="expertsGrid">
-            <div class="card" data-category="Tech" data-keywords="hardware vlsi architecture engineering rtl chips circuits microprocessors">
-                <div><span class="expert-tag">Tech & Hardware</span><h3>Arjan Dev</h3><p class="bio">Senior Hardware Engineer specializing in VLSI Frontend Architecture, custom microprocessors, and optimized RTL logic verification execution structures.</p></div>
-                <div class="card-footer"><span class="rate">₹3,500/hr</span><button class="btn" onclick="openBooking('Arjan Dev')">Book Slot</button></div>
-            </div>
-            <div class="card" data-category="Business" data-keywords="startup venture pitch marketing capital growth fundraising funding deck canvas models">
-                <div><span class="expert-tag">Business & Startups</span><h3>Marcus Vance</h3><p class="bio">Venture Strategist. Helps alternative startup teams organize seed fundraising assets, pitch logic flow, and execute growth canvas models.</p></div>
-                <div class="card-footer"><span class="rate">₹5,000/hr</span><button class="btn" onclick="openBooking('Marcus Vance')">Book Slot</button></div>
-            </div>
-            <div class="card" data-category="Career" data-keywords="career interview resume job executive corporate management strategy salary transition hire">
-                <div><span class="expert-tag">Career Coaching</span><h3>Elena Rostova</h3><p class="bio">Executive Coach & Headhunter. Guides strategic mock technical/behavioral interviews, salary negotiation pathways, and high-impact corporate performance metrics.</p></div>
-                <div class="card-footer"><span class="rate">₹4,000/hr</span><button class="btn" onclick="openBooking('Elena Rostova')">Book Slot</button></div>
-            </div>
-            <div class="card" data-category="Music" data-keywords="music production mix master mixing mastering logic tracks design acoustics beats synth analog">
-                <div><span class="expert-tag">Music & Production</span><h3>Devon Cole</h3><p class="bio">Platinum Sound Designer and Audio Specialist. Mentoring modern workflows in tracking, analog mix dynamics, hybrid stem structures, and acoustic balancing templates.</p></div>
-                <div class="card-footer"><span class="rate">₹4,500/hr</span><button class="btn" onclick="openBooking('Devon Cole')">Book Slot</button></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="bookingModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeBooking()">&times;</span>
-            <h3 id="modalTitle" style="font-weight: 800; font-size: 1.4rem;">Book Consultation</h3>
-            
-            <div class="step-indicator">
-                <div class="step-dot active" id="dot1">1</div>
-                <div class="step-dot" id="dot2">2</div>
-                <div class="step-dot" id="dot3">3</div>
-            </div>
-
-            <div class="modal-step active" id="step1">
-                <p style="color: var(--gray-text); font-size: 0.95rem;">Select session duration block:</p>
-                <div class="time-options">
-                    <div class="time-box" onclick="selectTime(this)">15 Mins</div>
-                    <div class="time-box" onclick="selectTime(this)">30 Mins</div>
-                    <div class="time-box" onclick="selectTime(this)">60 Mins</div>
-                </div>
-                <button class="btn" style="width: 100%; margin-top: 1rem;" onclick="goToStep(2)">Continue to Details</button>
-            </div>
-
-            <div class="modal-step" id="step2">
+    <script>
+        window.onload = function() {
+            const user = JSON.parse(localStorage.getItem('activeUser'));
+            if (user) { document.querySelector('a[href="user.html"]').innerText = "Dashboard"; }
+        };
+    </script>
+</body>
+</html>

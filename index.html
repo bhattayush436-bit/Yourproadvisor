@@ -1,450 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YourProAdvisor | Elite 1-on-1 Consultation Platform</title>
-    <style>
-        :root {
-            --primary: #059669;
-            --primary-hover: #047857;
-            --secondary: #4f46e5;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --gray-text: #64748b;
-            --border: #e2e8f0;
-            --card-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
-            --brand-gradient: linear-gradient(135deg, #059669 0%, #3b82f6 100%);
-            --ai-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YourProAdvisor | Expert Consultation</title>
+  <style>
+    /* --- Base Variables & Reset --- */
+    :root {
+      --bg-color: #f8fafc;
+      --text-main: #334155;
+      --text-dark: #0f172a;
+      --primary-color: #0f172a;
+      --border-color: #e2e8f0;
+    }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background-color: var(--light); color: var(--dark); line-height: 1.6; padding-top: 4.5rem; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
 
-        /* NAVIGATION HEADER */
-        nav {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            position: fixed;
-            width: 100%; top: 0; left: 0; z-index: 100;
-        }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
 
-        .logo {
-            font-size: 1.3rem; font-weight: 800;
-            background: var(--brand-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
-            white-space: nowrap;
-        }
+    /* --- Navigation Bar --- */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 5%;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
 
-        .nav-buttons .btn-alt {
-            text-decoration: none; color: var(--dark);
-            font-weight: 600; font-size: 0.9rem;
-            white-space: nowrap;
-            transition: color 0.2s;
-        }
-        .nav-buttons .btn-alt:hover { color: var(--primary); }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-decoration: none;
+    }
 
-        /* HERO SECTION */
-        .hero {
-            padding: 4rem 1rem 5rem 1rem;
-            background: radial-gradient(circle at top right, #f0fdf4 0%, #eff6ff 50%, #f5f3ff 100%);
-            text-align: center;
-        }
+    /* --- Hero Section --- */
+    .hero-section {
+      text-align: center;
+      padding: 80px 20px;
+      background: white;
+      border-bottom: 1px solid var(--border-color);
+    }
 
-        /* Trust Badge Component */
-        .trust-badge-mini {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(5, 150, 105, 0.1);
-            color: var(--primary);
-            padding: 0.4rem 1rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+    .hero-content h1 {
+      font-size: 2.8rem;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-        .hero h1 { font-size: 2.2rem; font-weight: 800; max-width: 850px; margin: 0 auto 1rem auto; letter-spacing: -0.025em; line-height: 1.2; color: var(--dark); }
-        .hero p { font-size: 1.1rem; color: var(--gray-text); max-width: 650px; margin: 0 auto 2rem auto; }
-        .split-buttons { display: flex; flex-direction: column; gap: 0.75rem; max-width: 300px; margin: 0 auto; }
+    .hero-content p {
+      font-size: 1.2rem;
+      color: #64748b;
+      margin-bottom: 30px;
+    }
 
-        /* LIVE STATS RIBBON */
-        .stats-ribbon {
-            background: white;
-            border-y: 1px solid var(--border);
-            padding: 2rem 1rem;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            text-align: center;
-            box-shadow: var(--card-shadow);
-        }
-        .stat-item h3 { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
-        .stat-item p { font-size: 0.85rem; color: var(--gray-text); font-weight: 600; text-transform: uppercase; }
+    /* Aligning buttons on the same line */
+    .button-group {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
 
-        /* AI MATCHMAKER CONTAINER */
-        .ai-section {
-            margin: -2rem 1rem 4rem 1rem; background: white;
-            padding: 1.5rem; border-radius: 16px; box-shadow: var(--card-shadow);
-            position: relative; z-index: 10; border: 1px solid #eef2f6;
-        }
-        .ai-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
-        .ai-header h3 { font-size: 1.1rem; font-weight: 700; }
-        .ai-badge { background: var(--ai-gradient); color: white; padding: 0.2rem 0.5rem; border-radius: 30px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; }
-        .ai-input-wrapper { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
-        .ai-input { width: 100%; padding: 0.85rem 1rem; border: 2px solid var(--border); border-radius: 10px; font-size: 0.95rem; outline: none; }
-        .btn-ai { background: var(--ai-gradient); color: white; padding: 0.85rem; width: 100%; justify-content: center; }
-        .ai-response { margin-top: 1.25rem; padding: 1rem; background: #f5f3ff; border-left: 4px solid #7c3aed; border-radius: 4px 10px 10px 4px; font-size: 0.9rem; display: none; }
+    /* Modern Button Styling */
+    .btn {
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-        /* TRUST BLUEPRINT: HOW IT WORKS */
-        .blueprint-section { padding: 4rem 1rem; background: #ffffff; text-align: center; border-bottom: 1px solid var(--border); }
-        .blueprint-section h2 { font-size: 1.75rem; font-weight: 800; margin-bottom: 2rem; }
-        .blueprint-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 1140px; margin: 0 auto; }
-        .step-card { padding: 1.5rem; text-align: left; background: var(--light); border-radius: 12px; border: 1px solid var(--border); }
-        .step-num { font-size: 1.5rem; font-weight: 800; color: var(--secondary); margin-bottom: 0.5rem; }
-        .step-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .step-card p { font-size: 0.9rem; color: var(--gray-text); }
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+      border: 2px solid var(--primary-color);
+    }
 
-        /* DIRECTORY CATALOG AREA */
-        .container { margin: 4rem auto; padding: 0 1rem; max-width: 1140px; }
-        .section-header { margin-bottom: 1.5rem; }
-        .section-header h2 { font-size: 1.75rem; font-weight: 800; margin-bottom: 1rem; }
+    .btn-primary:hover {
+      background-color: #1e293b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+    }
 
-        .filters { 
-            display: flex; gap: 0.5rem; overflow-x: auto; 
-            padding-bottom: 0.5rem; margin: 0 -1rem 1.5rem -1rem; padding-left: 1rem;
-            scrollbar-width: none; -webkit-overflow-scrolling: touch;
-        }
-        .filters::-webkit-scrollbar { display: none; }
-        .filter-btn { padding: 0.5rem 1rem; border: 1px solid var(--border); background: white; border-radius: 30px; cursor: pointer; font-weight: 600; color: var(--gray-text); font-size: 0.8rem; white-space: nowrap; flex-shrink: 0; }
-        .filter-btn.active, .filter-btn:hover { background-color: var(--dark); color: white; border-color: var(--dark); }
+    .btn-secondary {
+      background-color: white;
+      color: var(--primary-color);
+      border: 2px solid var(--border-color);
+    }
 
-        /* ADVOCATE/ADVISOR GRID SYSTEM */
-        .grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
-        .card { background: white; border-radius: 16px; padding: 1.75rem; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; display: flex; flex-direction: column; justify-content: space-between; }
-        .card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.08); }
-        .card.highlighted { border: 2px solid #7c3aed; box-shadow: 0 0 25px rgba(124, 58, 237, 0.15); transform: scale(1.02); }
-        
-        .card-top { position: relative; }
-        .expert-tag { align-self: flex-start; background: #ecfdf5; color: #065f46; padding: 0.3rem 0.85rem; border-radius: 30px; font-size: 0.7rem; font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; display: inline-block; }
-        .card[data-category="Business"] .expert-tag { background: #fffbeb; color: #92400e; }
-        .card[data-category="Career"] .expert-tag { background: #f0f9ff; color: #0369a1; }
-        .card[data-category="Music"] .expert-tag { background: #fdf2f8; color: #9d174d; }
+    .btn-secondary:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-2px);
+    }
 
-        /* Trust Checkmark Badge on Profiles */
-        .verified-title { display: flex; align-items: center; gap: 0.4rem; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .badge-verified { color: var(--primary); font-size: 1rem; font-weight: 900; }
+    /* --- Advisor Categories Section --- */
+    .advisor-categories {
+      padding: 60px 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
 
-        .card .bio { color: var(--gray-text); font-size: 0.95rem; margin-bottom: 1.5rem; }
-        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1.25rem; }
-        .rate { font-size: 1.2rem; font-weight: 800; color: var(--dark); }
+    .advisor-categories h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--text-dark);
+      margin-bottom: 40px;
+    }
 
-        /* BUTTON FRAMEWORKS */
-        .btn { background: var(--brand-gradient); color: white; padding: 0.75rem 1.75rem; border-radius: 8px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; display: inline-flex; align-items: center; }
-        .btn-secondary { background: var(--dark); }
+    /* Category Grid Layout */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
 
-        /* BOOKING MODAL MECHANICS */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px); justify-content: center; align-items: flex-end; z-index: 1000; }
-        .modal-content { background: white; padding: 2rem 1.25rem; border-radius: 24px 24px 0 0; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
-        
-        .step-indicator { display: flex; justify-content: space-between; margin: 1rem 0 1.5rem 0; position: relative; }
-        .step-indicator::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--border); z-index: 1; transform: translateY(-50%); }
-        .step-dot { width: 28px; height: 28px; background: white; border: 2px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; position: relative; z-index: 2; color: var(--gray-text); }
-        .step-dot.active { border-color: var(--primary); background: var(--primary); color: white; }
-        .step-dot.completed { border-color: var(--primary); background: #ecfdf5; color: var(--primary); }
+    /* Category Cards with Visual Aids */
+    .category-card {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid #f1f5f9;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-weight: 600;
+      color: var(--text-dark);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
 
-        .modal-step { display: none; }
-        .modal-step.active { display: block; }
-        .close-modal { position: absolute; top: 1rem; right: 1.25rem; font-size: 1.5rem; cursor: pointer; color: var(--gray-text); }
+    .category-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+    }
 
-        .time-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin: 1.25rem 0; }
-        .time-box { border: 2px solid var(--border); padding: 0.75rem 0.25rem; text-align: center; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.85rem; }
-        .time-box.selected { border-color: var(--primary); background: var(--primary); color: white; }
+    .category-card .icon {
+      font-size: 1.8rem;
+    }
 
-        .form-group { margin-bottom: 1rem; text-align: left; }
-        .form-group label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.4rem; }
-        .form-group input, .form-group textarea { width: 100%; padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px; outline: none; font-size: 0.9rem; }
-        .success-graphic { font-size: 3rem; color: var(--primary); margin: 1rem 0; }
-
-        /* WIDE SCREEN DESKTOP RESPONSIVE SCALE UP */
-        @media (min-width: 768px) {
-            body { padding-top: 5rem; }
-            nav { padding: 1rem 2rem; }
-            .logo { font-size: 1.5rem; }
-            .hero { padding: 6rem 2rem 7rem 2rem; }
-            .hero h1 { font-size: 3.2rem; }
-            .hero p { font-size: 1.25rem; }
-            .split-buttons { flex-direction: row; max-width: none; justify-content: center; }
-            
-            .stats-ribbon { grid-template-columns: repeat(4, 1fr); max-width: 1140px; margin: 0 auto; border-radius: 16px; border: 1px solid var(--border); position: relative; margin-top: -3rem; z-index: 20; }
-            .ai-section { margin: 3rem auto 4rem auto; padding: 2.5rem; max-width: 850px; }
-            .ai-input-wrapper { flex-direction: row; }
-            .btn-ai { width: auto; }
-            
-            .blueprint-section { padding: 5rem 2rem; }
-            .blueprint-grid { grid-template-columns: repeat(3, 1fr); }
-            
-            .filters { margin: 0 0 2.5rem 0; padding-left: 0; overflow-x: visible; }
-            .filter-btn { font-size: 0.85rem; }
-            .grid { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; }
-            .card { padding: 2.5rem; }
-            
-            .modal { align-items: center; }
-            .modal-content { border-radius: 24px; max-width: 500px; width: 90%; padding: 2.5rem; }
-        }
-    </style>
+    /* --- Simple Footer --- */
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #64748b;
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border-color);
+      margin-top: 40px;
+    }
+    
+    /* Mobile Responsiveness */
+    @media (max-width: 600px) {
+      .button-group {
+        flex-direction: column;
+      }
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="logo">YourProAdvisor</a>
-        <div class="nav-buttons">
-            <a href="user.html" id="userLink" class="btn-alt">Log In / Sign Up</a>
-        </div>
-    </nav>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="#" class="logo">YourProAdvisor</a>
+  </nav>
 
-    <section class="hero">
-        <div class="trust-badge-mini">🛡️ 100% Verified Top Advisors</div>
-        <h1>Connect with elite professionals for 1-on-1 scheduled sessions</h1>
-        <p>Get instant clarity, tackle roadblocks, refine business operations, or elevate artistic direction via secure, dynamic booking blocks.</p>
-        <div class="split-buttons">
-            <a href="#marketplace" class="btn">Find an Advisor</a>
-            <a href="advisor.html" id="heroAdvisorAction" class="btn btn-secondary">Apply as an Advisor</a>
-        </div>
-    </section>
-
-    <!-- TRUST METRICS PANEL -->
-    <section class="stats-ribbon">
-        <div class="stat-item">
-            <h3>99.4%</h3>
-            <p>Satisfaction Rate</p>
-        </div>
-        <div class="stat-item">
-            <h3>15,000+</h3>
-            <p>Sessions Logged</p>
-        </div>
-        <div class="stat-item">
-            <h3>400+</h3>
-            <p>Verified Experts</p>
-        </div>
-        <div class="stat-item">
-            <h3>Secure</h3>
-            <p>Escrow Payments</p>
-        </div>
-    </section>
-
-    <!-- AI Matchmaker Section -->
-    <div class="ai-section">
-        <div class="ai-header">
-            <span class="ai-badge">AI Matchmaker</span>
-            <h3>Describe your issue to find the ideal professional</h3>
-        </div>
-        <div class="ai-input-wrapper">
-            <input type="text" id="aiPrompt" class="ai-input" placeholder="e.g., I need to build out an RTL micro-architecture block...">
-            <button class="btn btn-ai" onclick="askAI()">Find Matches</button>
-        </div>
-        <div id="aiResponse" class="ai-response"></div>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>Strategic guidance from top-tier professionals</h1>
+      <p>Unlock targeted insights through dedicated mentorship.</p>
+      
+      <!-- Action Buttons -->
+      <div class="button-group">
+        <a href="#find-advisor" class="btn btn-primary">
+          🔍 Find an Advisor
+        </a>
+        <a href="#apply-advisor" class="btn btn-secondary">
+          💼 Apply as an Advisor
+        </a>
+      </div>
     </div>
+  </section>
 
-    <!-- HOW IT WORKS BLUEPRINT -->
-    <section class="blueprint-section">
-        <h2>Consultation Blueprint in 3 Simple Steps</h2>
-        <div class="blueprint-grid">
-            <div class="step-card">
-                <div class="step-num">01</div>
-                <h4>Select Verified Advisor</h4>
-                <p>Browse backgrounds, verified customer feedback rating indices, and specialized expertise portfolios across our global system catalog.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-num">02</div>
-                <h4>Pick a Time Block</h4>
-                <p>Choose an optimized time duration framework matching your precise roadmap deadline challenges.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-num">03</div>
-                <h4>Connect 1-on-1 Securely</h4>
-                <p>Conduct your dedicated consultation room session safely with professional privacy infrastructure guidelines.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Marketplace Section -->
-    <div class="container" id="marketplace">
-        <div class="section-header">
-            <h2>Available Advisors</h2>
-            <div class="filters">
-                <button class="filter-btn active" onclick="filterCategory('All', this)">All Experts</button>
-                <button class="filter-btn" onclick="filterCategory('Tech', this)">Tech & Hardware</button>
-                <button class="filter-btn" onclick="filterCategory('Business', this)">Business & Startups</button>
-                <button class="filter-btn" onclick="filterCategory('Career', this)">Career Coaching</button>
-                <button class="filter-btn" onclick="filterCategory('Music', this)">Music & Production</button>
-            </div>
-        </div>
-
-        <div class="grid" id="expertsGrid">
-            <div class="card" data-category="Tech" data-keywords="hardware vlsi architecture engineering rtl chips circuits microprocessors">
-                <div class="card-top">
-                    <span class="expert-tag">Tech & Hardware</span>
-                    <div class="verified-title">Arjan Dev <span class="badge-verified">✓</span></div>
-                    <p class="bio">Senior Hardware Engineer specializing in VLSI Frontend Architecture, custom microprocessors, and optimized RTL logic verification structures.</p>
-                </div>
-                <div class="card-footer"><span class="rate">₹3,500/hr</span><button class="btn" onclick="openBooking('Arjan Dev')">Book Slot</button></div>
-            </div>
-            <div class="card" data-category="Business" data-keywords="startup venture pitch marketing capital growth fundraising funding deck canvas models">
-                <div class="card-top">
-                    <span class="expert-tag">Business & Startups</span>
-                    <div class="verified-title">Marcus Vance <span class="badge-verified">✓</span></div>
-                    <p class="bio">Venture Strategist. Helps alternative startup teams organize seed fundraising assets, pitch logic flow, and execute growth canvas models.</p>
-                </div>
-                <div class="card-footer"><span class="rate">₹5,000/hr</span><button class="btn" onclick="openBooking('Marcus Vance')">Book Slot</button></div>
-            </div>
-            <div class="card" data-category="Career" data-keywords="career interview resume job executive corporate management strategy salary transition hire">
-                <div class="card-top">
-                    <span class="expert-tag">Career Coaching</span>
-                    <div class="verified-title">Elena Rostova <span class="badge-verified">✓</span></div>
-                    <p class="bio">Executive Coach & Headhunter. Guides strategic mock technical/behavioral interviews, salary negotiation pathways, and high-impact corporate performance metrics.</p>
-                </div>
-                <div class="card-footer"><span class="rate">₹4,000/hr</span><button class="btn" onclick="openBooking('Elena Rostova')">Book Slot</button></div>
-            </div>
-            <div class="card" data-category="Music" data-keywords="music production mix master mixing mastering logic tracks design acoustics beats synth analog">
-                <div class="card-top">
-                    <span class="expert-tag">Music & Production</span>
-                    <div class="verified-title">Devon Cole <span class="badge-verified">✓</span></div>
-                    <p class="bio">Platinum Sound Designer and Audio Specialist. Mentoring modern workflows in tracking, analog mix dynamics, hybrid stem structures, and acoustic balancing templates.</p>
-                </div>
-                <div class="card-footer"><span class="rate">₹4,500/hr</span><button class="btn" onclick="openBooking('Devon Cole')">Book Slot</button></div>
-            </div>
-        </div>
+  <!-- Available Advisor Categories -->
+  <section class="advisor-categories" id="find-advisor">
+    <h2>Explore Expertise</h2>
+    <div class="category-grid">
+      <div class="category-card"><span class="icon">💻</span> Software Engineering</div>
+      <div class="category-card"><span class="icon">⚙️</span> VLSI & Hardware Design</div>
+      <div class="category-card"><span class="icon">🚀</span> Startup Strategy</div>
+      <div class="category-card"><span class="icon">📈</span> Financial Advisory</div>
+      <div class="category-card"><span class="icon">🎯</span> Product Management</div>
+      <div class="category-card"><span class="icon">🤝</span> Career Mentorship</div>
+      <div class="category-card"><span class="icon">🎨</span> UX/UI Design</div>
+      <div class="category-card"><span class="icon">📊</span> Data Analytics</div>
+      <div class="category-card"><span class="icon">⚖️</span> Legal & Compliance</div>
+      <div class="category-card"><span class="icon">📢</span> Marketing & Growth</div>
+      <div class="category-card"><span class="icon">👥</span> Human Resources</div>
+      <div class="category-card"><span class="icon">🏗️</span> Operations Management</div>
     </div>
+  </section>
 
-    <!-- Booking Modal Structure -->
-    <div class="modal" id="bookingModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeBooking()">&times;</span>
-            <h3 id="modalTitle" style="font-weight: 800; font-size: 1.25rem;">Book Consultation</h3>
-            
-            <div class="step-indicator">
-                <div class="step-dot active" id="dot1">1</div>
-                <div class="step-dot" id="dot2">2</div>
-                <div class="step-dot" id="dot3">3</div>
-            </div>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 YourProAdvisor. All rights reserved.</p>
+  </footer>
 
-            <div class="modal-step active" id="step1">
-                <p style="color: var(--gray-text); font-size: 0.9rem;">Select session duration block:</p>
-                <div class="time-options">
-                    <div class="time-box" onclick="selectTime(this)">15 Mins</div>
-                    <div class="time-box" onclick="selectTime(this)">30 Mins</div>
-                    <div class="time-box" onclick="selectTime(this)">60 Mins</div>
-                </div>
-                <button class="btn" style="width: 100%; margin-top: 1rem; justify-content: center;" onclick="goToStep(2)">Continue to Details</button>
-            </div>
-
-            <div class="modal-step" id="step2">
-                <p style="color: var(--gray-text); font-size: 0.9rem; margin-bottom: 1rem;">Provide timeline context details:</p>
-                <div class="form-group">
-                    <label for="userName">Your Full Name</label>
-                    <input type="text" id="userName" placeholder="Alex Johnson">
-                </div>
-                <div class="form-group">
-                    <label for="userContext">What is your primary goal?</label>
-                    <textarea id="userContext" rows="3" placeholder="Describe your challenge or goal..."></textarea>
-                </div>
-                <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem;">
-                    <button class="btn btn-secondary" style="flex: 1; justify-content: center;" onclick="goToStep(1)">Back</button>
-                    <button class="btn" style="flex: 2; justify-content: center;" onclick="submitBookingPipeline()">Request Booking</button>
-                </div>
-            </div>
-
-            <div class="modal-step" id="step3" style="text-align: center;">
-                <div class="success-graphic">✓</div>
-                <h4 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem;">Booking Order Logged!</h4>
-                <p id="successSummary" style="color: var(--gray-text); font-size: 0.9rem; margin-bottom: 1.5rem;"></p>
-                <button class="btn btn-secondary" style="width: 100%; justify-content: center;" onclick="closeBooking()">Return to Advisors</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        let currentExpert = ""; let selectedDuration = ""; let activeStep = 1;
-
-        window.onload = function() {
-            const user = JSON.parse(localStorage.getItem('activeUser'));
-            if (user) { document.getElementById('userLink').innerText = `👤 Dashboard (${user.name})`; document.getElementById('userLink').href = "user.html"; }
-        };
-
-        function askAI() {
-            const prompt = document.getElementById('aiPrompt').value.toLowerCase().trim();
-            const responseBox = document.getElementById('aiResponse');
-            if (!prompt) return alert("Please share a target request description line.");
-
-            document.querySelectorAll('.card').forEach(card => { card.classList.remove('highlighted'); card.style.display = 'flex'; });
-            let matchedAdvisor = null, maxCount = 0;
-
-            document.querySelectorAll('.card').forEach(card => {
-                const keywords = card.getAttribute('data-keywords').split(' ');
-                let matches = 0; keywords.forEach(word => { if (prompt.includes(word)) matches++; });
-                if (matches > maxCount) { maxCount = matches; matchedAdvisor = { el: card, name: card.querySelector('.verified-title').innerText.replace('✓', '').trim(), tag: card.querySelector('.expert-tag').innerText }; }
-            });
-
-            responseBox.style.display = 'block';
-            if (matchedAdvisor && maxCount > 0) {
-                matchedAdvisor.el.classList.add('highlighted');
-                responseBox.innerHTML = `✨ <strong>System Recommends:</strong> We've highlighted <strong>${matchedAdvisor.name}</strong> (${matchedAdvisor.tag}) as the optimal match.`;
-                document.querySelectorAll('.card').forEach(card => { if(!card.classList.contains('highlighted')) card.style.display = 'none'; });
-            } else { responseBox.innerHTML = `🔍 <strong>Notice:</strong> No precise matches found. Showing general pool metrics.`; }
-        }
-
-        function filterCategory(category, buttonElement) {
-            document.getElementById('aiResponse').style.display = 'none';
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            buttonElement.classList.add('active');
-            document.querySelectorAll('#expertsGrid .card').forEach(card => {
-                card.classList.remove('highlighted'); const cat = card.getAttribute('data-category');
-                card.style.display = (category === 'All' || cat === category) ? 'flex' : 'none';
-            });
-        }
-
-        function openBooking(expertName) {
-            currentExpert = expertName; selectedDuration = "";
-            const user = JSON.parse(localStorage.getItem('activeUser'));
-            document.getElementById('userName').value = user ? user.name : ""; document.getElementById('userContext').value = "";
-            document.querySelectorAll('.time-box').forEach(box => box.classList.remove('selected'));
-            document.getElementById('modalTitle').innerText = "Session Request with " + expertName;
-            goToStep(1); document.getElementById('bookingModal').style.display = 'flex';
-        }
-
-        function closeBooking() { document.getElementById('bookingModal').style.display = 'none'; }
-        function selectTime(element) { document.querySelectorAll('.time-box').forEach(box => box.classList.remove('selected')); element.classList.add('selected'); selectedDuration = element.innerText; }
-
-        function goToStep(stepNum) {
-            if (stepNum === 2 && !selectedDuration) return alert("Please select a session length to continue.");
-            activeStep = stepNum;
-            document.querySelectorAll('.modal-step').forEach(step => step.classList.remove('active'));
-            document.getElementById(`step${stepNum}`).classList.add('active');
-            document.getElementById('dot1').className = "step-dot" + (stepNum >= 1 ? " active" : "") + (stepNum > 1 ? " completed" : "");
-            document.getElementById('dot2').className = "step-dot" + (stepNum >= 2 ? " active" : "") + (stepNum > 2 ? " completed" : "");
-            document.getElementById('dot3').className = "step-dot" + (stepNum === 3 ? " active" : "");
-        }
-
-        function submitBookingPipeline() {
-            const name = document.getElementById('userName').value.trim();
-            const notes = document.getElementById('userContext').value.trim();
-            if (!name || !notes) return alert("Please complete all fields.");
-            document.getElementById('successSummary').innerHTML = `Your request for a <strong>${selectedDuration}</strong> block with <strong>${currentExpert}</strong> has been logged under <strong>${name}</strong>. Our platform manages all payments directly to the expert.`;
-            goToStep(3);
-        }
-
-        window.onclick = function(e) { if (e.target === document.getElementById('bookingModal')) closeBooking(); }
-    </script>
 </body>
 </html>

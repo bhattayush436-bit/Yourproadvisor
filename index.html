@@ -5,134 +5,390 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YourProAdvisor | Expert Consultation</title>
   <style>
+    /* --- Premium Corporate Variables --- */
     :root {
-      --bg-color: #f8fafc; 
-      --text-heading: #0f172a; 
-      --text-sub: #475569; 
-      --text-logo: #1e3a8a; 
-      --text-cards: #1e293b; 
-      --primary-btn: #2563eb; 
-      --primary-hover: #1d4ed8; 
-      --secondary-text: #334155; 
-      --footer-text: #64748b; 
-      --border-color: #e2e8f0; 
+      --bg-color: #f8fafc;
+      --text-heading: #0f172a;
+      --text-sub: #475569;
+      --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      --ai-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+      --card-bg: rgba(255, 255, 255, 0.7);
+      --border-color: rgba(226, 232, 240, 0.8);
+      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
-    body { background-color: var(--bg-color); line-height: 1.6; }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, sans-serif; }
+    
+    body { 
+      background-color: var(--bg-color); 
+      color: var(--text-heading);
+      line-height: 1.6; 
+      /* Subtle abstract background pattern */
+      background-image: 
+        radial-gradient(at 0% 0%, hsla(253,16%,7%,0.03) 0, transparent 50%), 
+        radial-gradient(at 50% 0%, hsla(225,39%,30%,0.05) 0, transparent 50%), 
+        radial-gradient(at 100% 0%, hsla(339,49%,30%,0.03) 0, transparent 50%);
+      background-attachment: fixed;
+    }
 
-    /* Navigation */
-    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #ffffff; box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08); }
-    .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-logo); text-decoration: none; letter-spacing: 0.5px; }
+    /* --- Sleek Navigation --- */
+    .navbar { 
+      display: flex; justify-content: space-between; align-items: center; 
+      padding: 20px 5%; 
+      background: rgba(255, 255, 255, 0.8); 
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky; top: 0; z-index: 50;
+    }
 
-    /* Hero Section */
-    .hero-section { text-align: center; padding: 80px 20px; background: #ffffff; border-bottom: 1px solid var(--border-color); }
-    .hero-content h1 { font-size: 2.8rem; color: var(--text-heading); margin-bottom: 20px; max-width: 800px; margin-left: auto; margin-right: auto; font-weight: 800; }
-    .hero-content p { font-size: 1.2rem; color: var(--text-sub); margin-bottom: 30px; font-weight: 500; }
-    .button-group { display: flex; gap: 20px; justify-content: center; }
+    /* Upgraded Creative Logo */
+    .logo { 
+      font-size: 1.6rem; font-weight: 800; color: var(--text-heading); 
+      text-decoration: none; letter-spacing: -0.5px; 
+    }
+    .logo .highlight {
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-    /* Buttons */
-    .btn { padding: 14px 32px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; cursor: pointer; border: none; }
-    .btn-primary { background-color: var(--primary-btn); color: #ffffff; box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2); }
-    .btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
-    .btn-secondary { background-color: #ffffff; color: var(--secondary-text); border: 1px solid #cbd5e1; }
-    .btn-secondary:hover { background-color: #f1f5f9; border-color: #94a3b8; transform: translateY(-1px); }
+    /* --- Hero Section with AI Assistant --- */
+    .hero-section { 
+      text-align: center; padding: 100px 20px; 
+      display: flex; flex-direction: column; align-items: center;
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-    /* Categories */
-    .advisor-categories { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
-    .advisor-categories h2 { text-align: center; font-size: 2rem; color: var(--text-heading); margin-bottom: 40px; font-weight: 700; }
-    .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-    .category-card { background: #ffffff; padding: 24px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05); display: flex; align-items: center; gap: 16px; font-weight: 600; color: var(--text-cards); transition: all 0.2s ease; cursor: pointer; }
-    .category-card:hover { border-color: #94a3b8; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08); transform: translateY(-2px); }
-    .category-card .icon { font-size: 1.5rem; }
+    .hero-content h1 { 
+      font-size: 3.5rem; color: var(--text-heading); 
+      margin-bottom: 20px; max-width: 900px; 
+      font-weight: 800; line-height: 1.1; letter-spacing: -1px;
+    }
+    
+    .hero-content p { 
+      font-size: 1.25rem; color: var(--text-sub); 
+      margin-bottom: 40px; font-weight: 400; max-width: 600px;
+      margin-left: auto; margin-right: auto;
+    }
 
-    /* Modals */
-    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(3px); }
-    .modal-content { background: #ffffff; padding: 40px; border-radius: 12px; width: 90%; max-width: 450px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); position: relative; }
-    .modal-content h2 { color: var(--text-heading); margin-bottom: 25px; text-align: center; font-weight: 700; }
-    .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; color: #94a3b8; background: none; border: none; cursor: pointer; transition: color 0.2s; }
+    /* Premium AI Matchmaker Input */
+    .ai-matchmaker {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      padding: 8px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      max-width: 700px;
+      margin: 0 auto 40px auto;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+      transition: all 0.3s ease;
+    }
+    
+    .ai-matchmaker:focus-within {
+      border-color: #8b5cf6;
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1), 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .ai-icon {
+      font-size: 1.5rem;
+      margin: 0 15px;
+    }
+
+    .ai-matchmaker input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 1.1rem;
+      color: var(--text-heading);
+      background: transparent;
+    }
+    
+    .ai-matchmaker input::placeholder {
+      color: #94a3b8;
+    }
+
+    .ai-btn {
+      background: var(--ai-gradient);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .ai-btn:hover {
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+      transform: scale(1.02);
+    }
+
+    /* Action Buttons */
+    .button-group { display: flex; gap: 15px; justify-content: center; }
+    
+    .btn { 
+      padding: 12px 28px; border-radius: 8px; text-decoration: none; 
+      font-weight: 600; font-size: 1rem; transition: all 0.2s ease; 
+      display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: none; 
+    }
+    .btn-secondary { background: #ffffff; color: var(--text-heading); border: 1px solid #cbd5e1; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+    .btn-secondary:hover { background: #f8fafc; border-color: #94a3b8; transform: translateY(-2px); }
+
+    /* --- Glassmorphism Category Grid --- */
+    .advisor-categories { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
+    .advisor-categories h2 { text-align: center; font-size: 2.2rem; margin-bottom: 50px; font-weight: 800; letter-spacing: -0.5px; }
+    
+    .category-grid { 
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; 
+    }
+    
+    .category-card { 
+      background: var(--card-bg); 
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 24px; border-radius: 16px; 
+      border: 1px solid var(--border-color); 
+      box-shadow: var(--glass-shadow); 
+      display: flex; align-items: center; gap: 16px; 
+      font-weight: 600; color: var(--text-heading); 
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+      cursor: pointer; 
+    }
+    
+    .category-card:hover { 
+      border-color: #94a3b8; 
+      box-shadow: 0 20px 40px -10px rgba(31, 38, 135, 0.1); 
+      transform: translateY(-5px); 
+    }
+    
+    .category-card .icon-wrap {
+      background: #f1f5f9;
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      transition: background 0.3s ease;
+    }
+
+    .category-card:hover .icon-wrap {
+      background: #e2e8f0;
+    }
+
+    /* --- Premium Modals --- */
+    .modal-overlay { 
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+      background: rgba(15, 23, 42, 0.7); z-index: 1000; 
+      justify-content: center; align-items: center; 
+      backdrop-filter: blur(5px);
+      animation: modalFade 0.2s ease-out forwards;
+    }
+    
+    @keyframes modalFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content { 
+      background: #ffffff; padding: 40px; border-radius: 20px; 
+      width: 90%; max-width: 450px; 
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); position: relative; 
+      transform: scale(0.95); animation: modalScale 0.2s ease-out forwards;
+    }
+
+    @keyframes modalScale {
+      to { transform: scale(1); }
+    }
+
+    .modal-content h2 { margin-bottom: 25px; text-align: center; font-weight: 800; }
+    .close-btn { position: absolute; top: 20px; right: 25px; font-size: 1.8rem; color: #94a3b8; background: none; border: none; cursor: pointer; transition: color 0.2s; }
     .close-btn:hover { color: #ef4444; }
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; color: var(--text-cards); font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; }
-    .form-group input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; color: var(--text-heading); outline: none; transition: border-color 0.2s; }
-    .form-group input:focus { border-color: var(--primary-btn); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
-    .submit-btn { width: 100%; justify-content: center; margin-top: 10px; }
+    
+    .form-group { margin-bottom: 20px; text-align: left; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; color: #475569;}
+    .form-group input { 
+      width: 100%; padding: 14px; border: 1px solid #cbd5e1; 
+      border-radius: 10px; font-size: 1rem; color: var(--text-heading); 
+      outline: none; transition: all 0.2s; background: #f8fafc;
+    }
+    .form-group input:focus { 
+      border-color: #3b82f6; background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); 
+    }
+    
+    .submit-btn { 
+      width: 100%; justify-content: center; margin-top: 10px; 
+      background: var(--primary-gradient); color: white;
+      padding: 16px; border-radius: 10px; font-size: 1.05rem;
+    }
+    .submit-btn:hover { opacity: 0.95; transform: translateY(-1px); }
 
-    /* Footer & Mobile */
-    footer { text-align: center; padding: 30px; color: var(--footer-text); font-size: 0.9rem; border-top: 1px solid var(--border-color); margin-top: 40px; background: #ffffff; }
-    @media (max-width: 600px) { .button-group { flex-direction: column; } .hero-content h1 { font-size: 2rem; } }
+    footer { text-align: center; padding: 40px; color: var(--text-sub); font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
+    /* Mobile Adjustments */
+    @media (max-width: 768px) { 
+      .hero-content h1 { font-size: 2.2rem; }
+      .ai-matchmaker { flex-direction: column; border-radius: 16px; padding: 15px; }
+      .ai-matchmaker input { width: 100%; padding: 10px 0; text-align: center; margin-bottom: 10px;}
+      .ai-btn { width: 100%; border-radius: 8px;}
+      .ai-icon { display: none; }
+      .button-group { flex-direction: column; } 
+    }
   </style>
 </head>
 <body>
 
   <nav class="navbar">
-    <a href="#" class="logo">YourProAdvisor</a>
+    <!-- Elevated Logo Design -->
+    <a href="#" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+    
+    <div class="nav-links">
+      <button onclick="openModal('userModal')" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">Log In</button>
+    </div>
   </nav>
 
   <section class="hero-section">
     <div class="hero-content">
       <h1>Strategic guidance from top-tier professionals</h1>
-      <p>Unlock targeted insights through dedicated mentorship.</p>
+      <p>Don't guess your next career move. Connect directly with vetted industry experts for 1-on-1 mentorship.</p>
+      
+      <!-- AI Matchmaker Assistant -->
+      <div class="ai-matchmaker">
+        <span class="ai-icon">✨</span>
+        <input type="text" placeholder="Describe your goal... e.g., 'I need help transitioning to VLSI design'">
+        <button class="ai-btn" onclick="openModal('userModal')">Ask AI Matchmaker</button>
+      </div>
+
       <div class="button-group">
-        <button onclick="openModal('userModal')" class="btn btn-primary">🔍 Find an Advisor</button>
-        <button onclick="openModal('advisorModal')" class="btn btn-secondary">💼 Apply as an Advisor</button>
+        <button onclick="openModal('userModal')" class="btn btn-secondary">Browse All Advisors</button>
+        <button onclick="openModal('advisorModal')" class="btn btn-secondary">Apply as an Advisor</button>
       </div>
     </div>
   </section>
 
   <section class="advisor-categories">
-    <h2>Explore Expertise</h2>
+    <h2>Explore Areas of Expertise</h2>
     <div class="category-grid">
-      <div class="category-card" onclick="openModal('userModal')"><span class="icon">💻</span> Software Engineering</div>
-      <div class="category-card" onclick="openModal('userModal')"><span class="icon">⚙️</span> VLSI & Hardware Design</div>
-      <div class="category-card" onclick="openModal('userModal')"><span class="icon">🚀</span> Startup Strategy</div>
-      <div class="category-card" onclick="openModal('userModal')"><span class="icon">📈</span> Financial Advisory</div>
-      <div class="category-card" onclick="openModal('userModal')"><span class="icon">🎯</span> Product Management</div>
-      <div class="category-card" onclick="openModal('userModal')"><span class="icon">🤝</span> Career Mentorship</div>
-      <div class="category-card" onclick="openModal('userModal')"><span class="icon">🎨</span> UX/UI Design</div>
-      <div class="category-card" onclick="openModal('userModal')"><span class="icon">📊</span> Data Analytics</div>
-      <div class="category-card" onclick="openModal('userModal')"><span class="icon">⚖️</span> Legal & Compliance</div>
-      <div class="category-card" onclick="openModal('userModal')"><span class="icon">📢</span> Marketing & Growth</div>
-      <div class="category-card" onclick="openModal('userModal')"><span class="icon">👥</span> Human Resources</div>
-      <div class="category-card" onclick="openModal('userModal')"><span class="icon">🏗️</span> Operations Management</div>
+      <div class="category-card" onclick="openModal('userModal')">
+        <div class="icon-wrap">💻</div> Software Engineering
+      </div>
+      <div class="category-card" onclick="openModal('userModal')">
+        <div class="icon-wrap">⚙️</div> VLSI & Hardware Design
+      </div>
+      <div class="category-card" onclick="openModal('userModal')">
+        <div class="icon-wrap">🚀</div> Startup Strategy
+      </div>
+      <div class="category-card" onclick="openModal('userModal')">
+        <div class="icon-wrap">📈</div> Financial Advisory
+      </div>
+      <div class="category-card" onclick="openModal('userModal')">
+        <div class="icon-wrap">🎯</div> Product Management
+      </div>
+      <div class="category-card" onclick="openModal('userModal')">
+        <div class="icon-wrap">🤝</div> Career Mentorship
+      </div>
+      <div class="category-card" onclick="openModal('userModal')">
+        <div class="icon-wrap">🎨</div> UX/UI Design
+      </div>
+      <div class="category-card" onclick="openModal('userModal')">
+        <div class="icon-wrap">📊</div> Data Analytics
+      </div>
+      <div class="category-card" onclick="openModal('userModal')">
+        <div class="icon-wrap">⚖️</div> Legal & Compliance
+      </div>
+      <div class="category-card" onclick="openModal('userModal')">
+        <div class="icon-wrap">📢</div> Marketing & Growth
+      </div>
+      <div class="category-card" onclick="openModal('userModal')">
+        <div class="icon-wrap">👥</div> Human Resources
+      </div>
+      <div class="category-card" onclick="openModal('userModal')">
+        <div class="icon-wrap">🏗️</div> Operations Management
+      </div>
     </div>
   </section>
 
   <footer>
-    <p>&copy; 2026 YourProAdvisor. All rights reserved.</p>
+    <p>&copy; 2026 YourProAdvisor. Empowering professional growth.</p>
   </footer>
 
+  <!-- User Login Modal -->
   <div id="userModal" class="modal-overlay">
     <div class="modal-content">
       <button class="close-btn" onclick="closeModal('userModal')">&times;</button>
-      <h2>Join to Find Advisors</h2>
+      <h2>Join YourProAdvisor</h2>
       <form onsubmit="handleUserLogin(event)">
-        <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@example.com" required></div>
-        <div class="form-group"><label>Password</label><input type="password" placeholder="••••••••" required></div>
-        <button type="submit" class="btn btn-primary submit-btn">Log In / Sign Up</button>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="name@company.com" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn submit-btn">Continue to Dashboard</button>
       </form>
     </div>
   </div>
 
+  <!-- Advisor Application Modal -->
   <div id="advisorModal" class="modal-overlay">
     <div class="modal-content">
       <button class="close-btn" onclick="closeModal('advisorModal')">&times;</button>
-      <h2>Apply as an Advisor</h2>
+      <h2>Apply to Advise</h2>
       <form onsubmit="handleAdvisorLogin(event)">
-        <div class="form-group"><label>Email Address</label><input type="email" placeholder="professional@example.com" required></div>
-        <div class="form-group"><label>Create Password</label><input type="password" placeholder="••••••••" required></div>
-        <div class="form-group"><label>LinkedIn Profile URL</label><input type="url" placeholder="https://linkedin.com/in/yourprofile" required></div>
-        <button type="submit" class="btn btn-primary submit-btn">Submit Application</button>
+        <div class="form-group">
+          <label>Work Email</label>
+          <input type="email" placeholder="professional@company.com" required>
+        </div>
+        <div class="form-group">
+          <label>Create Password</label>
+          <input type="password" placeholder="••••••••" required>
+        </div>
+        <div class="form-group">
+          <label>LinkedIn Profile URL</label>
+          <input type="url" placeholder="https://linkedin.com/in/yourprofile" required>
+        </div>
+        <button type="submit" class="btn submit-btn">Submit Application</button>
       </form>
     </div>
   </div>
 
   <script>
-    function openModal(modalId) { document.getElementById(modalId).style.display = 'flex'; document.body.style.overflow = 'hidden'; }
-    function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; document.body.style.overflow = 'auto'; }
-    function handleUserLogin(event) { event.preventDefault(); window.location.href = "dashboard.html"; } 
-    function handleAdvisorLogin(event) { event.preventDefault(); window.location.href = "advisor-dashboard.html"; }
-    window.onclick = function(event) { if (event.target.className === 'modal-overlay') { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+    function openModal(modalId) { 
+      document.getElementById(modalId).style.display = 'flex'; 
+      document.body.style.overflow = 'hidden'; 
+    }
+    
+    function closeModal(modalId) { 
+      document.getElementById(modalId).style.display = 'none'; 
+      document.body.style.overflow = 'auto'; 
+    }
+    
+    function handleUserLogin(event) { 
+      event.preventDefault(); 
+      window.location.href = "dashboard.html"; 
+    }
+    
+    function handleAdvisorLogin(event) { 
+      event.preventDefault(); 
+      window.location.href = "advisor-dashboard.html"; 
+    }
+    
+    window.onclick = function(event) { 
+      if (event.target.className.includes('modal-overlay')) { 
+        event.target.style.display = 'none'; 
+        document.body.style.overflow = 'auto'; 
+      } 
+    }
   </script>
 
 </body>

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YourProAdvisor | Strategic Guidance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     /* --- Premium UI Variables --- */
     :root {
@@ -17,303 +18,66 @@
       --border-color: #e2e8f0;
     }
 
-    /* REVERTED: Using your original font preferences */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-white);
-      color: var(--text-main);
-      overflow-x: hidden;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { background-color: var(--bg-white); color: var(--text-main); overflow-x: hidden; }
 
     /* --- Navbar --- */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 5%;
-      max-width: 1400px;
-      margin: 0 auto;
-      background: transparent;
-      position: relative;
-      z-index: 10;
-    }
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; max-width: 1400px; margin: 0 auto; background: transparent; position: relative; z-index: 10; }
+    .logo { font-size: 1.5rem; font-weight: 800; color: var(--dark-blue); text-decoration: none; letter-spacing: -0.5px; }
+    .logo .highlight { color: var(--primary-blue); }
+    .btn-login { padding: 10px 24px; border: 1px solid var(--border-color); border-radius: 8px; background: transparent; color: var(--dark-blue); font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; }
+    .btn-login:hover { background: var(--bg-offwhite); border-color: #cbd5e1; }
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--dark-blue);
-      text-decoration: none;
-      letter-spacing: -0.5px;
-    }
-
-    .logo .highlight {
-      color: var(--primary-blue);
-    }
-
-    .btn-login {
-      padding: 10px 24px;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      background: transparent;
-      color: var(--dark-blue);
-      font-weight: 600;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-login:hover {
-      background: var(--bg-offwhite);
-      border-color: #cbd5e1;
-    }
-
-    /* --- Hero Background Image Integration --- */
+    /* --- Hero Section --- */
     .hero-wrapper {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-      padding-bottom: 60px;
-      /* New professional background image with a soft white gradient fade for text readability */
+      position: relative; width: 100%; overflow: hidden; padding-bottom: 60px;
       background: linear-gradient(to right, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 45%, rgba(255, 255, 255, 0.1) 100%), 
                   url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
     }
+    .hero-container { display: flex; align-items: center; max-width: 1400px; margin: 0 auto; padding: 40px 5%; position: relative; z-index: 1; }
+    .hero-content { flex: 1; max-width: 700px; }
 
-    /* --- Hero Layout --- */
-    .hero-container {
-      display: flex;
-      align-items: center;
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 40px 5%;
-      position: relative;
-      z-index: 1;
-    }
+    /* --- Hero Elements --- */
+    .badge { display: inline-flex; align-items: center; gap: 8px; background: var(--bg-blue-light); color: var(--primary-blue); padding: 8px 16px; border-radius: 30px; font-weight: 600; font-size: 0.9rem; margin-bottom: 24px; }
+    .hero-content h1 { font-size: 3.8rem; font-weight: 800; color: var(--dark-blue); line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
+    .hero-content h1 .text-blue { color: var(--primary-blue); }
+    .hero-content p { font-size: 1.1rem; color: var(--text-main); margin-bottom: 40px; line-height: 1.6; max-width: 480px; }
 
-    .hero-content {
-      flex: 1;
-      max-width: 700px; /* Constrained width so the background image shows on the right */
-    }
+    /* --- AI Search Bar --- */
+    .search-wrapper { display: flex; align-items: center; background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 50px; padding: 6px 6px 6px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 30px; transition: box-shadow 0.2s; }
+    .search-wrapper:focus-within { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 10px 25px rgba(0,0,0,0.05); border-color: var(--primary-blue); }
+    .search-icon { color: #f59e0b; margin-right: 10px; font-size: 1.2rem; }
+    .search-wrapper input { flex: 1; border: none; outline: none; font-size: 0.95rem; color: var(--dark-blue); }
+    .search-wrapper input::placeholder { color: #94a3b8; }
 
-    /* Hero Elements */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--bg-blue-light);
-      color: var(--primary-blue);
-      padding: 8px 16px;
-      border-radius: 30px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      margin-bottom: 24px;
-    }
-
-    .hero-content h1 {
-      font-size: 3.8rem;
-      font-weight: 800;
-      color: var(--dark-blue);
-      line-height: 1.1;
-      margin-bottom: 20px;
-      letter-spacing: -1px;
-    }
-
-    .hero-content h1 .text-blue {
-      color: var(--primary-blue);
-    }
-
-    .hero-content p {
-      font-size: 1.1rem;
-      color: var(--text-main);
-      margin-bottom: 40px;
-      line-height: 1.6;
-      max-width: 480px;
-    }
-
-    /* AI Search Bar */
-    .search-wrapper {
-      display: flex;
-      align-items: center;
-      background: var(--bg-white);
-      border: 1px solid var(--border-color);
-      border-radius: 50px;
-      padding: 6px 6px 6px 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-      margin-bottom: 30px;
-      transition: box-shadow 0.2s;
-    }
-    
-    .search-wrapper:focus-within {
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 10px 25px rgba(0,0,0,0.05);
-      border-color: var(--primary-blue);
-    }
-
-    .search-icon {
-      color: #f59e0b; 
-      margin-right: 10px;
-      font-size: 1.2rem;
-    }
-
-    .search-wrapper input {
-      flex: 1;
-      border: none;
-      outline: none;
-      font-size: 0.95rem;
-      color: var(--dark-blue);
-    }
-
-    .search-wrapper input::placeholder {
-      color: #94a3b8;
-    }
-
-    .btn-ai {
-      background: var(--primary-blue);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 40px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
+    .btn-ai { background: var(--primary-blue); color: white; border: none; padding: 12px 24px; border-radius: 40px; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: background 0.2s; }
     .btn-ai:hover { background: #2563eb; }
 
-    /* Action Buttons */
-    .button-group {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 40px;
-    }
-
-    .btn-main {
-      background: var(--dark-blue);
-      color: white;
-      border: none;
-      padding: 14px 28px;
-      border-radius: 8px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      transition: opacity 0.2s;
-    }
+    /* --- Action Buttons --- */
+    .button-group { display: flex; gap: 16px; margin-bottom: 40px; }
+    .btn-main { background: var(--dark-blue); color: white; border: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.95rem; transition: opacity 0.2s; }
     .btn-main:hover { opacity: 0.9; }
-
-    .btn-outline {
-      background: var(--bg-white);
-      color: var(--dark-blue);
-      border: 1px solid var(--border-color);
-      padding: 14px 28px;
-      border-radius: 8px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      transition: background 0.2s;
-    }
+    .btn-outline { background: var(--bg-white); color: var(--dark-blue); border: 1px solid var(--border-color); padding: 14px 28px; border-radius: 8px; font-weight: 600; display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.95rem; transition: background 0.2s; }
     .btn-outline:hover { background: var(--bg-offwhite); }
 
-    /* Feature Highlights */
-    .features-list {
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
+    /* --- Features List --- */
+    .features-list { display: flex; gap: 30px; flex-wrap: wrap; }
+    .feature-item { display: flex; gap: 12px; align-items: flex-start; }
+    .feature-icon { color: var(--primary-blue); background: var(--bg-blue-light); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    .feature-text h4 { color: var(--dark-blue); font-size: 0.9rem; font-weight: 700; margin-bottom: 2px; }
+    .feature-text p { color: var(--text-light); font-size: 0.8rem; margin: 0; max-width: none; }
 
-    .feature-item {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-
-    .feature-icon {
-      color: var(--primary-blue);
-      background: var(--bg-blue-light);
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-    }
-
-    .feature-text h4 {
-      color: var(--dark-blue);
-      font-size: 0.9rem;
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
-
-    .feature-text p {
-      color: var(--text-light);
-      font-size: 0.8rem;
-      margin: 0;
-      max-width: none;
-    }
-
-    /* --- Stats Section --- */
-    .stats-container {
-      max-width: 1300px;
-      margin: -20px auto 60px;
-      padding: 0 5%;
-      position: relative;
-      z-index: 2;
-    }
-
-    .stats-card {
-      background: var(--bg-offwhite);
-      border-radius: 20px;
-      padding: 40px;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-      border: 1px solid var(--border-color);
-    }
-
-    .stat-item {
-      text-align: center;
-    }
-
-    .stat-item h3 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--primary-blue);
-      margin-bottom: 5px;
-    }
-
-    .stat-item p {
-      font-size: 0.9rem;
-      color: var(--dark-blue);
-      font-weight: 600;
-    }
+    /* --- Stats Container --- */
+    .stats-container { max-width: 1300px; margin: -20px auto 60px; padding: 0 5%; position: relative; z-index: 2; }
+    .stats-card { background: var(--bg-offwhite); border-radius: 20px; padding: 40px; display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid var(--border-color); }
+    .stat-item { text-align: center; }
+    .stat-item h3 { font-size: 2.2rem; font-weight: 800; color: var(--primary-blue); margin-bottom: 5px; }
+    .stat-item p { font-size: 0.9rem; color: var(--dark-blue); font-weight: 600; }
 
     /* --- Responsive Design --- */
-    @media (max-width: 1024px) {
-      .hero-content h1 { font-size: 3rem; }
-    }
-
+    @media (max-width: 1024px) { .hero-content h1 { font-size: 3rem; } }
     @media (max-width: 860px) {
-      .hero-wrapper {
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 100%), 
-                    url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-      }
+      .hero-wrapper { background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 100%), url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; }
       .hero-container { flex-direction: column; text-align: center; padding-top: 20px; }
       .hero-content { max-width: 100%; display: flex; flex-direction: column; align-items: center; }
       .features-list { justify-content: center; }
@@ -321,7 +85,6 @@
       .search-wrapper { width: 100%; max-width: 500px; }
       .stats-card { flex-direction: column; text-align: center; padding: 30px 20px; }
     }
-
     @media (max-width: 600px) {
       .hero-content h1 { font-size: 2.4rem; }
       .search-wrapper { flex-direction: column; border-radius: 12px; padding: 10px; background: transparent; border: none; box-shadow: none; gap: 10px;}
@@ -334,29 +97,29 @@
 </head>
 <body>
 
+  <!-- Navigation -->
   <nav class="navbar">
-    <a href="#" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+    <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
     <button class="btn-login" onclick="window.location.href='user-dashboard.html'">Log In</button>
   </nav>
 
+  <!-- Hero Section -->
   <div class="hero-wrapper">
     <section class="hero-container">
-      
       <div class="hero-content">
-        <div class="badge">
-          ✨ 1-on-1 Expert Mentorship
-        </div>
-
+        <div class="badge">✨ 1-on-1 Expert Mentorship</div>
+        
         <h1>
           Strategic guidance <br>
           from top-tier <br>
           <span class="text-blue">professionals</span>
         </h1>
-
+        
         <p>
           Don't guess your next career move. Connect directly with vetted industry experts for 1-on-1 mentorship.
         </p>
 
+        <!-- AI Matchmaker Search -->
         <div class="search-wrapper">
           <span class="search-icon">✨</span>
           <input type="text" placeholder="Describe your goal... e.g., 'I need help transitioning to Data Science'">
@@ -365,15 +128,19 @@
           </button>
         </div>
 
+        <!-- Call to Action Buttons -->
         <div class="button-group">
+          <!-- Directs to the User portal -->
           <button class="btn-main" onclick="window.location.href='user-dashboard.html'">
             👥 Browse All Advisors
           </button>
-          <button class="btn-outline" onclick="window.location.href='advisor-dashboard.html'">
+          <!-- FIXED: Directs specifically to the new Analytics Dashboard -->
+          <button class="btn-outline" onclick="window.location.href='analytics-dashboard.html'">
             👤 Apply as an Advisor
           </button>
         </div>
 
+        <!-- Feature Highlights -->
         <div class="features-list">
           <div class="feature-item">
             <div class="feature-icon">👤</div>
@@ -397,11 +164,11 @@
             </div>
           </div>
         </div>
-
       </div>
     </section>
   </div>
 
+  <!-- Stats Section -->
   <div class="stats-container">
     <div class="stats-card">
       <div class="stat-item">

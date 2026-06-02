@@ -21,7 +21,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
         body { background-color: var(--light); color: var(--dark); line-height: 1.6; padding-top: 4.5rem; }
 
-        /* Smooth Fixed Navigation */
         nav {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(8px);
@@ -51,7 +50,6 @@
         .nav-buttons .btn-alt:hover { color: var(--primary); }
         .nav-buttons .btn { padding: 0.5rem 1rem; font-size: 0.85rem; }
 
-        /* Hero Layout */
         .hero {
             padding: 3rem 1rem 4rem 1rem;
             background: radial-gradient(circle at top right, #f0fdf4 0%, #eff6ff 50%, #f5f3ff 100%);
@@ -62,7 +60,6 @@
         .hero p { font-size: 1rem; color: var(--gray-text); max-width: 650px; margin: 0 auto 1.75rem auto; }
         .split-buttons { display: flex; flex-direction: column; gap: 0.75rem; max-width: 300px; margin: 0 auto; }
 
-        /* AI Finder Widget */
         .ai-section {
             margin: -2rem 1rem 3rem 1rem; background: white;
             padding: 1.5rem; border-radius: 16px; box-shadow: var(--card-shadow);
@@ -78,12 +75,10 @@
 
         .ai-response { margin-top: 1.25rem; padding: 1rem; background: #f5f3ff; border-left: 4px solid #7c3aed; border-radius: 4px 10px 10px 4px; font-size: 0.9rem; display: none; }
 
-        /* Main Container */
         .container { margin: 2rem auto; padding: 0 1rem; max-width: 1140px; }
         .section-header { margin-bottom: 1.5rem; }
         .section-header h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1rem; }
 
-        /* Mobile Side-Scroll Filters */
         .filters { 
             display: flex; gap: 0.5rem; overflow-x: auto; 
             padding-bottom: 0.5rem; margin: 0 -1rem 1.5rem -1rem; padding-left: 1rem;
@@ -93,7 +88,6 @@
         .filter-btn { padding: 0.5rem 1rem; border: 1px solid var(--border); background: white; border-radius: 30px; cursor: pointer; font-weight: 600; color: var(--gray-text); font-size: 0.8rem; white-space: nowrap; flex-shrink: 0; }
         .filter-btn.active, .filter-btn:hover { background-color: var(--dark); color: white; border-color: var(--dark); }
 
-        /* Adaptive Grid */
         .grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
         .card { background: white; border-radius: 16px; padding: 1.5rem; box-shadow: var(--card-shadow); border: 1px solid #f1f5f9; display: flex; flex-direction: column; justify-content: space-between; }
         .card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.08); }
@@ -112,7 +106,6 @@
         .btn { background: var(--brand-gradient); color: white; padding: 0.65rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; border: none; cursor: pointer; display: inline-flex; align-items: center; }
         .btn-secondary { background: var(--dark); }
 
-        /* Booking Engine Slide Up Drawer for Mobile / Center Dialog for Desktop */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px); justify-content: center; align-items: flex-end; z-index: 1000; }
         .modal-content { background: white; padding: 2rem 1.25rem; border-radius: 24px 24px 0 0; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
         
@@ -135,7 +128,6 @@
         .form-group input, .form-group textarea { width: 100%; padding: 0.75rem; border: 2px solid var(--border); border-radius: 8px; outline: none; font-size: 0.9rem; }
         .success-graphic { font-size: 3rem; color: var(--primary); margin: 1rem 0; }
 
-        /* Media Queries for Desktop Layout Scaling */
         @media (min-width: 768px) {
             body { padding-top: 5rem; }
             nav { padding: 1rem 2rem; }
@@ -177,7 +169,6 @@
         </div>
     </section>
 
-    <!-- AI Matchmaker Section -->
     <div class="ai-section">
         <div class="ai-header">
             <span class="ai-badge">AI Assistant</span>
@@ -190,7 +181,6 @@
         <div id="aiResponse" class="ai-response"></div>
     </div>
 
-    <!-- Marketplace Section -->
     <div class="container" id="marketplace">
         <div class="section-header">
             <h2>Available Advisors</h2>
@@ -223,7 +213,6 @@
         </div>
     </div>
 
-    <!-- Booking Modal Structure -->
     <div class="modal" id="bookingModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeBooking()">&times;</span>

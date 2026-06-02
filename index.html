@@ -3,393 +3,466 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YourProAdvisor | Expert Consultation</title>
+  <title>YourProAdvisor | Strategic Guidance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* --- Premium Corporate Variables --- */
+    /* --- Premium UI Variables --- */
     :root {
-      --bg-color: #f8fafc;
-      --text-heading: #0f172a;
-      --text-sub: #475569;
-      --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-      --ai-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
-      --card-bg: rgba(255, 255, 255, 0.7);
-      --border-color: rgba(226, 232, 240, 0.8);
-      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+      --primary-blue: #3b82f6;
+      --dark-blue: #0f172a;
+      --text-main: #334155;
+      --text-light: #64748b;
+      --bg-white: #ffffff;
+      --bg-offwhite: #f8fafc;
+      --bg-blue-light: #eff6ff;
+      --border-color: #e2e8f0;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, sans-serif; }
-    
-    body { 
-      background-color: var(--bg-color); 
-      color: var(--text-heading);
-      line-height: 1.6; 
-      /* Subtle abstract background pattern */
-      background-image: 
-        radial-gradient(at 0% 0%, hsla(253,16%,7%,0.03) 0, transparent 50%), 
-        radial-gradient(at 50% 0%, hsla(225,39%,30%,0.05) 0, transparent 50%), 
-        radial-gradient(at 100% 0%, hsla(339,49%,30%,0.03) 0, transparent 50%);
-      background-attachment: fixed;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
     }
 
-    /* --- Sleek Navigation --- */
-    .navbar { 
-      display: flex; justify-content: space-between; align-items: center; 
-      padding: 20px 5%; 
-      background: rgba(255, 255, 255, 0.8); 
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
-      position: sticky; top: 0; z-index: 50;
+    body {
+      background-color: var(--bg-white);
+      color: var(--text-main);
+      overflow-x: hidden;
     }
 
-    /* Upgraded Creative Logo */
-    .logo { 
-      font-size: 1.6rem; font-weight: 800; color: var(--text-heading); 
-      text-decoration: none; letter-spacing: -0.5px; 
+    /* --- Navbar --- */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+      background: transparent;
+      position: relative;
+      z-index: 10;
     }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--dark-blue);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
     .logo .highlight {
-      background: var(--primary-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--primary-blue);
     }
 
-    /* --- Hero Section with AI Assistant --- */
-    .hero-section { 
-      text-align: center; padding: 100px 20px; 
-      display: flex; flex-direction: column; align-items: center;
-      animation: fadeIn 0.8s ease-out forwards;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero-content h1 { 
-      font-size: 3.5rem; color: var(--text-heading); 
-      margin-bottom: 20px; max-width: 900px; 
-      font-weight: 800; line-height: 1.1; letter-spacing: -1px;
-    }
-    
-    .hero-content p { 
-      font-size: 1.25rem; color: var(--text-sub); 
-      margin-bottom: 40px; font-weight: 400; max-width: 600px;
-      margin-left: auto; margin-right: auto;
+    .btn-login {
+      padding: 10px 24px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--dark-blue);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
     }
 
-    /* Premium AI Matchmaker Input */
-    .ai-matchmaker {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
-      padding: 8px;
-      border-radius: 50px;
+    .btn-login:hover {
+      background: var(--bg-offwhite);
+      border-color: #cbd5e1;
+    }
+
+    /* --- Hero Background Curve --- */
+    .hero-wrapper {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      padding-bottom: 60px;
+    }
+
+    .hero-bg-curve {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: var(--bg-blue-light);
+      border-bottom-left-radius: 100px;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    /* --- Hero Layout --- */
+    .hero-container {
       display: flex;
       align-items: center;
-      max-width: 700px;
-      margin: 0 auto 40px auto;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
-      transition: all 0.3s ease;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 5%;
+      position: relative;
+      z-index: 1;
+      gap: 40px;
+    }
+
+    .hero-content {
+      flex: 1;
+      max-width: 650px;
+    }
+
+    /* Hero Elements */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-blue-light);
+      color: var(--primary-blue);
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+
+    .hero-content h1 {
+      font-size: 3.8rem;
+      font-weight: 800;
+      color: var(--dark-blue);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .hero-content h1 .text-blue {
+      color: var(--primary-blue);
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      color: var(--text-main);
+      margin-bottom: 40px;
+      line-height: 1.6;
+      max-width: 450px;
+    }
+
+    /* AI Search Bar */
+    .search-wrapper {
+      display: flex;
+      align-items: center;
+      background: var(--bg-white);
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      padding: 6px 6px 6px 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+      transition: box-shadow 0.2s;
     }
     
-    .ai-matchmaker:focus-within {
-      border-color: #8b5cf6;
-      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1), 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-      transform: translateY(-2px);
+    .search-wrapper:focus-within {
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 10px 25px rgba(0,0,0,0.05);
+      border-color: var(--primary-blue);
     }
 
-    .ai-icon {
-      font-size: 1.5rem;
-      margin: 0 15px;
+    .search-icon {
+      color: #f59e0b; /* Sparkle color */
+      margin-right: 10px;
+      font-size: 1.2rem;
     }
 
-    .ai-matchmaker input {
+    .search-wrapper input {
       flex: 1;
       border: none;
       outline: none;
-      font-size: 1.1rem;
-      color: var(--text-heading);
-      background: transparent;
+      font-size: 0.95rem;
+      color: var(--dark-blue);
     }
-    
-    .ai-matchmaker input::placeholder {
+
+    .search-wrapper input::placeholder {
       color: #94a3b8;
     }
 
-    .ai-btn {
-      background: var(--ai-gradient);
+    .btn-ai {
+      background: var(--primary-blue);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-ai:hover { background: #2563eb; }
+
+    /* Action Buttons */
+    .button-group {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .btn-main {
+      background: var(--dark-blue);
       color: white;
       border: none;
       padding: 14px 28px;
-      border-radius: 40px;
+      border-radius: 8px;
       font-weight: 600;
-      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      font-size: 0.95rem;
+      transition: opacity 0.2s;
     }
-    
-    .ai-btn:hover {
-      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
-      transform: scale(1.02);
+    .btn-main:hover { opacity: 0.9; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--dark-blue);
+      border: 1px solid var(--border-color);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+    .btn-outline:hover { background: var(--bg-offwhite); }
+
+    /* Feature Highlights */
+    .features-list {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
     }
 
-    /* Action Buttons */
-    .button-group { display: flex; gap: 15px; justify-content: center; }
-    
-    .btn { 
-      padding: 12px 28px; border-radius: 8px; text-decoration: none; 
-      font-weight: 600; font-size: 1rem; transition: all 0.2s ease; 
-      display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: none; 
-    }
-    .btn-secondary { background: #ffffff; color: var(--text-heading); border: 1px solid #cbd5e1; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-    .btn-secondary:hover { background: #f8fafc; border-color: #94a3b8; transform: translateY(-2px); }
-
-    /* --- Glassmorphism Category Grid --- */
-    .advisor-categories { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
-    .advisor-categories h2 { text-align: center; font-size: 2.2rem; margin-bottom: 50px; font-weight: 800; letter-spacing: -0.5px; }
-    
-    .category-grid { 
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; 
-    }
-    
-    .category-card { 
-      background: var(--card-bg); 
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 24px; border-radius: 16px; 
-      border: 1px solid var(--border-color); 
-      box-shadow: var(--glass-shadow); 
-      display: flex; align-items: center; gap: 16px; 
-      font-weight: 600; color: var(--text-heading); 
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-      cursor: pointer; 
-    }
-    
-    .category-card:hover { 
-      border-color: #94a3b8; 
-      box-shadow: 0 20px 40px -10px rgba(31, 38, 135, 0.1); 
-      transform: translateY(-5px); 
-    }
-    
-    .category-card .icon-wrap {
-      background: #f1f5f9;
-      width: 48px; height: 48px;
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem;
-      transition: background 0.3s ease;
+    .feature-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
     }
 
-    .category-card:hover .icon-wrap {
-      background: #e2e8f0;
+    .feature-icon {
+      color: var(--primary-blue);
+      background: var(--bg-blue-light);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
     }
 
-    /* --- Premium Modals --- */
-    .modal-overlay { 
-      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-      background: rgba(15, 23, 42, 0.7); z-index: 1000; 
-      justify-content: center; align-items: center; 
-      backdrop-filter: blur(5px);
-      animation: modalFade 0.2s ease-out forwards;
-    }
-    
-    @keyframes modalFade {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .feature-text h4 {
+      color: var(--dark-blue);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 2px;
     }
 
-    .modal-content { 
-      background: #ffffff; padding: 40px; border-radius: 20px; 
-      width: 90%; max-width: 450px; 
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); position: relative; 
-      transform: scale(0.95); animation: modalScale 0.2s ease-out forwards;
+    .feature-text p {
+      color: var(--text-light);
+      font-size: 0.8rem;
+      margin: 0;
+      max-width: none;
     }
 
-    @keyframes modalScale {
-      to { transform: scale(1); }
+    /* Hero Image */
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      max-width: 600px;
     }
 
-    .modal-content h2 { margin-bottom: 25px; text-align: center; font-weight: 800; }
-    .close-btn { position: absolute; top: 20px; right: 25px; font-size: 1.8rem; color: #94a3b8; background: none; border: none; cursor: pointer; transition: color 0.2s; }
-    .close-btn:hover { color: #ef4444; }
-    
-    .form-group { margin-bottom: 20px; text-align: left; }
-    .form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; color: #475569;}
-    .form-group input { 
-      width: 100%; padding: 14px; border: 1px solid #cbd5e1; 
-      border-radius: 10px; font-size: 1rem; color: var(--text-heading); 
-      outline: none; transition: all 0.2s; background: #f8fafc;
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      object-fit: cover;
     }
-    .form-group input:focus { 
-      border-color: #3b82f6; background: #ffffff;
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); 
-    }
-    
-    .submit-btn { 
-      width: 100%; justify-content: center; margin-top: 10px; 
-      background: var(--primary-gradient); color: white;
-      padding: 16px; border-radius: 10px; font-size: 1.05rem;
-    }
-    .submit-btn:hover { opacity: 0.95; transform: translateY(-1px); }
 
-    footer { text-align: center; padding: 40px; color: var(--text-sub); font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+    /* --- Stats Section --- */
+    .stats-container {
+      max-width: 1300px;
+      margin: -20px auto 60px;
+      padding: 0 5%;
+      position: relative;
+      z-index: 2;
+    }
 
-    /* Mobile Adjustments */
-    @media (max-width: 768px) { 
-      .hero-content h1 { font-size: 2.2rem; }
-      .ai-matchmaker { flex-direction: column; border-radius: 16px; padding: 15px; }
-      .ai-matchmaker input { width: 100%; padding: 10px 0; text-align: center; margin-bottom: 10px;}
-      .ai-btn { width: 100%; border-radius: 8px;}
-      .ai-icon { display: none; }
-      .button-group { flex-direction: column; } 
+    .stats-card {
+      background: var(--bg-offwhite);
+      border-radius: 20px;
+      padding: 40px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-item h3 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--primary-blue);
+      margin-bottom: 5px;
+    }
+
+    .stat-item p {
+      font-size: 0.9rem;
+      color: var(--dark-blue);
+      font-weight: 600;
+    }
+
+    /* --- Responsive Design --- */
+    @media (max-width: 1024px) {
+      .hero-content h1 { font-size: 3rem; }
+      .hero-bg-curve { width: 100%; border-bottom-left-radius: 0; }
+    }
+
+    @media (max-width: 860px) {
+      .hero-container { flex-direction: column; text-align: center; padding-top: 20px; }
+      .hero-content { max-width: 100%; display: flex; flex-direction: column; align-items: center; }
+      .features-list { justify-content: center; }
+      .feature-item { text-align: left; }
+      .search-wrapper { width: 100%; max-width: 500px; }
+      .hero-image { max-width: 100%; margin-top: 20px; }
+      .stats-card { flex-direction: column; text-align: center; padding: 30px 20px; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-content h1 { font-size: 2.4rem; }
+      .search-wrapper { flex-direction: column; border-radius: 12px; padding: 10px; background: transparent; border: none; box-shadow: none; gap: 10px;}
+      .search-wrapper input { width: 100%; padding: 15px; border: 1px solid var(--border-color); border-radius: 8px; background: white; text-align: center;}
+      .btn-ai { width: 100%; justify-content: center; border-radius: 8px;}
+      .button-group { flex-direction: column; width: 100%; max-width: 400px; }
+      .btn-main, .btn-outline { justify-content: center; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Navigation -->
   <nav class="navbar">
-    <!-- Elevated Logo Design -->
     <a href="#" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
-    
-    <div class="nav-links">
-      <button onclick="openModal('userModal')" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem;">Log In</button>
-    </div>
+    <button class="btn-login" onclick="window.location.href='user-dashboard.html'">Log In</button>
   </nav>
 
-  <section class="hero-section">
-    <div class="hero-content">
-      <h1>Strategic guidance from top-tier professionals</h1>
-      <p>Don't guess your next career move. Connect directly with vetted industry experts for 1-on-1 mentorship.</p>
+  <div class="hero-wrapper">
+    <!-- Curved Background Element -->
+    <div class="hero-bg-curve"></div>
+
+    <section class="hero-container">
       
-      <!-- AI Matchmaker Assistant -->
-      <div class="ai-matchmaker">
-        <span class="ai-icon">✨</span>
-        <input type="text" placeholder="Describe your goal... e.g., 'I need help transitioning to VLSI design'">
-        <button class="ai-btn" onclick="openModal('userModal')">Ask AI Matchmaker</button>
-      </div>
-
-      <div class="button-group">
-        <button onclick="openModal('userModal')" class="btn btn-secondary">Browse All Advisors</button>
-        <button onclick="openModal('advisorModal')" class="btn btn-secondary">Apply as an Advisor</button>
-      </div>
-    </div>
-  </section>
-
-  <section class="advisor-categories">
-    <h2>Explore Areas of Expertise</h2>
-    <div class="category-grid">
-      <div class="category-card" onclick="openModal('userModal')">
-        <div class="icon-wrap">💻</div> Software Engineering
-      </div>
-      <div class="category-card" onclick="openModal('userModal')">
-        <div class="icon-wrap">⚙️</div> VLSI & Hardware Design
-      </div>
-      <div class="category-card" onclick="openModal('userModal')">
-        <div class="icon-wrap">🚀</div> Startup Strategy
-      </div>
-      <div class="category-card" onclick="openModal('userModal')">
-        <div class="icon-wrap">📈</div> Financial Advisory
-      </div>
-      <div class="category-card" onclick="openModal('userModal')">
-        <div class="icon-wrap">🎯</div> Product Management
-      </div>
-      <div class="category-card" onclick="openModal('userModal')">
-        <div class="icon-wrap">🤝</div> Career Mentorship
-      </div>
-      <div class="category-card" onclick="openModal('userModal')">
-        <div class="icon-wrap">🎨</div> UX/UI Design
-      </div>
-      <div class="category-card" onclick="openModal('userModal')">
-        <div class="icon-wrap">📊</div> Data Analytics
-      </div>
-      <div class="category-card" onclick="openModal('userModal')">
-        <div class="icon-wrap">⚖️</div> Legal & Compliance
-      </div>
-      <div class="category-card" onclick="openModal('userModal')">
-        <div class="icon-wrap">📢</div> Marketing & Growth
-      </div>
-      <div class="category-card" onclick="openModal('userModal')">
-        <div class="icon-wrap">👥</div> Human Resources
-      </div>
-      <div class="category-card" onclick="openModal('userModal')">
-        <div class="icon-wrap">🏗️</div> Operations Management
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2026 YourProAdvisor. Empowering professional growth.</p>
-  </footer>
-
-  <!-- User Login Modal -->
-  <div id="userModal" class="modal-overlay">
-    <div class="modal-content">
-      <button class="close-btn" onclick="closeModal('userModal')">&times;</button>
-      <h2>Join YourProAdvisor</h2>
-      <form onsubmit="handleUserLogin(event)">
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" placeholder="name@company.com" required>
+      <!-- Left Content -->
+      <div class="hero-content">
+        <div class="badge">
+          ✨ 1-on-1 Expert Mentorship
         </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" placeholder="••••••••" required>
+
+        <h1>
+          Strategic guidance <br>
+          from top-tier <br>
+          <span class="text-blue">professionals</span>
+        </h1>
+
+        <p>
+          Don't guess your next career move. Connect directly with vetted industry experts for 1-on-1 mentorship.
+        </p>
+
+        <!-- AI Matchmaker -->
+        <div class="search-wrapper">
+          <span class="search-icon">✨</span>
+          <input type="text" placeholder="Describe your goal... e.g., 'I need help transitioning to Data Science'">
+          <button class="btn-ai" onclick="window.location.href='user-dashboard.html'">
+            <span>✨</span> Ask AI Matchmaker
+          </button>
         </div>
-        <button type="submit" class="btn submit-btn">Continue to Dashboard</button>
-      </form>
-    </div>
+
+        <!-- Action Buttons -->
+        <div class="button-group">
+          <button class="btn-main" onclick="window.location.href='user-dashboard.html'">
+            👥 Browse All Advisors
+          </button>
+          <button class="btn-outline" onclick="window.location.href='advisor-dashboard.html'">
+            👤 Apply as an Advisor
+          </button>
+        </div>
+
+        <!-- Value Features -->
+        <div class="features-list">
+          <div class="feature-item">
+            <div class="feature-icon">👤</div>
+            <div class="feature-text">
+              <h4>Vetted Experts</h4>
+              <p>Top 1% industry professionals</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🎯</div>
+            <div class="feature-text">
+              <h4>Personalized Guidance</h4>
+              <p>Tailored to your goals</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🚀</div>
+            <div class="feature-text">
+              <h4>Career Growth</h4>
+              <p>Clarity. Confidence. Impact.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Image -->
+      <div class="hero-image">
+        <!-- Using a high-quality professional mentorship placeholder image from Unsplash to match the vibe -->
+        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80&w=800&h=800" alt="Two professionals sitting in front of a city skyline discussing strategy">
+      </div>
+
+    </section>
   </div>
 
-  <!-- Advisor Application Modal -->
-  <div id="advisorModal" class="modal-overlay">
-    <div class="modal-content">
-      <button class="close-btn" onclick="closeModal('advisorModal')">&times;</button>
-      <h2>Apply to Advise</h2>
-      <form onsubmit="handleAdvisorLogin(event)">
-        <div class="form-group">
-          <label>Work Email</label>
-          <input type="email" placeholder="professional@company.com" required>
-        </div>
-        <div class="form-group">
-          <label>Create Password</label>
-          <input type="password" placeholder="••••••••" required>
-        </div>
-        <div class="form-group">
-          <label>LinkedIn Profile URL</label>
-          <input type="url" placeholder="https://linkedin.com/in/yourprofile" required>
-        </div>
-        <button type="submit" class="btn submit-btn">Submit Application</button>
-      </form>
+  <!-- Stats Section -->
+  <div class="stats-container">
+    <div class="stats-card">
+      <div class="stat-item">
+        <h3>500+</h3>
+        <p>Expert Advisors</p>
+      </div>
+      <div class="stat-item">
+        <h3>10K+</h3>
+        <p>Mentorship Sessions</p>
+      </div>
+      <div class="stat-item">
+        <h3>25+</h3>
+        <p>Industries Covered</p>
+      </div>
+      <div class="stat-item">
+        <h3>98%</h3>
+        <p>Satisfaction Rate</p>
+      </div>
     </div>
   </div>
-
-  <script>
-    function openModal(modalId) { 
-      document.getElementById(modalId).style.display = 'flex'; 
-      document.body.style.overflow = 'hidden'; 
-    }
-    
-    function closeModal(modalId) { 
-      document.getElementById(modalId).style.display = 'none'; 
-      document.body.style.overflow = 'auto'; 
-    }
-    
-    function handleUserLogin(event) { 
-      event.preventDefault(); 
-      window.location.href = "user-dashboard.html"; // Updated link
-    }
-    
-    function handleAdvisorLogin(event) { 
-      event.preventDefault(); 
-      window.location.href = "advisor-dashboard.html"; 
-    }
-    
-    window.onclick = function(event) { 
-      if (event.target.className.includes('modal-overlay')) { 
-        event.target.style.display = 'none'; 
-        document.body.style.overflow = 'auto'; 
-      } 
-    }
-  </script>
 
 </body>
 </html>

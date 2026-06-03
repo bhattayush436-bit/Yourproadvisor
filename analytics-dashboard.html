@@ -5,25 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Analytics Dashboard | YourProAdvisor</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Prevents a white flash on load if dark mode is active -->
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  </script>
+
   <style>
-    :root { --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+    /* Default Light Mode Variables */
+    :root { 
+      --bg-color: #f8fafc; 
+      --sidebar-bg: #ffffff; 
+      --text-heading: #0f172a; 
+      --text-sub: #475569; 
+      --primary-btn: #2563eb; 
+      --card-bg: #ffffff; 
+      --border-color: #e2e8f0; 
+      --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); 
+    }
+
+    /* Dark Mode Variables */
+    [data-theme="dark"] {
+      --bg-color: #0f172a;
+      --sidebar-bg: #1e293b;
+      --text-heading: #f8fafc;
+      --text-sub: #94a3b8;
+      --card-bg: #1e293b;
+      --border-color: #334155;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
+    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; transition: background-color 0.3s ease; }
+    
     .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; transition: color 0.2s; padding-right: 15px; }
+    
+    /* Sidebar setup to push the toggle to the bottom */
     .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; overflow-y: auto;}
     .sidebar.hidden { margin-left: -260px; }
     .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; backdrop-filter: blur(2px); }
+    
     .sidebar .logo { display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
     .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
-    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    
+    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; /* Allows bottom content to push down */ }
     .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.9rem; padding: 10px 14px; border-radius: 6px; display: flex; align-items: center; gap: 10px; transition: 0.2s;}
-    .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
+    .nav-links li a.active, .nav-links li a:hover { background-color: var(--border-color); color: var(--primary-btn); }
+    
+    /* Dark Mode Toggle Button Styling */
+    .theme-toggle-btn { margin-top: 20px; padding: 12px 14px; background: transparent; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-weight: 600; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; width: 100%; }
+    .theme-toggle-btn:hover { background: var(--border-color); }
+
     .main-content { flex: 1; padding: 40px; overflow-y: auto; }
     .header { display: flex; align-items: center; margin-bottom: 30px; }
     .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800;}
     
     .widget-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-bottom: 50px; }
-    .widget-card { background: var(--card-bg); padding: 24px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05); }
+    .widget-card { background: var(--card-bg); padding: 24px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); transition: background 0.3s ease, border-color 0.3s ease; }
     .widget-card h3 { color: var(--text-sub); font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; }
     .widget-card .number { font-size: 2rem; font-weight: 800; color: var(--text-heading); }
     .widget-card .trend { font-size: 0.85rem; font-weight: 600; color: #16a34a; margin-top: 5px; display: inline-block;}
@@ -32,7 +71,7 @@
     .section-title { color: var(--text-heading); margin-bottom: 25px; font-size: 1.4rem; font-weight: 700; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
     .subscription-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 40px; }
     
-    .plan-card { background: var(--card-bg); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 10px rgba(0,0,0,0.02); text-align: center; }
+    .plan-card { background: var(--card-bg); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 10px rgba(0,0,0,0.02); text-align: center; transition: background 0.3s ease, border-color 0.3s ease;}
     .plan-card h3 { color: var(--text-heading); font-size: 1.2rem; margin-bottom: 10px; }
     .plan-price { font-size: 2.5rem; font-weight: 800; color: var(--text-heading); margin-bottom: 15px; }
     .plan-price span { font-size: 1rem; font-weight: 500; color: var(--text-sub); }
@@ -44,7 +83,7 @@
     .plan-card.premium .plan-price span { color: rgba(255,255,255,0.8); }
     .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #f59e0b; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
 
-    .btn-plan { background: #f1f5f9; color: var(--text-sub); border: none; padding: 14px; width: 100%; border-radius: 8px; font-weight: 600; cursor: default; }
+    .btn-plan { background: var(--border-color); color: var(--text-heading); border: none; padding: 14px; width: 100%; border-radius: 8px; font-weight: 600; cursor: default; }
     .btn-plan.upgrade { background: white; color: var(--primary-btn); font-weight: 700; cursor: pointer; transition: transform 0.2s; }
     .btn-plan.upgrade:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 
@@ -61,6 +100,7 @@
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
   <aside class="sidebar" id="sidebar">
     <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+    
     <ul class="nav-links">
       <li><a href="analytics-dashboard.html" class="active">📊 Analytics Dashboard</a></li>
       <li><a href="manage-availability.html">📅 Manage Availability</a></li>
@@ -73,6 +113,11 @@
       <li><a href="advisor-support.html">❓ Support & Help</a></li>
       <li><a href="profile-settings.html">⚙️ Profile Settings</a></li>
     </ul>
+
+    <!-- Dark Mode Toggle Button -->
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">
+      🌙 Switch to Dark Mode
+    </button>
   </aside>
 
   <main class="main-content">
@@ -81,7 +126,6 @@
       <h1>Analytics Dashboard</h1>
     </div>
     
-    <!-- Analytics Widgets -->
     <div class="widget-grid">
       <div class="widget-card">
         <h3>Total Sessions Conducted</h3>
@@ -114,7 +158,6 @@
     <h2 class="section-title">Subscription Plans</h2>
     
     <div class="subscription-container">
-      <!-- Free Tier -->
       <div class="plan-card">
         <h3>Basic Advisor</h3>
         <div class="plan-price">Free</div>
@@ -127,7 +170,6 @@
         <button class="btn-plan">Current Plan</button>
       </div>
 
-      <!-- Pro Tier -->
       <div class="plan-card premium">
         <div class="popular-badge">Most Popular</div>
         <h3>Pro Advisor</h3>
@@ -143,10 +185,34 @@
     </div>
 
   </main>
+
   <script>
+    // Sidebar toggle logic
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('active');
       document.getElementById('sidebarOverlay').classList.toggle('active');
+    }
+
+    // Theme toggle logic
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    
+    // Check initial state on load to update button text
+    if (localStorage.getItem('theme') === 'dark') {
+      themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
+    }
+
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      
+      if (currentTheme === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeToggleBtn.innerHTML = '🌙 Switch to Dark Mode';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
+      }
     }
   </script>
 </body>

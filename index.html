@@ -51,7 +51,7 @@
     /* --- Hero Elements --- */
     .badge { display: inline-flex; align-items: center; gap: 8px; background: var(--bg-blue-light); color: var(--primary-blue); padding: 8px 16px; border-radius: 30px; font-weight: 600; font-size: 0.9rem; margin-bottom: 24px; }
     
-    /* MODERN HEADING FONT: Sharp, clean, tight letter spacing */
+    /* MODERN HEADING FONT */
     .hero-content h1 { 
       font-family: 'Plus Jakarta Sans', sans-serif; 
       font-size: 4rem; 
@@ -89,17 +89,18 @@
     .feature-text h4 { color: var(--dark-blue); font-size: 0.9rem; font-weight: 700; margin-bottom: 2px; }
     .feature-text p { color: var(--text-light); font-size: 0.8rem; margin: 0; max-width: none; }
 
-    /* --- NEW: Trust Band (Actual Trademark Logos) --- */
+    /* --- Trust Band (Actual Trademark Logos) --- */
     .trust-band { text-align: center; padding: 40px 5% 50px; max-width: 1400px; margin: 0 auto; }
     .trust-band p { color: var(--text-light); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 30px; }
     .logo-track { display: flex; justify-content: center; align-items: center; gap: 40px 50px; flex-wrap: wrap; }
     
     /* Real image logos styling */
     .trust-logo-img { 
-      height: 28px; 
+      height: 28px; /* Increased slightly for full wordmarks */
       width: auto; 
+      object-fit: contain;
       /* Makes them look sleek and gray by default */
-      filter: grayscale(100%) opacity(50%); 
+      filter: grayscale(100%) opacity(60%); 
       transition: all 0.3s ease; 
     }
     
@@ -108,6 +109,10 @@
       filter: grayscale(0%) opacity(100%); 
       transform: scale(1.05); 
     }
+
+    /* Adjust specific logos that naturally render taller/shorter */
+    .trust-logo-img.apple { height: 34px; }
+    .trust-logo-img.microsoft { height: 26px; }
 
     /* --- Stats Container --- */
     .stats-container { max-width: 1300px; margin: 0 auto 60px; padding: 0 5%; position: relative; z-index: 2; }
@@ -168,8 +173,10 @@
 
       /* Mobile Trust Band Scaling */
       .trust-band { padding: 30px 5% 40px; }
-      .logo-track { gap: 20px 25px; } /* Row gap and Column gap */
+      .logo-track { gap: 25px 30px; } /* Adjust grid gaps for mobile */
       .trust-logo-img { height: 22px; }
+      .trust-logo-img.apple { height: 26px; }
+      .trust-logo-img.microsoft { height: 20px; }
 
       /* Mobile Responsive Footer */
       .footer { padding: 40px 5% 20px; }
@@ -262,22 +269,31 @@
     </section>
   </div>
 
-  <!-- Trust Band Section (Actual Trademark Logos) -->
+  <!-- Trust Band Section (Actual Official Wordmarks/Logos) -->
   <div class="trust-band">
     <p>Our advisors are industry leaders from:</p>
     <div class="logo-track">
-      <img src="https://cdn.simpleicons.org/google" alt="Google" class="trust-logo-img">
-      <img src="https://cdn.simpleicons.org/microsoft" alt="Microsoft" class="trust-logo-img">
-      <img src="https://cdn.simpleicons.org/intel" alt="Intel" class="trust-logo-img">
-      <img src="https://cdn.simpleicons.org/nvidia" alt="NVIDIA" class="trust-logo-img">
-      <img src="https://cdn.simpleicons.org/qualcomm" alt="Qualcomm" class="trust-logo-img">
+      <!-- Google Wordmark -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="trust-logo-img">
+      <!-- Microsoft Wordmark -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" alt="Microsoft" class="trust-logo-img microsoft">
+      <!-- Intel Wordmark -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Intel-logo.svg" alt="Intel" class="trust-logo-img">
+      <!-- NVIDIA Wordmark -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Nvidia_logo.svg" alt="NVIDIA" class="trust-logo-img">
+      <!-- Qualcomm Wordmark -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Qualcomm_Logo.svg" alt="Qualcomm" class="trust-logo-img">
       
-      <!-- New Additional 5 Companies -->
-      <img src="https://cdn.simpleicons.org/amazon" alt="Amazon" class="trust-logo-img">
-      <img src="https://cdn.simpleicons.org/meta" alt="Meta" class="trust-logo-img">
-      <img src="https://cdn.simpleicons.org/apple" alt="Apple" class="trust-logo-img">
-      <img src="https://cdn.simpleicons.org/netflix" alt="Netflix" class="trust-logo-img">
-      <img src="https://cdn.simpleicons.org/stripe" alt="Stripe" class="trust-logo-img">
+      <!-- Amazon Wordmark -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" class="trust-logo-img">
+      <!-- Meta Wordmark -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta" class="trust-logo-img">
+      <!-- Apple Logo -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" class="trust-logo-img apple">
+      <!-- Netflix Wordmark -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix" class="trust-logo-img">
+      <!-- Stripe Wordmark -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" alt="Stripe" class="trust-logo-img">
     </div>
   </div>
 

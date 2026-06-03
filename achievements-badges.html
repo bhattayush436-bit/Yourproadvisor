@@ -6,28 +6,68 @@
   <title>Achievements & Badges | YourProAdvisor</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root { --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+    :root { 
+      --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; 
+      --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; 
+      --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); 
+      --gold: #f59e0b; --silver: #94a3b8; --bronze: #b45309;
+    }
+    
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
     body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
+    
     .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; padding-right: 15px; }
     .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; overflow-y: auto;}
     .sidebar.hidden { margin-left: -260px; }
     .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; }
+    
     .sidebar .logo { display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
     .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
+    
     .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.9rem; padding: 10px 14px; border-radius: 6px; display: flex; align-items: center; gap: 10px; transition: 0.2s;}
     .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
+    
     .main-content { flex: 1; padding: 40px; overflow-y: auto; }
     .header { display: flex; align-items: center; margin-bottom: 30px; }
     .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800;}
+    .section-title { font-size: 1.3rem; font-weight: 700; color: var(--text-heading); margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-top: 40px;}
     
+    /* --- Badges Section --- */
     .badge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
     .badge-card { background: var(--card-bg); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
     .badge-icon { font-size: 3.5rem; margin-bottom: 15px; }
     .badge-card h3 { color: var(--text-heading); font-size: 1.1rem; margin-bottom: 8px; font-weight: 700; }
     .badge-card p { color: var(--text-sub); font-size: 0.9rem; line-height: 1.4; }
     .badge-card.locked { opacity: 0.5; filter: grayscale(100%); }
+
+    /* --- Leaderboard Section --- */
+    .leaderboard-container { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+    .leaderboard-item { display: flex; align-items: center; padding: 20px 25px; border-bottom: 1px solid var(--border-color); transition: background 0.2s; }
+    .leaderboard-item:hover { background: #f8fafc; }
+    .leaderboard-item:last-child { border-bottom: none; }
+    
+    .rank-col { width: 40px; font-size: 1.2rem; font-weight: 800; color: #cbd5e1; flex-shrink: 0;}
+    .rank-1 { color: var(--gold); font-size: 1.5rem;}
+    .rank-2 { color: var(--silver); font-size: 1.3rem;}
+    .rank-3 { color: var(--bronze); font-size: 1.3rem;}
+    
+    .advisor-col { display: flex; align-items: center; gap: 15px; flex: 1; }
+    .avatar { width: 45px; height: 45px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .advisor-details h4 { color: var(--text-heading); font-size: 1.05rem; font-weight: 700; margin-bottom: 3px; }
+    .advisor-details p { color: var(--text-sub); font-size: 0.85rem; }
+    
+    .stats-col { display: flex; gap: 30px; }
+    .stat-group { display: flex; flex-direction: column; align-items: flex-end; min-width: 90px;}
+    .stat-val { font-weight: 800; color: var(--text-heading); font-size: 1.05rem; }
+    .stat-label { font-size: 0.75rem; color: var(--text-sub); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; margin-top: 2px;}
+
+    @media (max-width: 900px) {
+      .leaderboard-item { flex-direction: column; align-items: flex-start; gap: 15px; position: relative; padding-left: 60px;}
+      .rank-col { position: absolute; left: 20px; top: 25px; }
+      .stats-col { width: 100%; justify-content: space-between; padding-top: 15px; border-top: 1px dashed var(--border-color); }
+      .stat-group { align-items: flex-start; }
+    }
 
     @media (max-width: 768px) {
       .sidebar { position: fixed; left: -260px; height: 100vh; }
@@ -39,6 +79,7 @@
 </head>
 <body>
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  
   <aside class="sidebar" id="sidebar">
     <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
     <ul class="nav-links">
@@ -61,7 +102,7 @@
       <h1>Achievements & Badges</h1>
     </div>
     
-    <p style="color: var(--text-sub); margin-bottom: 30px; font-size: 1.05rem;">Badges display publicly on your profile, helping you stand out and attract more clients.</p>
+    <p style="color: var(--text-sub); margin-bottom: 30px; font-size: 1.05rem;">Track your progress, unlock profile badges, and see how you stack up against the platform's top advisors.</p>
 
     <div class="badge-grid">
       <div class="badge-card">
@@ -85,9 +126,119 @@
         <p>Maintains an average message response time of under 1 hour. (Locked)</p>
       </div>
     </div>
+
+    <h2 class="section-title">Platform Top Advisors (All Time)</h2>
+    
+    <div class="leaderboard-container">
+      
+      <div class="leaderboard-item">
+        <div class="rank-col rank-1">#1</div>
+        <div class="advisor-col">
+          <div class="avatar">⚙️</div>
+          <div class="advisor-details">
+            <h4>Dr. Ananya Sharma</h4>
+            <p>VLSI & Hardware Design</p>
+          </div>
+        </div>
+        <div class="stats-col">
+          <div class="stat-group">
+            <span class="stat-val">$142,500</span>
+            <span class="stat-label">Lifetime Earned</span>
+          </div>
+          <div class="stat-group">
+            <span class="stat-val">1,420</span>
+            <span class="stat-label">Sessions</span>
+          </div>
+          <div class="stat-group">
+            <span class="stat-val">950h</span>
+            <span class="stat-label">Invested</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="leaderboard-item">
+        <div class="rank-col rank-2">#2</div>
+        <div class="advisor-col">
+          <div class="avatar">💻</div>
+          <div class="advisor-details">
+            <h4>Michael Chen</h4>
+            <p>Software Engineering</p>
+          </div>
+        </div>
+        <div class="stats-col">
+          <div class="stat-group">
+            <span class="stat-val">$118,200</span>
+            <span class="stat-label">Lifetime Earned</span>
+          </div>
+          <div class="stat-group">
+            <span class="stat-val">1,210</span>
+            <span class="stat-label">Sessions</span>
+          </div>
+          <div class="stat-group">
+            <span class="stat-val">840h</span>
+            <span class="stat-label">Invested</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="leaderboard-item">
+        <div class="rank-col rank-3">#3</div>
+        <div class="advisor-col">
+          <div class="avatar">🚀</div>
+          <div class="advisor-details">
+            <h4>Sarah Jenkins</h4>
+            <p>Startup Strategy</p>
+          </div>
+        </div>
+        <div class="stats-col">
+          <div class="stat-group">
+            <span class="stat-val">$95,400</span>
+            <span class="stat-label">Lifetime Earned</span>
+          </div>
+          <div class="stat-group">
+            <span class="stat-val">890</span>
+            <span class="stat-label">Sessions</span>
+          </div>
+          <div class="stat-group">
+            <span class="stat-val">620h</span>
+            <span class="stat-label">Invested</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="leaderboard-item">
+        <div class="rank-col">#4</div>
+        <div class="advisor-col">
+          <div class="avatar">📈</div>
+          <div class="advisor-details">
+            <h4>David Smith</h4>
+            <p>Financial Advisory</p>
+          </div>
+        </div>
+        <div class="stats-col">
+          <div class="stat-group">
+            <span class="stat-val">$84,100</span>
+            <span class="stat-label">Lifetime Earned</span>
+          </div>
+          <div class="stat-group">
+            <span class="stat-val">750</span>
+            <span class="stat-label">Sessions</span>
+          </div>
+          <div class="stat-group">
+            <span class="stat-val">510h</span>
+            <span class="stat-label">Invested</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </main>
+
   <script>
-    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); document.getElementById('sidebarOverlay').classList.toggle('active'); }
+    function toggleSidebar() { 
+      document.getElementById('sidebar').classList.toggle('active'); 
+      document.getElementById('sidebarOverlay').classList.toggle('active'); 
+    }
   </script>
 </body>
 </html>

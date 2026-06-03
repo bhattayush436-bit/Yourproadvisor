@@ -4,282 +4,293 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Find Advisors | YourProAdvisor</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  </script>
+
   <style>
+    /* Default Light Mode Variables */
     :root { 
       --bg-color: #f8fafc; 
       --sidebar-bg: #ffffff; 
       --text-heading: #0f172a; 
       --text-sub: #475569; 
-      --text-logo: #1e3a8a; 
       --primary-btn: #2563eb; 
-      --primary-hover: #1d4ed8;
       --card-bg: #ffffff; 
       --border-color: #e2e8f0; 
-      --success-green: #16a34a; 
-      --warning-gold: #f59e0b;
-      --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-      --ai-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+      --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); 
     }
-    
+
+    /* Dark Mode Variables */
+    [data-theme="dark"] {
+      --bg-color: #0f172a;
+      --sidebar-bg: #1e293b;
+      --text-heading: #f8fafc;
+      --text-sub: #94a3b8;
+      --card-bg: #1e293b;
+      --border-color: #334155;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
+    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; transition: background-color 0.3s ease; }
     
     .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; transition: color 0.2s; padding-right: 15px; }
-    .menu-toggle:hover { color: var(--primary-btn); }
     
-    .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; }
+    /* Sidebar setup */
+    .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; overflow-y: auto;}
     .sidebar.hidden { margin-left: -260px; }
     .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; backdrop-filter: blur(2px); }
     
-    .sidebar .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
-    .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .sidebar .logo { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
+    .sidebar .logo .highlight { color: var(--primary-btn); }
     
-    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
-    .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
+    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 14px; border-radius: 6px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
+    .nav-links li a.active, .nav-links li a:hover { background-color: var(--border-color); color: var(--primary-btn); }
     
+    .theme-toggle-btn { margin-top: 20px; padding: 12px 14px; background: transparent; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-weight: 600; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; width: 100%; }
+    .theme-toggle-btn:hover { background: var(--border-color); }
+
+    /* Main Content Area */
     .main-content { flex: 1; padding: 40px; overflow-y: auto; }
     .header { display: flex; align-items: center; margin-bottom: 30px; }
-    .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800; letter-spacing: -0.5px;}
+    .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif;}
 
-    .ai-search-container { background: var(--card-bg); padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 40px; text-align: center; }
-    .ai-search-container h2 { color: var(--text-heading); font-size: 1.4rem; margin-bottom: 10px; }
-    .ai-search-container p { color: var(--text-sub); margin-bottom: 25px; font-size: 1rem; }
+    /* Search & Filter Bar */
+    .search-filter-bar { display: flex; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
+    .search-box { flex: 1; min-width: 250px; display: flex; align-items: center; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px 15px; }
+    .search-box input { border: none; outline: none; background: transparent; width: 100%; color: var(--text-heading); font-size: 0.95rem; margin-left: 10px; }
+    .btn-filter { padding: 12px 20px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .btn-filter:hover { background: var(--border-color); }
 
-    .search-wrapper { display: flex; align-items: center; background: var(--bg-offwhite); border: 1px solid #cbd5e1; border-radius: 50px; padding: 8px 8px 8px 20px; max-width: 800px; margin: 0 auto; transition: all 0.3s ease; }
-    .search-wrapper:focus-within { border-color: #8b5cf6; background: var(--bg-white); box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1); }
-    .search-wrapper input { flex: 1; border: none; outline: none; font-size: 1.05rem; color: var(--text-heading); background: transparent; }
-    .btn-ai { background: var(--ai-gradient); color: white; border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: transform 0.2s; }
-    .btn-ai:hover { transform: scale(1.02); }
-
-    .section-title { color: var(--text-heading); margin-bottom: 20px; font-size: 1.4rem; font-weight: 700; display: flex; align-items: center; justify-content: space-between; }
-    .advisor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; padding-bottom: 40px; }
+    /* Top Advisors Grid */
+    .section-title { color: var(--text-heading); margin-bottom: 20px; font-size: 1.3rem; font-weight: 700; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+    .advisor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; margin-bottom: 40px; }
     
-    .advisor-card { background: var(--card-bg); padding: 24px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04); display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; position: relative; }
-    .advisor-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08); border-color: #cbd5e1; }
+    .advisor-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 24px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.02); display: flex; flex-direction: column; position: relative;}
+    .advisor-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.06); border-color: #cbd5e1; }
     
-    .btn-save-advisor { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 1.4rem; cursor: pointer; transition: transform 0.2s; color: #cbd5e1; }
-    .btn-save-advisor.saved { color: #ef4444; } 
-    .btn-save-advisor:hover { transform: scale(1.1); }
+    .top-badge { position: absolute; top: -12px; right: 20px; background: #f59e0b; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);}
 
-    .advisor-header { display: flex; gap: 15px; margin-bottom: 20px; align-items: center;}
-    .advisor-avatar { width: 55px; height: 55px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-    .advisor-name h4 { color: var(--text-heading); font-size: 1.2rem; font-weight: 700; margin-bottom: 3px; max-width: 80%;}
-    .advisor-name p { color: var(--primary-btn); font-size: 0.9rem; font-weight: 600; }
+    .advisor-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+    .avatar { width: 60px; height: 60px; border-radius: 50%; background: var(--bg-color); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0;}
     
-    .stats-row { display: flex; justify-content: space-between; background: var(--bg-offwhite); padding: 12px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--border-color); }
-    .stat-box { text-align: center; flex: 1; border-right: 1px solid var(--border-color); }
-    .stat-box:last-child { border-right: none; }
-    .stat-val { display: block; font-weight: 800; color: var(--text-heading); font-size: 1.1rem; }
-    .stat-label { font-size: 0.75rem; color: var(--text-sub); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;}
-    .rating-star { color: var(--warning-gold); }
+    .advisor-info h3 { display: flex; align-items: center; gap: 6px; color: var(--text-heading); font-size: 1.15rem; font-weight: 800; margin-bottom: 4px; }
+    .verified-badge { color: #3b82f6; font-size: 1.1rem; }
+    
+    .advisor-info p { color: var(--text-sub); font-size: 0.85rem; font-weight: 600; }
+    .advisor-info .company { color: var(--primary-btn); font-weight: 700; }
 
-    .pricing-title { font-size: 0.85rem; color: var(--text-sub); font-weight: 600; margin-bottom: 10px; text-transform: uppercase;}
-    .pricing-tiers { display: flex; gap: 10px; margin-bottom: 24px; }
-    .price-pill { flex: 1; text-align: center; border: 1px solid var(--border-color); border-radius: 8px; padding: 10px 5px; transition: border 0.2s; cursor: default;}
-    .price-pill:hover { border-color: var(--primary-btn); background: var(--bg-blue-light); }
-    .price-time { display: block; font-size: 0.8rem; color: var(--text-sub); font-weight: 500; margin-bottom: 4px; }
-    .price-amt { display: block; font-size: 1.1rem; font-weight: 800; color: var(--text-heading); }
-
-    .btn-book { background: var(--dark-blue); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; width: 100%; font-size: 1rem; margin-top: auto;}
-    .btn-book:hover { background: var(--text-heading); opacity: 0.9; }
+    /* New Achievements Block */
+    .advisor-stats { display: flex; gap: 15px; background: var(--bg-color); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; margin-bottom: 16px; }
+    .stat { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+    .stat span:first-child { font-size: 1.05rem; font-weight: 800; color: var(--text-heading); }
+    .stat span:last-child { font-size: 0.75rem; font-weight: 600; color: var(--text-sub); text-transform: uppercase; }
+    .stat-divider { width: 1px; background: var(--border-color); }
+    
+    .advisor-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .tag { background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-sub); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+    
+    .advisor-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid var(--border-color); padding-top: 15px; }
+    .rating { color: #f59e0b; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 4px; }
+    .price { color: var(--text-heading); font-weight: 800; font-size: 1rem; }
+    
+    .btn-book { width: 100%; padding: 12px; background: var(--primary-btn); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 15px; transition: background 0.2s; }
+    .btn-book:hover { background: #1d4ed8; }
 
     @media (max-width: 768px) {
       .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
-      .sidebar.active { left: 0; margin-left: 0; }
+      .sidebar.active { left: 0; }
       .sidebar-overlay.active { display: block; }
       .main-content { padding: 20px; }
-      .header h1 { font-size: 1.6rem; }
-      .search-wrapper { flex-direction: column; background: transparent; border: none; padding: 0; gap: 10px;}
-      .search-wrapper input { width: 100%; background: var(--bg-white); border: 1px solid var(--border-color); padding: 14px; border-radius: 8px; text-align: center; }
-      .btn-ai { width: 100%; border-radius: 8px; padding: 14px; }
     }
   </style>
 </head>
 <body>
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
   <aside class="sidebar" id="sidebar">
     <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+    
     <ul class="nav-links">
       <li><a href="user-dashboard.html">📊 Dashboard</a></li>
       <li><a href="find-advisors.html" class="active">🔍 Find Advisors</a></li>
       <li><a href="my-sessions.html">📅 My Sessions</a></li>
-      <li><a href="user-messages.html">💬 Messages</a></li>
+      <li><a href="messages.html">💬 Messages</a></li>
       <li><a href="wallet-payment.html">💳 Wallet & Payment</a></li>
       <li><a href="notifications.html">🔔 Notifications</a></li>
       <li><a href="support-help.html">❓ Support & Help</a></li>
-      <li><a href="user-settings.html">⚙️ Profile Settings</a></li>
+      <li><a href="profile-settings.html">⚙️ Profile Settings</a></li>
     </ul>
+
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">
+      🌙 Switch to Dark Mode
+    </button>
   </aside>
 
   <main class="main-content">
     <div class="header">
       <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-      <h1>Find Your Advisor</h1>
+      <h1>Browse Top Advisors</h1>
     </div>
 
-    <div class="ai-search-container">
-      <h2>What field are you looking to explore?</h2>
-      <p>Tell our AI what you need help with, and we'll instantly match you with the best professionals.</p>
-      
-      <div class="search-wrapper">
-        <input type="text" placeholder="e.g., 'I need an expert in VLSI front-end design and Verilog'...">
-        <button class="btn-ai">✨ Match Me</button>
+    <!-- Search and Filter -->
+    <div class="search-filter-bar">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" placeholder="Search by skill, title, or company...">
       </div>
-    </div>
-    
-    <h2 class="section-title">Saved Advisors</h2>
-    
-    <div class="advisor-grid" style="border-bottom: 1px solid var(--border-color); margin-bottom: 30px;">
-      <div class="advisor-card" style="border-color: #cbd5e1; background: #f8fafc;">
-        <button class="btn-save-advisor saved" title="Remove from saved">❤️</button>
-        <div class="advisor-header">
-          <div class="advisor-avatar">🚀</div>
-          <div class="advisor-name">
-            <h4>Sarah Jenkins</h4>
-            <p>Startup Strategy</p>
-          </div>
-        </div>
-        
-        <div class="stats-row">
-          <div class="stat-box">
-            <span class="stat-val"><span class="rating-star">★</span> 4.8</span>
-            <span class="stat-label">Rating</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-val">89</span>
-            <span class="stat-label">Sessions</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-val">60h</span>
-            <span class="stat-label">Invested</span>
-          </div>
-        </div>
-
-        <div class="pricing-title">Consultation Rates</div>
-        <div class="pricing-tiers">
-          <div class="price-pill">
-            <span class="price-time">15 min</span>
-            <span class="price-amt">$25</span>
-          </div>
-          <div class="price-pill">
-            <span class="price-time">30 min</span>
-            <span class="price-amt">$45</span>
-          </div>
-          <div class="price-pill">
-            <span class="price-time">60 min</span>
-            <span class="price-amt">$80</span>
-          </div>
-        </div>
-
-        <button class="btn-book">View Profile & Book</button>
-      </div>
+      <button class="btn-filter">⚙️ Filters</button>
+      <button class="btn-filter">🏢 Companies</button>
+      <button class="btn-filter">💰 Price Range</button>
     </div>
 
-    <h2 class="section-title">Top Matches for You</h2>
+    <h2 class="section-title">Verified Platform Leaders</h2>
     
+    <!-- Advisor Grid -->
     <div class="advisor-grid">
+      
+      <!-- Expert 1 -->
       <div class="advisor-card">
-        <button class="btn-save-advisor" title="Save this advisor">🤍</button>
+        <div class="top-badge">Top 1% Mentor</div>
         <div class="advisor-header">
-          <div class="advisor-avatar">⚙️</div>
-          <div class="advisor-name">
-            <h4>Dr. Ananya Sharma</h4>
-            <p>VLSI & Hardware Design</p>
+          <div class="avatar">⚙️</div>
+          <div class="advisor-info">
+            <h3>Dr. Ananya Sharma <span class="verified-badge" title="Identity & Employment Verified">✔️</span></h3>
+            <p>Senior Hardware Engineer @ <span class="company">Intel</span></p>
           </div>
         </div>
         
-        <div class="stats-row">
-          <div class="stat-box">
-            <span class="stat-val"><span class="rating-star">★</span> 4.9</span>
-            <span class="stat-label">Rating</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-val">142</span>
-            <span class="stat-label">Sessions</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-val">95h</span>
-            <span class="stat-label">Invested</span>
-          </div>
+        <div class="advisor-stats">
+          <div class="stat"><span>950+</span><span>Hours Invested</span></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><span>1,420</span><span>Sessions Taken</span></div>
         </div>
 
-        <div class="pricing-title">Consultation Rates</div>
-        <div class="pricing-tiers">
-          <div class="price-pill">
-            <span class="price-time">15 min</span>
-            <span class="price-amt">$20</span>
-          </div>
-          <div class="price-pill">
-            <span class="price-time">30 min</span>
-            <span class="price-amt">$35</span>
-          </div>
-          <div class="price-pill" style="border-color: var(--primary-btn); background: var(--bg-blue-light);">
-            <span class="price-time">60 min</span>
-            <span class="price-amt">$60</span>
-          </div>
+        <div class="advisor-tags">
+          <span class="tag">VLSI Design</span>
+          <span class="tag">Verilog</span>
+          <span class="tag">ASIC</span>
         </div>
-
-        <button class="btn-book">View Profile & Book</button>
+        <div class="advisor-footer">
+          <div class="rating">⭐ 5.0 (124 reviews)</div>
+          <div class="price">$80/hr</div>
+        </div>
+        <button class="btn-book">Book Session</button>
       </div>
 
+      <!-- Expert 2 -->
       <div class="advisor-card">
-        <button class="btn-save-advisor" title="Save this advisor">🤍</button>
         <div class="advisor-header">
-          <div class="advisor-avatar">💻</div>
-          <div class="advisor-name">
-            <h4>Michael Chen</h4>
-            <p>Software Engineering</p>
-          </div>
-        </div>
-        
-        <div class="stats-row">
-          <div class="stat-box">
-            <span class="stat-val"><span class="rating-star">★</span> 5.0</span>
-            <span class="stat-label">Rating</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-val">308</span>
-            <span class="stat-label">Sessions</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-val">210h</span>
-            <span class="stat-label">Invested</span>
+          <div class="avatar">💻</div>
+          <div class="advisor-info">
+            <h3>Michael Chen <span class="verified-badge" title="Identity & Employment Verified">✔️</span></h3>
+            <p>Staff Software Engineer @ <span class="company">Google</span></p>
           </div>
         </div>
 
-        <div class="pricing-title">Consultation Rates</div>
-        <div class="pricing-tiers">
-          <div class="price-pill">
-            <span class="price-time">15 min</span>
-            <span class="price-amt">$30</span>
-          </div>
-          <div class="price-pill">
-            <span class="price-time">30 min</span>
-            <span class="price-amt">$50</span>
-          </div>
-          <div class="price-pill">
-            <span class="price-time">60 min</span>
-            <span class="price-amt">$90</span>
-          </div>
+        <div class="advisor-stats">
+          <div class="stat"><span>840+</span><span>Hours Invested</span></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><span>1,210</span><span>Sessions Taken</span></div>
         </div>
 
-        <button class="btn-book">View Profile & Book</button>
+        <div class="advisor-tags">
+          <span class="tag">System Design</span>
+          <span class="tag">Data Structures</span>
+          <span class="tag">React</span>
+        </div>
+        <div class="advisor-footer">
+          <div class="rating">⭐ 4.9 (89 reviews)</div>
+          <div class="price">$120/hr</div>
+        </div>
+        <button class="btn-book">Book Session</button>
       </div>
+
+      <!-- Expert 3 -->
+      <div class="advisor-card">
+        <div class="top-badge">Highly Rated</div>
+        <div class="advisor-header">
+          <div class="avatar">🚀</div>
+          <div class="advisor-info">
+            <h3>Sarah Jenkins <span class="verified-badge" title="Identity & Employment Verified">✔️</span></h3>
+            <p>Product Strategy Lead @ <span class="company">Meta</span></p>
+          </div>
+        </div>
+
+        <div class="advisor-stats">
+          <div class="stat"><span>620+</span><span>Hours Invested</span></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><span>890</span><span>Sessions Taken</span></div>
+        </div>
+
+        <div class="advisor-tags">
+          <span class="tag">Product Management</span>
+          <span class="tag">Agile</span>
+          <span class="tag">Interviews</span>
+        </div>
+        <div class="advisor-footer">
+          <div class="rating">⭐ 4.8 (156 reviews)</div>
+          <div class="price">$95/hr</div>
+        </div>
+        <button class="btn-book">Book Session</button>
+      </div>
+
+      <!-- Expert 4 -->
+      <div class="advisor-card">
+        <div class="advisor-header">
+          <div class="avatar">📱</div>
+          <div class="advisor-info">
+            <h3>David Smith <span class="verified-badge" title="Identity & Employment Verified">✔️</span></h3>
+            <p>Frontend Architecture @ <span class="company">Netflix</span></p>
+          </div>
+        </div>
+
+        <div class="advisor-stats">
+          <div class="stat"><span>510+</span><span>Hours Invested</span></div>
+          <div class="stat-divider"></div>
+          <div class="stat"><span>750</span><span>Sessions Taken</span></div>
+        </div>
+
+        <div class="advisor-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">UI/UX</span>
+          <span class="tag">Career Growth</span>
+        </div>
+        <div class="advisor-footer">
+          <div class="rating">⭐ 5.0 (210 reviews)</div>
+          <div class="price">$110/hr</div>
+        </div>
+        <button class="btn-book">Book Session</button>
+      </div>
+
     </div>
   </main>
 
   <script>
     function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('sidebarOverlay');
-      if (window.innerWidth <= 768) { 
-        sidebar.classList.toggle('active'); 
-        overlay.classList.toggle('active'); 
-      } else { 
-        sidebar.classList.toggle('hidden'); 
+      document.getElementById('sidebar').classList.toggle('active');
+      document.getElementById('sidebarOverlay').classList.toggle('active');
+    }
+
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    
+    if (localStorage.getItem('theme') === 'dark') {
+      themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
+    }
+
+    function toggleTheme() {
+      if (document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeToggleBtn.innerHTML = '🌙 Switch to Dark Mode';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
       }
     }
   </script>

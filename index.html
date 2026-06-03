@@ -31,8 +31,13 @@
     .logo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--dark-blue); text-decoration: none; letter-spacing: -1px; }
     .logo .highlight { color: var(--primary-blue); font-family: 'Plus Jakarta Sans', sans-serif; }
     
+    /* AUTH BUTTONS */
+    .nav-buttons { display: flex; gap: 12px; align-items: center; }
     .btn-login { padding: 10px 24px; border: 1px solid var(--border-color); border-radius: 8px; background: transparent; color: var(--dark-blue); font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; }
     .btn-login:hover { background: var(--bg-offwhite); border-color: #cbd5e1; }
+    
+    .btn-signup { padding: 10px 24px; border: none; border-radius: 8px; background: var(--primary-blue); color: white; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; }
+    .btn-signup:hover { background: #2563eb; }
 
     /* --- Hero Section --- */
     .hero-wrapper {
@@ -91,7 +96,7 @@
     .stat-item h3 { font-size: 2.2rem; font-weight: 800; color: var(--primary-blue); margin-bottom: 5px; font-family: 'Plus Jakarta Sans', sans-serif;}
     .stat-item p { font-size: 0.9rem; color: var(--dark-blue); font-weight: 600; }
 
-    /* --- NEW: Footer Section --- */
+    /* --- Footer Section --- */
     .footer { padding: 60px 5% 20px; max-width: 1400px; margin: 0 auto; }
     .footer-top { margin-bottom: 40px; }
     .footer-tagline { color: var(--text-light); font-size: 0.95rem; margin: 15px 0 20px; font-weight: 500; }
@@ -122,9 +127,14 @@
       .stats-card { flex-direction: column; text-align: center; padding: 30px 20px; }
     }
     
-    /* Mobile Phone Size Tweaks (Including Footer) */
+    /* Mobile Phone Size Tweaks */
     @media (max-width: 600px) {
-      /* Made the mobile heading much smaller and adjusted line height */
+      /* Mobile Nav Tweaks */
+      .logo { font-size: 1.4rem; }
+      .nav-buttons { gap: 8px; }
+      .btn-login, .btn-signup { padding: 8px 14px; font-size: 0.85rem; }
+
+      /* Mobile heading adjustments */
       .hero-content h1 { 
         font-size: 2.1rem; 
         letter-spacing: -0.5px;
@@ -142,7 +152,6 @@
       .footer-col { border-bottom: 1px solid var(--border-color); padding: 15px 0; }
       .footer-col:first-child { border-top: none; }
       .footer-col h4 { margin-bottom: 10px; font-size: 1rem; display: flex; justify-content: space-between; align-items: center;}
-      /* Adds the little drop-down arrow look on mobile */
       .footer-col h4::after { content: '⌄'; font-size: 1.4rem; color: var(--text-light); font-weight: 400; transform: translateY(-3px);}
       .footer-col ul li { margin-bottom: 12px; }
       .footer-col ul li a { font-size: 0.9rem; }
@@ -155,7 +164,10 @@
   <!-- Navigation -->
   <nav class="navbar">
     <a href="#" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
-    <button class="btn-login" onclick="window.location.href='user-dashboard.html'">Log In</button>
+    <div class="nav-buttons">
+      <button class="btn-login" onclick="window.location.href='user-dashboard.html'">Log In</button>
+      <button class="btn-signup" onclick="window.location.href='user-dashboard.html'">Sign Up</button>
+    </div>
   </nav>
 
   <!-- Hero Section -->
@@ -247,7 +259,7 @@
     </div>
   </div>
 
-  <!-- NEW FOOTER SECTION -->
+  <!-- Footer Section -->
   <footer class="footer">
     <div class="footer-top">
       <a href="#" class="logo">Your<span class="highlight">Pro</span>Advisor</a>

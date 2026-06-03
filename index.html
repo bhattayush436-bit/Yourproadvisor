@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YourProAdvisor | Strategic Guidance</title>
   
+  <!-- IMPORTS: Inter for readability, Plus Jakarta Sans for premium, modern headings -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
   
   <style>
@@ -103,8 +104,15 @@
       .search-wrapper { width: 100%; max-width: 500px; }
       .stats-card { flex-direction: column; text-align: center; padding: 30px 20px; }
     }
+    
+    /* Mobile Phone Size Tweaks */
     @media (max-width: 600px) {
-      .hero-content h1 { font-size: 2.6rem; }
+      /* Made the mobile heading much smaller and adjusted line height */
+      .hero-content h1 { 
+        font-size: 2.1rem; 
+        letter-spacing: -0.5px;
+        line-height: 1.15;
+      }
       .search-wrapper { flex-direction: column; border-radius: 12px; padding: 10px; background: transparent; border: none; box-shadow: none; gap: 10px;}
       .search-wrapper input { width: 100%; padding: 15px; border: 1px solid var(--border-color); border-radius: 8px; background: white; text-align: center;}
       .btn-ai { width: 100%; justify-content: center; border-radius: 8px;}
@@ -115,11 +123,13 @@
 </head>
 <body>
 
+  <!-- Navigation -->
   <nav class="navbar">
     <a href="#" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
     <button class="btn-login" onclick="window.location.href='user-dashboard.html'">Log In</button>
   </nav>
 
+  <!-- Hero Section -->
   <div class="hero-wrapper">
     <section class="hero-container">
       
@@ -138,6 +148,7 @@
           Don't guess your next career move. Connect directly with vetted industry experts for 1-on-1 mentorship.
         </p>
 
+        <!-- AI Matchmaker -->
         <div class="search-wrapper">
           <span class="search-icon">✨</span>
           <input type="text" placeholder="Describe your goal... e.g., 'I need help transitioning to Data Science'">
@@ -146,15 +157,19 @@
           </button>
         </div>
 
+        <!-- Action Buttons -->
         <div class="button-group">
+          <!-- Directs to the User portal -->
           <button class="btn-main" onclick="window.location.href='user-dashboard.html'">
             👥 Browse All Advisors
           </button>
+          <!-- Directs to the new Analytics Dashboard -->
           <button class="btn-outline" onclick="window.location.href='analytics-dashboard.html'">
             👤 Apply as an Advisor
           </button>
         </div>
 
+        <!-- Value Features -->
         <div class="features-list">
           <div class="feature-item">
             <div class="feature-icon">👤</div>
@@ -183,6 +198,7 @@
     </section>
   </div>
 
+  <!-- Stats Section -->
   <div class="stats-container">
     <div class="stats-card">
       <div class="stat-item">

@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YourProAdvisor | Strategic Guidance</title>
   
-  <!-- UPDATED: Now imports both Inter (for body) and Playfair Display (for professional headings) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
   
   <style>
     /* --- Premium UI Variables --- */
@@ -27,9 +26,9 @@
     /* --- Navbar --- */
     .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; max-width: 1400px; margin: 0 auto; background: transparent; position: relative; z-index: 10; }
     
-    /* UPDATED LOGO: Uses the premium Playfair font */
-    .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; color: var(--dark-blue); text-decoration: none; letter-spacing: -0.5px; }
-    .logo .highlight { color: var(--primary-blue); font-family: 'Playfair Display', serif; }
+    /* MODERN LOGO FONT */
+    .logo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--dark-blue); text-decoration: none; letter-spacing: -1px; }
+    .logo .highlight { color: var(--primary-blue); font-family: 'Plus Jakarta Sans', sans-serif; }
     
     .btn-login { padding: 10px 24px; border: 1px solid var(--border-color); border-radius: 8px; background: transparent; color: var(--dark-blue); font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; }
     .btn-login:hover { background: var(--bg-offwhite); border-color: #cbd5e1; }
@@ -46,17 +45,17 @@
     /* --- Hero Elements --- */
     .badge { display: inline-flex; align-items: center; gap: 8px; background: var(--bg-blue-light); color: var(--primary-blue); padding: 8px 16px; border-radius: 30px; font-weight: 600; font-size: 0.9rem; margin-bottom: 24px; }
     
-    /* UPDATED HERO TEXT: Uses the premium Playfair font for a high-end look */
+    /* MODERN HEADING FONT: Sharp, clean, tight letter spacing */
     .hero-content h1 { 
-      font-family: 'Playfair Display', serif; 
-      font-size: 4.2rem; /* Made slightly larger to accommodate the serif style */
+      font-family: 'Plus Jakarta Sans', sans-serif; 
+      font-size: 4rem; 
       font-weight: 800; 
       color: var(--dark-blue); 
-      line-height: 1.1; 
+      line-height: 1.05; 
       margin-bottom: 20px; 
-      letter-spacing: -1px; 
+      letter-spacing: -1.5px; 
     }
-    .hero-content h1 .text-blue { color: var(--primary-blue); font-family: 'Playfair Display', serif; }
+    .hero-content h1 .text-blue { color: var(--primary-blue); font-family: 'Plus Jakarta Sans', sans-serif; }
     
     .hero-content p { font-size: 1.1rem; color: var(--text-main); margin-bottom: 40px; line-height: 1.6; max-width: 480px; }
 
@@ -64,7 +63,7 @@
     .search-wrapper { display: flex; align-items: center; background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 50px; padding: 6px 6px 6px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 30px; transition: box-shadow 0.2s; }
     .search-wrapper:focus-within { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 10px 25px rgba(0,0,0,0.05); border-color: var(--primary-blue); }
     .search-icon { color: #f59e0b; margin-right: 10px; font-size: 1.2rem; }
-    .search-wrapper input { flex: 1; border: none; outline: none; font-size: 0.95rem; color: var(--dark-blue); }
+    .search-wrapper input { flex: 1; border: none; outline: none; font-size: 0.95rem; color: var(--dark-blue); font-family: 'Inter', sans-serif;}
     .search-wrapper input::placeholder { color: #94a3b8; }
 
     .btn-ai { background: var(--primary-blue); color: white; border: none; padding: 12px 24px; border-radius: 40px; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: background 0.2s; }
@@ -88,7 +87,7 @@
     .stats-container { max-width: 1300px; margin: -20px auto 60px; padding: 0 5%; position: relative; z-index: 2; }
     .stats-card { background: var(--bg-offwhite); border-radius: 20px; padding: 40px; display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid var(--border-color); }
     .stat-item { text-align: center; }
-    .stat-item h3 { font-size: 2.2rem; font-weight: 800; color: var(--primary-blue); margin-bottom: 5px; }
+    .stat-item h3 { font-size: 2.2rem; font-weight: 800; color: var(--primary-blue); margin-bottom: 5px; font-family: 'Plus Jakarta Sans', sans-serif;}
     .stat-item p { font-size: 0.9rem; color: var(--dark-blue); font-weight: 600; }
 
     /* --- Responsive Design --- */
@@ -116,17 +115,14 @@
 </head>
 <body>
 
-  <!-- Navigation -->
   <nav class="navbar">
     <a href="#" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
     <button class="btn-login" onclick="window.location.href='user-dashboard.html'">Log In</button>
   </nav>
 
-  <!-- Hero Section -->
   <div class="hero-wrapper">
     <section class="hero-container">
       
-      <!-- Content Overlaying the Background Image -->
       <div class="hero-content">
         <div class="badge">
           ✨ 1-on-1 Expert Mentorship
@@ -142,7 +138,6 @@
           Don't guess your next career move. Connect directly with vetted industry experts for 1-on-1 mentorship.
         </p>
 
-        <!-- AI Matchmaker -->
         <div class="search-wrapper">
           <span class="search-icon">✨</span>
           <input type="text" placeholder="Describe your goal... e.g., 'I need help transitioning to Data Science'">
@@ -151,19 +146,15 @@
           </button>
         </div>
 
-        <!-- Action Buttons -->
         <div class="button-group">
-          <!-- Directs to the User portal -->
           <button class="btn-main" onclick="window.location.href='user-dashboard.html'">
             👥 Browse All Advisors
           </button>
-          <!-- Directs specifically to the new Analytics Dashboard -->
           <button class="btn-outline" onclick="window.location.href='analytics-dashboard.html'">
             👤 Apply as an Advisor
           </button>
         </div>
 
-        <!-- Value Features -->
         <div class="features-list">
           <div class="feature-item">
             <div class="feature-icon">👤</div>
@@ -192,7 +183,6 @@
     </section>
   </div>
 
-  <!-- Stats Section -->
   <div class="stats-container">
     <div class="stats-card">
       <div class="stat-item">

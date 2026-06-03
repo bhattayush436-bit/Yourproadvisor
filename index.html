@@ -4,7 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YourProAdvisor | Strategic Guidance</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- UPDATED: Now imports both Inter (for body) and Playfair Display (for professional headings) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  
   <style>
     /* --- Premium UI Variables --- */
     :root {
@@ -23,8 +26,11 @@
 
     /* --- Navbar --- */
     .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; max-width: 1400px; margin: 0 auto; background: transparent; position: relative; z-index: 10; }
-    .logo { font-size: 1.5rem; font-weight: 800; color: var(--dark-blue); text-decoration: none; letter-spacing: -0.5px; }
-    .logo .highlight { color: var(--primary-blue); }
+    
+    /* UPDATED LOGO: Uses the premium Playfair font */
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; color: var(--dark-blue); text-decoration: none; letter-spacing: -0.5px; }
+    .logo .highlight { color: var(--primary-blue); font-family: 'Playfair Display', serif; }
+    
     .btn-login { padding: 10px 24px; border: 1px solid var(--border-color); border-radius: 8px; background: transparent; color: var(--dark-blue); font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; }
     .btn-login:hover { background: var(--bg-offwhite); border-color: #cbd5e1; }
 
@@ -39,8 +45,19 @@
 
     /* --- Hero Elements --- */
     .badge { display: inline-flex; align-items: center; gap: 8px; background: var(--bg-blue-light); color: var(--primary-blue); padding: 8px 16px; border-radius: 30px; font-weight: 600; font-size: 0.9rem; margin-bottom: 24px; }
-    .hero-content h1 { font-size: 3.8rem; font-weight: 800; color: var(--dark-blue); line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
-    .hero-content h1 .text-blue { color: var(--primary-blue); }
+    
+    /* UPDATED HERO TEXT: Uses the premium Playfair font for a high-end look */
+    .hero-content h1 { 
+      font-family: 'Playfair Display', serif; 
+      font-size: 4.2rem; /* Made slightly larger to accommodate the serif style */
+      font-weight: 800; 
+      color: var(--dark-blue); 
+      line-height: 1.1; 
+      margin-bottom: 20px; 
+      letter-spacing: -1px; 
+    }
+    .hero-content h1 .text-blue { color: var(--primary-blue); font-family: 'Playfair Display', serif; }
+    
     .hero-content p { font-size: 1.1rem; color: var(--text-main); margin-bottom: 40px; line-height: 1.6; max-width: 480px; }
 
     /* --- AI Search Bar --- */
@@ -75,7 +92,9 @@
     .stat-item p { font-size: 0.9rem; color: var(--dark-blue); font-weight: 600; }
 
     /* --- Responsive Design --- */
-    @media (max-width: 1024px) { .hero-content h1 { font-size: 3rem; } }
+    @media (max-width: 1024px) { 
+      .hero-content h1 { font-size: 3.2rem; } 
+    }
     @media (max-width: 860px) {
       .hero-wrapper { background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 100%), url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; }
       .hero-container { flex-direction: column; text-align: center; padding-top: 20px; }
@@ -86,7 +105,7 @@
       .stats-card { flex-direction: column; text-align: center; padding: 30px 20px; }
     }
     @media (max-width: 600px) {
-      .hero-content h1 { font-size: 2.4rem; }
+      .hero-content h1 { font-size: 2.6rem; }
       .search-wrapper { flex-direction: column; border-radius: 12px; padding: 10px; background: transparent; border: none; box-shadow: none; gap: 10px;}
       .search-wrapper input { width: 100%; padding: 15px; border: 1px solid var(--border-color); border-radius: 8px; background: white; text-align: center;}
       .btn-ai { width: 100%; justify-content: center; border-radius: 8px;}
@@ -99,27 +118,31 @@
 
   <!-- Navigation -->
   <nav class="navbar">
-    <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+    <a href="#" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
     <button class="btn-login" onclick="window.location.href='user-dashboard.html'">Log In</button>
   </nav>
 
   <!-- Hero Section -->
   <div class="hero-wrapper">
     <section class="hero-container">
+      
+      <!-- Content Overlaying the Background Image -->
       <div class="hero-content">
-        <div class="badge">✨ 1-on-1 Expert Mentorship</div>
-        
+        <div class="badge">
+          ✨ 1-on-1 Expert Mentorship
+        </div>
+
         <h1>
           Strategic guidance <br>
           from top-tier <br>
           <span class="text-blue">professionals</span>
         </h1>
-        
+
         <p>
           Don't guess your next career move. Connect directly with vetted industry experts for 1-on-1 mentorship.
         </p>
 
-        <!-- AI Matchmaker Search -->
+        <!-- AI Matchmaker -->
         <div class="search-wrapper">
           <span class="search-icon">✨</span>
           <input type="text" placeholder="Describe your goal... e.g., 'I need help transitioning to Data Science'">
@@ -128,19 +151,19 @@
           </button>
         </div>
 
-        <!-- Call to Action Buttons -->
+        <!-- Action Buttons -->
         <div class="button-group">
           <!-- Directs to the User portal -->
           <button class="btn-main" onclick="window.location.href='user-dashboard.html'">
             👥 Browse All Advisors
           </button>
-          <!-- FIXED: Directs specifically to the new Analytics Dashboard -->
+          <!-- Directs specifically to the new Analytics Dashboard -->
           <button class="btn-outline" onclick="window.location.href='analytics-dashboard.html'">
             👤 Apply as an Advisor
           </button>
         </div>
 
-        <!-- Feature Highlights -->
+        <!-- Value Features -->
         <div class="features-list">
           <div class="feature-item">
             <div class="feature-icon">👤</div>
@@ -164,6 +187,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </section>
   </div>

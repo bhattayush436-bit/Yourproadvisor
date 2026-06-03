@@ -5,41 +5,105 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Earnings & Payouts | YourProAdvisor</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  </script>
+
   <style>
-    :root { --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+    :root { 
+      --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; 
+      --text-sub: #475569; --primary-btn: #2563eb; --card-bg: #ffffff; 
+      --border-color: #e2e8f0; --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); 
+    }
+    [data-theme="dark"] {
+      --bg-color: #0f172a; --sidebar-bg: #1e293b; --text-heading: #f8fafc;
+      --text-sub: #94a3b8; --card-bg: #1e293b; --border-color: #334155;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
-    .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; padding-right: 15px; }
+    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; transition: background-color 0.3s ease; }
+    
+    .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; transition: color 0.2s; padding-right: 15px; }
+    
+    /* Sidebar */
     .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; overflow-y: auto;}
     .sidebar.hidden { margin-left: -260px; }
-    .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; }
-    .sidebar .logo { display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
+    .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; backdrop-filter: blur(2px); }
+    .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+    .sidebar .logo { display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; letter-spacing: -0.5px; }
     .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
-    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .sidebar-close-btn { display: none; background: none; border: none; font-size: 2rem; color: var(--text-sub); cursor: pointer; line-height: 1; }
+    
+    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
     .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.9rem; padding: 10px 14px; border-radius: 6px; display: flex; align-items: center; gap: 10px; transition: 0.2s;}
-    .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
+    .nav-links li a.active, .nav-links li a:hover { background-color: var(--border-color); color: var(--primary-btn); }
+    
+    .theme-toggle-btn { margin-top: 20px; padding: 12px 14px; background: transparent; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-weight: 600; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; width: 100%; }
+    .theme-toggle-btn:hover { background: var(--border-color); }
+
+    /* Main Content */
     .main-content { flex: 1; padding: 40px; overflow-y: auto; }
     .header { display: flex; align-items: center; margin-bottom: 30px; }
     .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800;}
-    .payout-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px; }
-    .payout-card { background: var(--card-bg); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.02);}
-    .payout-card h3 { color: var(--text-heading); font-size: 1.1rem; margin-bottom: 10px; }
-    .payout-card .amount { font-size: 2.5rem; font-weight: 800; color: var(--text-heading); }
-    .payout-card .status { display: inline-block; padding: 6px 14px; background: #f1f5f9; border-radius: 20px; font-size: 0.85rem; margin-top: 15px; font-weight: 600; }
-    .history-container { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; padding: 20px;}
+    .section-title { color: var(--text-heading); margin-bottom: 25px; font-size: 1.2rem; font-weight: 700; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+
+    /* Earnings Cards */
+    .balance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px; }
+    .balance-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+    .balance-card.highlight { background: var(--primary-gradient); color: white; border: none; }
+    .balance-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 10px; color: var(--text-sub); }
+    .balance-card.highlight h3 { color: rgba(255,255,255,0.8); }
+    .balance-card .amount { font-size: 2.5rem; font-weight: 800; color: var(--text-heading); margin-bottom: 15px;}
+    .balance-card.highlight .amount { color: white; }
     
+    .btn-withdraw { background: white; color: var(--primary-btn); border: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+    .btn-withdraw:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+    /* Transactions Table */
+    .table-container { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 600px; }
+    th, td { padding: 16px 20px; text-align: left; border-bottom: 1px solid var(--border-color); }
+    th { background: var(--bg-color); color: var(--text-sub); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; }
+    td { color: var(--text-heading); font-size: 0.95rem; font-weight: 500; }
+    .status { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+    .status.completed { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+    .status.pending { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+
+    /* Mobile Tweaks */
     @media (max-width: 768px) {
-      .sidebar { position: fixed; left: -260px; height: 100vh; }
+      .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
       .sidebar.active { left: 0; }
       .sidebar-overlay.active { display: block; }
       .main-content { padding: 20px; }
+      
+      .sidebar-close-btn { display: block; }
+      .sidebar-header { margin-bottom: 30px; }
+      .sidebar .logo { font-size: 1.3rem; }
+      .nav-links li a { font-size: 0.85rem; padding: 10px 12px; }
+      .theme-toggle-btn { font-size: 0.85rem; padding: 10px; }
+
+      .header h1 { font-size: 1.5rem; }
+      .section-title { font-size: 1.15rem; margin-bottom: 15px; padding-bottom: 8px; }
+      
+      .balance-card { padding: 20px; }
+      .balance-card .amount { font-size: 2rem; }
+      .btn-withdraw { width: 100%; font-size: 0.9rem; padding: 10px; }
+      
+      th, td { padding: 12px 15px; font-size: 0.85rem; }
     }
   </style>
 </head>
 <body>
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
   <aside class="sidebar" id="sidebar">
-    <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+    <div class="sidebar-header">
+      <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+      <button class="sidebar-close-btn" onclick="toggleSidebar()">&times;</button>
+    </div>
+    
     <ul class="nav-links">
       <li><a href="analytics-dashboard.html">📊 Analytics Dashboard</a></li>
       <li><a href="manage-availability.html">📅 Manage Availability</a></li>
@@ -52,6 +116,7 @@
       <li><a href="advisor-support.html">❓ Support & Help</a></li>
       <li><a href="profile-settings.html">⚙️ Profile Settings</a></li>
     </ul>
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">🌙 Switch to Dark Mode</button>
   </aside>
 
   <main class="main-content">
@@ -60,26 +125,69 @@
       <h1>Earnings & Payouts</h1>
     </div>
     
-    <div class="payout-grid">
-      <div class="payout-card">
-        <h3>This Month (Pending)</h3>
-        <div class="amount">$2,840.00</div>
-        <div class="status" style="background: #fef3c7; color: #b45309;">Pending Payout (1st of Month)</div>
+    <div class="balance-grid">
+      <div class="balance-card highlight">
+        <h3>Available for Withdrawal</h3>
+        <div class="amount">$1,240.00</div>
+        <button class="btn-withdraw">Withdraw Funds</button>
       </div>
-      <div class="payout-card">
-        <h3>Previous Month (Paid)</h3>
-        <div class="amount">$2,100.00</div>
-        <div class="status" style="background: #dcfce7; color: #166534;">Deposited to Bank Acc</div>
+      <div class="balance-card">
+        <h3>Pending Clearance</h3>
+        <div class="amount">$320.00</div>
+        <p style="color: var(--text-sub); font-size: 0.85rem; margin-top: 10px;">Clears 3 days after session completion</p>
+      </div>
+      <div class="balance-card">
+        <h3>Total Lifetime Earnings</h3>
+        <div class="amount">$12,450.00</div>
       </div>
     </div>
-    
-    <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 20px;">Recent Transactions</h2>
-    <div class="history-container">
-      <p style="color: var(--text-sub); text-align: center; padding: 40px 0;">Payout history will populate here once the cycle closes.</p>
+
+    <h2 class="section-title">Recent Transactions</h2>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jun 2, 2026</td>
+            <td>Session with Rahul Verma (1 hr)</td>
+            <td>+$80.00</td>
+            <td><span class="status pending">Pending</span></td>
+          </tr>
+          <tr>
+            <td>May 28, 2026</td>
+            <td>Session with Priya Singh (30 min)</td>
+            <td>+$45.00</td>
+            <td><span class="status completed">Cleared</span></td>
+          </tr>
+          <tr>
+            <td>May 25, 2026</td>
+            <td>Bank Withdrawal (ending in 1234)</td>
+            <td>-$850.00</td>
+            <td><span class="status completed">Processed</span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </main>
+
   <script>
     function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); document.getElementById('sidebarOverlay').classList.toggle('active'); }
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    if (localStorage.getItem('theme') === 'dark') themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
+    function toggleTheme() {
+      if (document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); themeToggleBtn.innerHTML = '🌙 Switch to Dark Mode';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
+      }
+    }
   </script>
 </body>
 </html>

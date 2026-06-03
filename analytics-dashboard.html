@@ -41,15 +41,18 @@
     
     .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; transition: color 0.2s; padding-right: 15px; }
     
-    /* Sidebar setup to push the toggle to the bottom */
+    /* Sidebar setup */
     .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; overflow-y: auto;}
     .sidebar.hidden { margin-left: -260px; }
     .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; backdrop-filter: blur(2px); }
     
-    .sidebar .logo { display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
+    /* Sidebar Header (Logo + Close Button) */
+    .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+    .sidebar .logo { display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; letter-spacing: -0.5px; }
     .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
+    .sidebar-close-btn { display: none; background: none; border: none; font-size: 2rem; color: var(--text-sub); cursor: pointer; line-height: 1; }
     
-    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; /* Allows bottom content to push down */ }
+    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
     .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.9rem; padding: 10px 14px; border-radius: 6px; display: flex; align-items: center; gap: 10px; transition: 0.2s;}
     .nav-links li a.active, .nav-links li a:hover { background-color: var(--border-color); color: var(--primary-btn); }
     
@@ -97,20 +100,43 @@
       .main-content { padding: 20px; }
       .plan-card.premium { transform: scale(1); }
       
-      /* Mobile Font Sizing for Headings */
-      .header h1 { font-size: 1.4rem; }
-      .section-title { font-size: 1.15rem; margin-bottom: 15px; }
+      /* Make the close button visible on mobile */
+      .sidebar-close-btn { display: block; }
+
+      /* Globally reduced text and heading sizes for mobile */
+      .sidebar-header { margin-bottom: 30px; }
+      .sidebar .logo { font-size: 1.3rem; }
+      .nav-links li a { font-size: 0.85rem; padding: 10px 12px; }
+      .theme-toggle-btn { font-size: 0.85rem; padding: 10px; }
+
+      .header h1 { font-size: 1.5rem; }
+      .section-title { font-size: 1.2rem; margin-bottom: 15px; padding-bottom: 8px; }
+      
+      .widget-card { padding: 18px; }
       .widget-card h3 { font-size: 0.85rem; }
-      .plan-card h3 { font-size: 1.05rem; }
       .widget-card .number { font-size: 1.6rem; }
-      .plan-price { font-size: 2rem; }
+      .widget-card .trend { font-size: 0.75rem; margin-top: 2px; }
+      
+      .plan-card { padding: 20px; }
+      .plan-card h3 { font-size: 1.1rem; }
+      .plan-price { font-size: 2rem; margin-bottom: 10px; }
+      .plan-price span { font-size: 0.85rem; }
+      .plan-features { font-size: 0.85rem; gap: 10px; margin-bottom: 20px; }
+      .btn-plan { font-size: 0.9rem; padding: 12px; }
+      .popular-badge { font-size: 0.7rem; padding: 3px 10px; top: -10px; }
     }
   </style>
 </head>
 <body>
+  <!-- Clicking this overlay still closes the menu -->
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  
   <aside class="sidebar" id="sidebar">
-    <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+    <!-- NEW: Sidebar Header with Logo and Close Button -->
+    <div class="sidebar-header">
+      <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+      <button class="sidebar-close-btn" onclick="toggleSidebar()">&times;</button>
+    </div>
     
     <ul class="nav-links">
       <li><a href="analytics-dashboard.html" class="active">📊 Analytics Dashboard</a></li>
@@ -133,6 +159,7 @@
 
   <main class="main-content">
     <div class="header">
+      <!-- The hamburger menu to open it -->
       <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
       <h1>Analytics Dashboard</h1>
     </div>
@@ -156,12 +183,12 @@
       <div class="widget-card">
         <h3>Booking Conversion Rate</h3>
         <div class="number">18.5%</div>
-        <span style="color: var(--text-sub); font-size: 0.85rem;">Of profile views</span>
+        <span style="color: var(--text-sub); font-size: 0.85rem;" class="trend">Of profile views</span>
       </div>
       <div class="widget-card">
         <h3>Client Satisfaction Score</h3>
         <div class="number">4.9/5.0</div>
-        <span style="color: #f59e0b; font-size: 0.85rem; font-weight: 600;">⭐⭐⭐⭐⭐</span>
+        <span style="color: #f59e0b; font-size: 0.85rem; font-weight: 600;" class="trend">⭐⭐⭐⭐⭐</span>
       </div>
     </div>
 
@@ -198,7 +225,7 @@
   </main>
 
   <script>
-    // Sidebar toggle logic
+    // Sidebar toggle logic (Works for both hamburger icon and X button)
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('active');
       document.getElementById('sidebarOverlay').classList.toggle('active');

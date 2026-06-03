@@ -4,186 +4,264 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Dashboard | YourProAdvisor</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  
+  <!-- Prevents a white flash on load if dark mode is active -->
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  </script>
+
   <style>
+    /* Default Light Mode Variables */
     :root { 
       --bg-color: #f8fafc; 
       --sidebar-bg: #ffffff; 
       --text-heading: #0f172a; 
       --text-sub: #475569; 
-      --text-logo: #1e3a8a; 
       --primary-btn: #2563eb; 
-      --primary-hover: #1d4ed8;
       --card-bg: #ffffff; 
       --border-color: #e2e8f0; 
-      --success-green: #16a34a; 
-      --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); 
     }
-    
+
+    /* Dark Mode Variables */
+    [data-theme="dark"] {
+      --bg-color: #0f172a;
+      --sidebar-bg: #1e293b;
+      --text-heading: #f8fafc;
+      --text-sub: #94a3b8;
+      --card-bg: #1e293b;
+      --border-color: #334155;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
+    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; transition: background-color 0.3s ease; }
     
     .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; transition: color 0.2s; padding-right: 15px; }
-    .menu-toggle:hover { color: var(--primary-btn); }
     
-    .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; }
+    /* Sidebar setup */
+    .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; overflow-y: auto;}
     .sidebar.hidden { margin-left: -260px; }
     .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; backdrop-filter: blur(2px); }
     
-    .sidebar .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
-    .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .sidebar .logo { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
+    .sidebar .logo .highlight { color: var(--primary-btn); }
     
-    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
-    .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
+    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.9rem; padding: 10px 14px; border-radius: 6px; display: flex; align-items: center; gap: 10px; transition: 0.2s;}
+    .nav-links li a.active, .nav-links li a:hover { background-color: var(--border-color); color: var(--primary-btn); }
     
+    /* Dark Mode Toggle Button */
+    .theme-toggle-btn { margin-top: 20px; padding: 12px 14px; background: transparent; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-weight: 600; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; width: 100%; }
+    .theme-toggle-btn:hover { background: var(--border-color); }
+
+    /* Main Content Area */
     .main-content { flex: 1; padding: 40px; overflow-y: auto; }
-    .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; }
-    .header-left { display: flex; align-items: center; }
-    .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800; letter-spacing: -0.5px;}
+    .header { display: flex; align-items: center; margin-bottom: 30px; }
+    .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif;}
     
-    .widget-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 40px; }
-    .widget-card { background: var(--card-bg); padding: 24px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05); }
-    .widget-card h3 { color: var(--text-sub); font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; }
-    .widget-card .number { font-size: 2.2rem; font-weight: 800; color: var(--text-heading); }
-    
-    .section-title { color: var(--text-heading); margin-bottom: 20px; font-size: 1.4rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
-    .view-all { font-size: 0.9rem; color: var(--primary-btn); text-decoration: none; font-weight: 600; }
-    .view-all:hover { text-decoration: underline; }
+    .welcome-banner { background: var(--primary-gradient); border-radius: 16px; padding: 30px; color: white; margin-bottom: 40px; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15); }
+    .welcome-banner h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 10px; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .welcome-banner p { font-size: 1rem; opacity: 0.9; max-width: 600px; }
 
-    .session-card { background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05); border-left: 4px solid var(--primary-btn);}
-    .session-info h4 { color: var(--text-heading); font-size: 1.1rem; margin-bottom: 4px; font-weight: 700; }
-    .session-info p { color: var(--text-sub); font-size: 0.95rem; display: flex; align-items: center; gap: 8px; }
-    .btn-join { background: var(--primary-btn); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-    .btn-join:hover { background: var(--primary-hover); }
+    /* Search & Filter Bar */
+    .search-filter-bar { display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
+    .search-box { flex: 1; min-width: 250px; display: flex; align-items: center; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px 15px; }
+    .search-box input { border: none; outline: none; background: transparent; width: 100%; color: var(--text-heading); font-size: 0.95rem; margin-left: 10px; }
+    .btn-filter { padding: 12px 20px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .btn-filter:hover { background: var(--border-color); }
 
-    .advisor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px; }
-    .advisor-card { background: var(--card-bg); padding: 24px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04); transition: transform 0.2s, box-shadow 0.2s; }
-    .advisor-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08); border-color: #cbd5e1; }
+    /* Advisor Grid */
+    .section-title { color: var(--text-heading); margin-bottom: 20px; font-size: 1.3rem; font-weight: 700; }
+    .advisor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px; }
     
-    .advisor-header { display: flex; gap: 15px; margin-bottom: 15px; align-items: center;}
-    .advisor-avatar { width: 50px; height: 50px; border-radius: 50%; background: #f1f5f9; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-    .advisor-name h4 { color: var(--text-heading); font-size: 1.1rem; font-weight: 700; }
-    .advisor-name p { color: var(--primary-btn); font-size: 0.85rem; font-weight: 600; }
+    .advisor-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 24px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; }
+    .advisor-card:hover { transform: translateY(-3px); box-shadow: 0 12px 20px rgba(0,0,0,0.05); }
     
-    .advisor-card .bio { color: var(--text-sub); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5; }
+    .advisor-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+    .avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;}
+    .advisor-info h3 { color: var(--text-heading); font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+    .advisor-info p { color: var(--text-sub); font-size: 0.85rem; font-weight: 500; }
     
-    .btn-outline { display: block; width: 100%; text-align: center; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-weight: 600; text-decoration: none; transition: all 0.2s; }
-    .btn-outline:hover { background: #f8fafc; border-color: #94a3b8; }
+    .advisor-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .tag { background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-sub); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
     
+    .advisor-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid var(--border-color); padding-top: 15px; }
+    .rating { color: #f59e0b; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 4px; }
+    .price { color: var(--text-heading); font-weight: 800; font-size: 1rem; }
+    
+    .btn-book { width: 100%; padding: 12px; background: var(--primary-btn); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 15px; transition: background 0.2s; }
+    .btn-book:hover { background: #1d4ed8; }
+
     @media (max-width: 768px) {
       .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
-      .sidebar.active { left: 0; margin-left: 0; }
+      .sidebar.active { left: 0; }
       .sidebar-overlay.active { display: block; }
       .main-content { padding: 20px; }
-      .header h1 { font-size: 1.6rem; }
-      .session-card { flex-direction: column; align-items: flex-start; gap: 15px; }
-      .btn-join { width: 100%; }
+      .welcome-banner h2 { font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
   <aside class="sidebar" id="sidebar">
     <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+    
     <ul class="nav-links">
-      <li><a href="user-dashboard.html" class="active">📊 Dashboard</a></li>
-      <li><a href="find-advisors.html">🔍 Find Advisors</a></li>
-      <li><a href="my-sessions.html">📅 My Sessions</a></li>
-      <li><a href="user-messages.html">💬 Messages</a></li>
-      <li><a href="wallet-payment.html">💳 Wallet & Payment</a></li>
-      <li><a href="notifications.html">🔔 Notifications</a></li>
-      <li><a href="support-help.html">❓ Support & Help</a></li>
-      <li><a href="user-settings.html">⚙️ Profile Settings</a></li>
+      <li><a href="user-dashboard.html" class="active">🔍 Browse Advisors</a></li>
+      <li><a href="#">📅 My Sessions</a></li>
+      <li><a href="#">❤️ Saved Mentors</a></li>
+      <li><a href="#">💬 Messages</a></li>
+      <li><a href="#">💳 Billing & Payments</a></li>
+      <li><a href="#">⚙️ Profile Settings</a></li>
     </ul>
+
+    <!-- Dark Mode Toggle Button -->
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">
+      🌙 Switch to Dark Mode
+    </button>
   </aside>
 
   <main class="main-content">
     <div class="header">
-      <div class="header-left">
-        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-        <h1>Welcome back, Ayush 👋</h1>
-      </div>
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h1>Mentee Dashboard</h1>
     </div>
     
-    <div class="widget-grid">
-      <div class="widget-card">
-        <h3>Upcoming Sessions</h3>
-        <div class="number">1</div>
-      </div>
-      <div class="widget-card">
-        <h3>Saved Advisors</h3>
-        <div class="number">3</div>
-      </div>
-      <div class="widget-card">
-        <h3>Hours Consulted</h3>
-        <div class="number">0</div>
-      </div>
+    <div class="welcome-banner">
+      <h2>Welcome back, Ayush! 👋</h2>
+      <p>Ready to take the next step in your career? Browse our top-tier experts and book your next 1-on-1 session today.</p>
     </div>
 
-    <h2 class="section-title">Next Scheduled Session</h2>
-    <div class="session-card">
-      <div class="session-info">
-        <h4>System Architecture Review</h4>
-        <p>📅 Tomorrow, 10:00 AM IST • 👨‍💻 with Michael Chen</p>
+    <!-- Search and Filter -->
+    <div class="search-filter-bar">
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" placeholder="Search by skill, company, or role...">
       </div>
-      <button class="btn-join">Join Video Call</button>
+      <button class="btn-filter">⚙️ Filters</button>
+      <button class="btn-filter">🏢 Companies</button>
     </div>
 
-    <div class="section-title">
-      <h2>Recommended for You</h2>
-      <a href="find-advisors.html" class="view-all">View All →</a>
-    </div>
+    <h2 class="section-title">Recommended for You</h2>
     
+    <!-- Advisor Grid -->
     <div class="advisor-grid">
+      
+      <!-- Card 1 -->
       <div class="advisor-card">
         <div class="advisor-header">
-          <div class="advisor-avatar">⚙️</div>
-          <div class="advisor-name">
-            <h4>Dr. Ananya Sharma</h4>
-            <p>VLSI & Hardware Design</p>
+          <div class="avatar">⚙️</div>
+          <div class="advisor-info">
+            <h3>Dr. Ananya Sharma</h3>
+            <p>Senior Hardware Engineer @ Intel</p>
           </div>
         </div>
-        <p class="bio">Senior engineer specializing in Verilog, front-end verification, and ASIC design flow methodologies.</p>
-        <a href="#" class="btn-outline">View Profile & Book</a>
+        <div class="advisor-tags">
+          <span class="tag">VLSI Design</span>
+          <span class="tag">Verilog</span>
+          <span class="tag">ASIC</span>
+        </div>
+        <div class="advisor-footer">
+          <div class="rating">⭐ 5.0 (124 reviews)</div>
+          <div class="price">$80/hr</div>
+        </div>
+        <button class="btn-book">View Profile</button>
       </div>
 
+      <!-- Card 2 -->
       <div class="advisor-card">
         <div class="advisor-header">
-          <div class="advisor-avatar">💻</div>
-          <div class="advisor-name">
-            <h4>Michael Chen</h4>
-            <p>Software Engineering</p>
+          <div class="avatar">💻</div>
+          <div class="advisor-info">
+            <h3>Michael Chen</h3>
+            <p>Staff Software Engineer @ Google</p>
           </div>
         </div>
-        <p class="bio">Ex-FAANG Tech Lead. Helping engineers crack technical interviews and build scalable backend systems.</p>
-        <a href="#" class="btn-outline">View Profile & Book</a>
+        <div class="advisor-tags">
+          <span class="tag">System Design</span>
+          <span class="tag">Algorithms</span>
+          <span class="tag">React</span>
+        </div>
+        <div class="advisor-footer">
+          <div class="rating">⭐ 4.9 (89 reviews)</div>
+          <div class="price">$120/hr</div>
+        </div>
+        <button class="btn-book">View Profile</button>
       </div>
 
+      <!-- Card 3 -->
       <div class="advisor-card">
         <div class="advisor-header">
-          <div class="advisor-avatar">🚀</div>
-          <div class="advisor-name">
-            <h4>Sarah Jenkins</h4>
-            <p>Startup Strategy</p>
+          <div class="avatar">🚀</div>
+          <div class="advisor-info">
+            <h3>Sarah Jenkins</h3>
+            <p>Product Manager @ Microsoft</p>
           </div>
         </div>
-        <p class="bio">Serial founder and YC alumni. Mentoring early-stage founders on product-market fit and fundraising.</p>
-        <a href="#" class="btn-outline">View Profile & Book</a>
+        <div class="advisor-tags">
+          <span class="tag">Product Strategy</span>
+          <span class="tag">Agile</span>
+          <span class="tag">Interviews</span>
+        </div>
+        <div class="advisor-footer">
+          <div class="rating">⭐ 4.8 (56 reviews)</div>
+          <div class="price">$95/hr</div>
+        </div>
+        <button class="btn-book">View Profile</button>
       </div>
+
+      <!-- Card 4 -->
+      <div class="advisor-card">
+        <div class="advisor-header">
+          <div class="avatar">📱</div>
+          <div class="advisor-info">
+            <h3>David Smith</h3>
+            <p>Frontend Lead @ Netflix</p>
+          </div>
+        </div>
+        <div class="advisor-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">UI/UX</span>
+          <span class="tag">Career Growth</span>
+        </div>
+        <div class="advisor-footer">
+          <div class="rating">⭐ 5.0 (210 reviews)</div>
+          <div class="price">$110/hr</div>
+        </div>
+        <button class="btn-book">View Profile</button>
+      </div>
+
     </div>
   </main>
 
   <script>
+    // Sidebar toggle logic for mobile
     function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('sidebarOverlay');
-      if (window.innerWidth <= 768) { 
-        sidebar.classList.toggle('active'); 
-        overlay.classList.toggle('active'); 
-      } else { 
-        sidebar.classList.toggle('hidden'); 
+      document.getElementById('sidebar').classList.toggle('active');
+      document.getElementById('sidebarOverlay').classList.toggle('active');
+    }
+
+    // Theme toggle logic (Dark/Light Mode)
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    
+    if (localStorage.getItem('theme') === 'dark') {
+      themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
+    }
+
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      
+      if (currentTheme === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeToggleBtn.innerHTML = '🌙 Switch to Dark Mode';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
       }
     }
   </script>

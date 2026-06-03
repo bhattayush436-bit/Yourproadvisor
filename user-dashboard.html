@@ -49,8 +49,9 @@
     .sidebar .logo { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
     .sidebar .logo .highlight { color: var(--primary-btn); }
     
+    /* Updated Nav Links to match your original sections */
     .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.9rem; padding: 10px 14px; border-radius: 6px; display: flex; align-items: center; gap: 10px; transition: 0.2s;}
+    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 14px; border-radius: 6px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
     .nav-links li a.active, .nav-links li a:hover { background-color: var(--border-color); color: var(--primary-btn); }
     
     /* Dark Mode Toggle Button */
@@ -109,12 +110,15 @@
   <aside class="sidebar" id="sidebar">
     <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
     
+    <!-- RESTORED: Original Sidebar Navigation Items from your screenshot -->
     <ul class="nav-links">
-      <li><a href="user-dashboard.html" class="active">🔍 Browse Advisors</a></li>
+      <li><a href="user-dashboard.html" class="active">📊 Dashboard</a></li>
+      <li><a href="#">🔍 Find Advisors</a></li>
       <li><a href="#">📅 My Sessions</a></li>
-      <li><a href="#">❤️ Saved Mentors</a></li>
       <li><a href="#">💬 Messages</a></li>
-      <li><a href="#">💳 Billing & Payments</a></li>
+      <li><a href="#">💳 Wallet & Payment</a></li>
+      <li><a href="#">🔔 Notifications</a></li>
+      <li><a href="#">❓ Support & Help</a></li>
       <li><a href="#">⚙️ Profile Settings</a></li>
     </ul>
 
@@ -127,7 +131,7 @@
   <main class="main-content">
     <div class="header">
       <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-      <h1>Mentee Dashboard</h1>
+      <h1>Dashboard</h1>
     </div>
     
     <div class="welcome-banner">
@@ -188,48 +192,6 @@
         <div class="advisor-footer">
           <div class="rating">⭐ 4.9 (89 reviews)</div>
           <div class="price">$120/hr</div>
-        </div>
-        <button class="btn-book">View Profile</button>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="advisor-card">
-        <div class="advisor-header">
-          <div class="avatar">🚀</div>
-          <div class="advisor-info">
-            <h3>Sarah Jenkins</h3>
-            <p>Product Manager @ Microsoft</p>
-          </div>
-        </div>
-        <div class="advisor-tags">
-          <span class="tag">Product Strategy</span>
-          <span class="tag">Agile</span>
-          <span class="tag">Interviews</span>
-        </div>
-        <div class="advisor-footer">
-          <div class="rating">⭐ 4.8 (56 reviews)</div>
-          <div class="price">$95/hr</div>
-        </div>
-        <button class="btn-book">View Profile</button>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="advisor-card">
-        <div class="advisor-header">
-          <div class="avatar">📱</div>
-          <div class="advisor-info">
-            <h3>David Smith</h3>
-            <p>Frontend Lead @ Netflix</p>
-          </div>
-        </div>
-        <div class="advisor-tags">
-          <span class="tag">JavaScript</span>
-          <span class="tag">UI/UX</span>
-          <span class="tag">Career Growth</span>
-        </div>
-        <div class="advisor-footer">
-          <div class="rating">⭐ 5.0 (210 reviews)</div>
-          <div class="price">$110/hr</div>
         </div>
         <button class="btn-book">View Profile</button>
       </div>

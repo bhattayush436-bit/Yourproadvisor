@@ -89,19 +89,25 @@
     .feature-text h4 { color: var(--dark-blue); font-size: 0.9rem; font-weight: 700; margin-bottom: 2px; }
     .feature-text p { color: var(--text-light); font-size: 0.8rem; margin: 0; max-width: none; }
 
-    /* --- NEW: Trust Band (Company Logos) --- */
+    /* --- NEW: Trust Band (Actual Trademark Logos) --- */
     .trust-band { text-align: center; padding: 40px 5% 50px; max-width: 1400px; margin: 0 auto; }
-    .trust-band p { color: var(--text-light); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; }
-    .logo-track { display: flex; justify-content: center; align-items: center; gap: 60px; flex-wrap: wrap; opacity: 0.5; filter: grayscale(100%); transition: opacity 0.3s; }
-    .logo-track:hover { opacity: 0.7; }
+    .trust-band p { color: var(--text-light); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 30px; }
+    .logo-track { display: flex; justify-content: center; align-items: center; gap: 40px 50px; flex-wrap: wrap; }
     
-    /* Stylized text to mimic corporate logos */
-    .trust-logo { font-size: 1.6rem; font-weight: 800; color: var(--dark-blue); font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: -0.5px; }
-    .trust-logo.intel { font-family: 'Inter', sans-serif; font-weight: 700; color: #0068B5; letter-spacing: 0; }
-    .trust-logo.nvidia { font-family: 'Inter', sans-serif; font-weight: 800; color: #76B900; text-transform: uppercase; letter-spacing: 1px; }
-    .trust-logo.qualcomm { font-weight: 600; color: #3253DC; }
-    .trust-logo.google { font-weight: 600; color: #4285F4; }
-    .trust-logo.microsoft { font-weight: 600; color: #737373; }
+    /* Real image logos styling */
+    .trust-logo-img { 
+      height: 28px; 
+      width: auto; 
+      /* Makes them look sleek and gray by default */
+      filter: grayscale(100%) opacity(50%); 
+      transition: all 0.3s ease; 
+    }
+    
+    /* Un-gray them and slightly pop out on hover */
+    .trust-logo-img:hover { 
+      filter: grayscale(0%) opacity(100%); 
+      transform: scale(1.05); 
+    }
 
     /* --- Stats Container --- */
     .stats-container { max-width: 1300px; margin: 0 auto 60px; padding: 0 5%; position: relative; z-index: 2; }
@@ -160,10 +166,10 @@
       .button-group { flex-direction: column; width: 100%; max-width: 400px; }
       .btn-main, .btn-outline { justify-content: center; }
 
-      /* Mobile Trust Band */
+      /* Mobile Trust Band Scaling */
       .trust-band { padding: 30px 5% 40px; }
-      .logo-track { gap: 25px; }
-      .trust-logo { font-size: 1.2rem; }
+      .logo-track { gap: 20px 25px; } /* Row gap and Column gap */
+      .trust-logo-img { height: 22px; }
 
       /* Mobile Responsive Footer */
       .footer { padding: 40px 5% 20px; }
@@ -256,15 +262,22 @@
     </section>
   </div>
 
-  <!-- Trust Band Section -->
+  <!-- Trust Band Section (Actual Trademark Logos) -->
   <div class="trust-band">
     <p>Our advisors are industry leaders from:</p>
     <div class="logo-track">
-      <span class="trust-logo google">Google</span>
-      <span class="trust-logo microsoft">Microsoft</span>
-      <span class="trust-logo intel">intel</span>
-      <span class="trust-logo nvidia">NVIDIA</span>
-      <span class="trust-logo qualcomm">Qualcomm</span>
+      <img src="https://cdn.simpleicons.org/google" alt="Google" class="trust-logo-img">
+      <img src="https://cdn.simpleicons.org/microsoft" alt="Microsoft" class="trust-logo-img">
+      <img src="https://cdn.simpleicons.org/intel" alt="Intel" class="trust-logo-img">
+      <img src="https://cdn.simpleicons.org/nvidia" alt="NVIDIA" class="trust-logo-img">
+      <img src="https://cdn.simpleicons.org/qualcomm" alt="Qualcomm" class="trust-logo-img">
+      
+      <!-- New Additional 5 Companies -->
+      <img src="https://cdn.simpleicons.org/amazon" alt="Amazon" class="trust-logo-img">
+      <img src="https://cdn.simpleicons.org/meta" alt="Meta" class="trust-logo-img">
+      <img src="https://cdn.simpleicons.org/apple" alt="Apple" class="trust-logo-img">
+      <img src="https://cdn.simpleicons.org/netflix" alt="Netflix" class="trust-logo-img">
+      <img src="https://cdn.simpleicons.org/stripe" alt="Stripe" class="trust-logo-img">
     </div>
   </div>
 

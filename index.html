@@ -63,10 +63,17 @@
     }
     .hero-content h1 .text-blue { color: var(--primary-blue); font-family: 'Plus Jakarta Sans', sans-serif; }
     
-    .hero-content p { font-size: 1.1rem; color: var(--text-main); margin-bottom: 40px; line-height: 1.6; max-width: 480px; }
+    .hero-content p { font-size: 1.1rem; color: var(--text-main); margin-bottom: 30px; line-height: 1.6; max-width: 480px; }
 
-    /* --- AI Search Bar --- */
-    .search-wrapper { display: flex; align-items: center; background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 50px; padding: 6px 6px 6px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 30px; transition: box-shadow 0.2s; }
+    /* --- Action Buttons (Now above search) --- */
+    .button-group { display: flex; gap: 16px; margin-bottom: 30px; }
+    .btn-main { background: var(--dark-blue); color: white; border: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.95rem; transition: opacity 0.2s; }
+    .btn-main:hover { opacity: 0.9; }
+    .btn-outline { background: var(--bg-white); color: var(--dark-blue); border: 1px solid var(--border-color); padding: 14px 28px; border-radius: 8px; font-weight: 600; display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.95rem; transition: background 0.2s; }
+    .btn-outline:hover { background: var(--bg-offwhite); }
+
+    /* --- AI Search Bar (Now below buttons) --- */
+    .search-wrapper { display: flex; align-items: center; background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 50px; padding: 6px 6px 6px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 40px; transition: box-shadow 0.2s; }
     .search-wrapper:focus-within { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 10px 25px rgba(0,0,0,0.05); border-color: var(--primary-blue); }
     .search-icon { color: #f59e0b; margin-right: 10px; font-size: 1.2rem; }
     .search-wrapper input { flex: 1; border: none; outline: none; font-size: 0.95rem; color: var(--dark-blue); font-family: 'Inter', sans-serif;}
@@ -74,13 +81,6 @@
 
     .btn-ai { background: var(--primary-blue); color: white; border: none; padding: 12px 24px; border-radius: 40px; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: background 0.2s; }
     .btn-ai:hover { background: #2563eb; }
-
-    /* --- Action Buttons --- */
-    .button-group { display: flex; gap: 16px; margin-bottom: 40px; }
-    .btn-main { background: var(--dark-blue); color: white; border: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.95rem; transition: opacity 0.2s; }
-    .btn-main:hover { opacity: 0.9; }
-    .btn-outline { background: var(--bg-white); color: var(--dark-blue); border: 1px solid var(--border-color); padding: 14px 28px; border-radius: 8px; font-weight: 600; display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.95rem; transition: background 0.2s; }
-    .btn-outline:hover { background: var(--bg-offwhite); }
 
     /* --- Features List --- */
     .features-list { display: flex; gap: 30px; flex-wrap: wrap; }
@@ -96,10 +96,9 @@
     
     /* Real image logos styling */
     .trust-logo-img { 
-      height: 28px; /* Increased slightly for full wordmarks */
+      height: 28px; 
       width: auto; 
       object-fit: contain;
-      /* Makes them look sleek and gray by default */
       filter: grayscale(100%) opacity(60%); 
       transition: all 0.3s ease; 
     }
@@ -165,15 +164,24 @@
         letter-spacing: -0.5px;
         line-height: 1.15;
       }
+      
+      /* Reordered Elements Mobile Adjustments */
+      .button-group { flex-direction: column; width: 100%; max-width: 400px; margin-bottom: 20px;}
+      
+      /* DECREASED BUTTON FONT SIZE FOR MOBILE HERE */
+      .btn-main, .btn-outline { 
+        justify-content: center; 
+        font-size: 0.85rem; 
+        padding: 12px 16px;
+      }
+
       .search-wrapper { flex-direction: column; border-radius: 12px; padding: 10px; background: transparent; border: none; box-shadow: none; gap: 10px;}
       .search-wrapper input { width: 100%; padding: 15px; border: 1px solid var(--border-color); border-radius: 8px; background: white; text-align: center;}
       .btn-ai { width: 100%; justify-content: center; border-radius: 8px;}
-      .button-group { flex-direction: column; width: 100%; max-width: 400px; }
-      .btn-main, .btn-outline { justify-content: center; }
 
       /* Mobile Trust Band Scaling */
       .trust-band { padding: 30px 5% 40px; }
-      .logo-track { gap: 25px 30px; } /* Adjust grid gaps for mobile */
+      .logo-track { gap: 20px 25px; } /* Row gap and Column gap */
       .trust-logo-img { height: 22px; }
       .trust-logo-img.apple { height: 26px; }
       .trust-logo-img.microsoft { height: 20px; }
@@ -221,22 +229,22 @@
           Don't guess your next career move. Connect directly with vetted industry experts for 1-on-1 mentorship.
         </p>
 
-        <!-- AI Matchmaker -->
-        <div class="search-wrapper">
-          <span class="search-icon">✨</span>
-          <input type="text" placeholder="Describe your goal... e.g., 'I need help transitioning to Data Science'">
-          <button class="btn-ai" onclick="window.location.href='user-dashboard.html'">
-            <span>✨</span> Ask AI Matchmaker
-          </button>
-        </div>
-
-        <!-- Action Buttons -->
+        <!-- Action Buttons (MOVED ABOVE SEARCH BAR) -->
         <div class="button-group">
           <button class="btn-main" onclick="window.location.href='user-dashboard.html'">
             👥 Browse All Advisors
           </button>
           <button class="btn-outline" onclick="window.location.href='analytics-dashboard.html'">
             👤 Apply as an Advisor
+          </button>
+        </div>
+
+        <!-- AI Matchmaker (MOVED BELOW BUTTONS) -->
+        <div class="search-wrapper">
+          <span class="search-icon">✨</span>
+          <input type="text" placeholder="Describe your goal... e.g., 'I need help transitioning to Data Science'">
+          <button class="btn-ai" onclick="window.location.href='user-dashboard.html'">
+            <span>✨</span> Ask AI Matchmaker
           </button>
         </div>
 
@@ -269,7 +277,7 @@
     </section>
   </div>
 
-  <!-- Trust Band Section (Actual Official Wordmarks/Logos) -->
+  <!-- Trust Band Section (Actual Trademark Logos) -->
   <div class="trust-band">
     <p>Our advisors are industry leaders from:</p>
     <div class="logo-track">
@@ -277,12 +285,10 @@
       <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="trust-logo-img">
       <!-- Microsoft Wordmark -->
       <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" alt="Microsoft" class="trust-logo-img microsoft">
-      <!-- Intel Wordmark -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Intel-logo.svg" alt="Intel" class="trust-logo-img">
-      <!-- NVIDIA Wordmark -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Nvidia_logo.svg" alt="NVIDIA" class="trust-logo-img">
-      <!-- Qualcomm Wordmark -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Qualcomm_Logo.svg" alt="Qualcomm" class="trust-logo-img">
+      
+      <!-- UPDATED: Highly stable SVGs for Intel and Qualcomm -->
+      <img src="https://www.vectorlogo.zone/logos/intel/intel-ar21.svg" alt="Intel" class="trust-logo-img">
+      <img src="https://www.vectorlogo.zone/logos/qualcomm/qualcomm-ar21.svg" alt="Qualcomm" class="trust-logo-img">
       
       <!-- Amazon Wordmark -->
       <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" class="trust-logo-img">

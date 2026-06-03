@@ -5,42 +5,85 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Client Messages | YourProAdvisor</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    if (localStorage.getItem('theme') === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); }
+  </script>
+
   <style>
-    :root { --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+    :root { 
+      --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; 
+      --text-sub: #475569; --primary-btn: #2563eb; --card-bg: #ffffff; 
+      --border-color: #e2e8f0; --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); 
+    }
+    [data-theme="dark"] {
+      --bg-color: #0f172a; --sidebar-bg: #1e293b; --text-heading: #f8fafc;
+      --text-sub: #94a3b8; --card-bg: #1e293b; --border-color: #334155;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
-    .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; padding-right: 15px; }
+    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; transition: background-color 0.3s ease; }
+    
+    .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; transition: color 0.2s; padding-right: 15px; }
+    
     .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; overflow-y: auto;}
     .sidebar.hidden { margin-left: -260px; }
-    .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; }
-    .sidebar .logo { display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
+    .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; backdrop-filter: blur(2px); }
+    .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+    .sidebar .logo { display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; letter-spacing: -0.5px; }
     .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
-    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .sidebar-close-btn { display: none; background: none; border: none; font-size: 2rem; color: var(--text-sub); cursor: pointer; line-height: 1; }
+    
+    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
     .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.9rem; padding: 10px 14px; border-radius: 6px; display: flex; align-items: center; gap: 10px; transition: 0.2s;}
-    .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
+    .nav-links li a.active, .nav-links li a:hover { background-color: var(--border-color); color: var(--primary-btn); }
+    
+    .theme-toggle-btn { margin-top: 20px; padding: 12px 14px; background: transparent; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-weight: 600; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; width: 100%; }
+    .theme-toggle-btn:hover { background: var(--border-color); }
+
     .main-content { flex: 1; padding: 40px; overflow-y: auto; }
     .header { display: flex; align-items: center; margin-bottom: 30px; }
     .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800;}
+
+    /* Messages List */
+    .message-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 20px; margin-bottom: 12px; display: flex; gap: 15px; cursor: pointer; transition: 0.2s; align-items: center;}
+    .message-card:hover { border-color: var(--primary-btn); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+    .message-card.unread { background: var(--bg-color); border-left: 4px solid var(--primary-btn); }
     
-    .message-container { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); display: flex; flex-direction: column; }
-    .message-item { display: flex; align-items: flex-start; gap: 15px; padding: 20px; border-bottom: 1px solid var(--border-color); cursor: pointer; }
-    .message-item:hover { background: #f8fafc; }
-    .avatar { width: 45px; height: 45px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--primary-btn);}
-    .msg-content h4 { color: var(--text-heading); font-size: 1.05rem; margin-bottom: 5px;}
-    .msg-content p { color: var(--text-sub); font-size: 0.95rem;}
-    
+    .avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--bg-color); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .msg-content { flex: 1; }
+    .msg-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .msg-name { color: var(--text-heading); font-weight: 700; font-size: 1.05rem; }
+    .msg-time { color: var(--text-sub); font-size: 0.8rem; font-weight: 500; }
+    .msg-preview { color: var(--text-sub); font-size: 0.9rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 90%;}
+    .message-card.unread .msg-name, .message-card.unread .msg-preview { color: var(--text-heading); font-weight: 700; }
+
     @media (max-width: 768px) {
-      .sidebar { position: fixed; left: -260px; height: 100vh; }
+      .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
       .sidebar.active { left: 0; }
       .sidebar-overlay.active { display: block; }
       .main-content { padding: 20px; }
+      .sidebar-close-btn { display: block; }
+      .sidebar-header { margin-bottom: 30px; }
+      .sidebar .logo { font-size: 1.3rem; }
+      .nav-links li a { font-size: 0.85rem; padding: 10px 12px; }
+      .theme-toggle-btn { font-size: 0.85rem; padding: 10px; }
+      .header h1 { font-size: 1.5rem; }
+      
+      .message-card { padding: 15px; }
+      .msg-name { font-size: 0.95rem; }
+      .msg-preview { font-size: 0.85rem; }
     }
   </style>
 </head>
 <body>
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
   <aside class="sidebar" id="sidebar">
-    <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+    <div class="sidebar-header">
+      <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+      <button class="sidebar-close-btn" onclick="toggleSidebar()">&times;</button>
+    </div>
+    
     <ul class="nav-links">
       <li><a href="analytics-dashboard.html">📊 Analytics Dashboard</a></li>
       <li><a href="manage-availability.html">📅 Manage Availability</a></li>
@@ -53,6 +96,7 @@
       <li><a href="advisor-support.html">❓ Support & Help</a></li>
       <li><a href="profile-settings.html">⚙️ Profile Settings</a></li>
     </ul>
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">🌙 Switch to Dark Mode</button>
   </aside>
 
   <main class="main-content">
@@ -60,19 +104,54 @@
       <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
       <h1>Client Messages</h1>
     </div>
-    
-    <div class="message-container">
-      <div class="message-item">
-        <div class="avatar">AB</div>
-        <div class="msg-content">
-          <h4>Ayush Bhat</h4>
-          <p>Hi, I was wondering if we could focus specifically on Verilog state machines during our call?</p>
+
+    <!-- Unread Message -->
+    <div class="message-card unread">
+      <div class="avatar">👨‍🎓</div>
+      <div class="msg-content">
+        <div class="msg-header">
+          <span class="msg-name">Rahul Verma</span>
+          <span class="msg-time">10:42 AM</span>
         </div>
+        <div class="msg-preview">Hi! For our session today, should I share my resume beforehand?</div>
+      </div>
+    </div>
+
+    <!-- Read Messages -->
+    <div class="message-card">
+      <div class="avatar">👩‍💼</div>
+      <div class="msg-content">
+        <div class="msg-header">
+          <span class="msg-name">Priya Singh</span>
+          <span class="msg-time">Yesterday</span>
+        </div>
+        <div class="msg-preview">Thank you so much for the detailed feedback. It was incredibly helpful.</div>
+      </div>
+    </div>
+
+    <div class="message-card">
+      <div class="avatar">👨‍💻</div>
+      <div class="msg-content">
+        <div class="msg-header">
+          <span class="msg-name">Alex Mercer</span>
+          <span class="msg-time">Mon, Jun 1</span>
+        </div>
+        <div class="msg-preview">Great, looking forward to our mock interview on Thursday!</div>
       </div>
     </div>
   </main>
+
   <script>
     function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); document.getElementById('sidebarOverlay').classList.toggle('active'); }
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    if (localStorage.getItem('theme') === 'dark') themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
+    function toggleTheme() {
+      if (document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); themeToggleBtn.innerHTML = '🌙 Switch to Dark Mode';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
+      }
+    }
   </script>
 </body>
 </html>

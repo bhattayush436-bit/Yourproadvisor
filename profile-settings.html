@@ -4,21 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile Settings | YourProAdvisor</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
   
   <script>
-    if (localStorage.getItem('theme') === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); }
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
   </script>
 
   <style>
+    /* Default Light Mode Variables */
     :root { 
-      --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; 
-      --text-sub: #475569; --primary-btn: #2563eb; --card-bg: #ffffff; 
-      --border-color: #e2e8f0; --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); 
+      --bg-color: #f8fafc; 
+      --sidebar-bg: #ffffff; 
+      --text-heading: #0f172a; 
+      --text-sub: #475569; 
+      --primary-btn: #2563eb; 
+      --card-bg: #ffffff; 
+      --border-color: #e2e8f0; 
+      --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); 
+      --danger-color: #ef4444;
     }
+
+    /* Dark Mode Variables */
     [data-theme="dark"] {
-      --bg-color: #0f172a; --sidebar-bg: #1e293b; --text-heading: #f8fafc;
-      --text-sub: #94a3b8; --card-bg: #1e293b; --border-color: #334155;
+      --bg-color: #0f172a;
+      --sidebar-bg: #1e293b;
+      --text-heading: #f8fafc;
+      --text-sub: #94a3b8;
+      --card-bg: #1e293b;
+      --border-color: #334155;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
@@ -26,57 +41,76 @@
     
     .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; transition: color 0.2s; padding-right: 15px; }
     
+    /* Sidebar setup */
     .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; overflow-y: auto;}
-    .sidebar.hidden { margin-left: -260px; }
+    .sidebar.collapsed { margin-left: -260px; }
     .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; backdrop-filter: blur(2px); }
+    
     .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
-    .sidebar .logo { display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; letter-spacing: -0.5px; }
-    .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
+    .sidebar .logo { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; letter-spacing: -0.5px; }
+    .sidebar .logo .highlight { color: var(--primary-btn); }
     .sidebar-close-btn { display: none; background: none; border: none; font-size: 2rem; color: var(--text-sub); cursor: pointer; line-height: 1; }
     
+    /* User Nav Links */
     .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.9rem; padding: 10px 14px; border-radius: 6px; display: flex; align-items: center; gap: 10px; transition: 0.2s;}
+    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 14px; border-radius: 6px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
     .nav-links li a.active, .nav-links li a:hover { background-color: var(--border-color); color: var(--primary-btn); }
     
     .theme-toggle-btn { margin-top: 20px; padding: 12px 14px; background: transparent; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-weight: 600; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; width: 100%; }
     .theme-toggle-btn:hover { background: var(--border-color); }
 
+    /* Main Content */
     .main-content { flex: 1; padding: 40px; overflow-y: auto; }
     .header { display: flex; align-items: center; margin-bottom: 30px; }
-    .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800;}
+    .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif;}
 
     /* Form Styles */
-    .settings-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 30px; max-width: 800px; }
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; color: var(--text-heading); font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; }
-    .form-group input, .form-group textarea { width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-color); color: var(--text-heading); font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
-    .form-group input:focus, .form-group textarea:focus { border-color: var(--primary-btn); }
-    .form-group textarea { resize: vertical; min-height: 100px; }
+    .settings-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 35px; max-width: 700px; margin-bottom: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);}
+    .section-title { color: var(--text-heading); margin-bottom: 25px; font-size: 1.25rem; font-weight: 700; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
     
-    .btn-save { background: var(--primary-btn); color: white; border: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.2s; margin-top: 10px;}
+    .form-group { margin-bottom: 22px; }
+    .form-group label { display: block; color: var(--text-heading); font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; }
+    .form-group input { width: 100%; padding: 14px 16px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-color); color: var(--text-heading); font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+    .form-group input:focus { border-color: var(--primary-btn); }
+    
+    .btn-save { background: var(--primary-btn); color: white; border: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.2s; margin-top: 10px; width: 100%;}
     .btn-save:hover { background: #1d4ed8; }
 
+    /* Logout Section */
+    .danger-zone { background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 12px; padding: 25px; max-width: 700px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;}
+    .danger-info h3 { color: var(--danger-color); font-size: 1.1rem; font-weight: 700; margin-bottom: 5px; }
+    .danger-info p { color: var(--text-sub); font-size: 0.9rem; }
+    
+    .btn-logout { background: transparent; color: var(--danger-color); border: 2px solid var(--danger-color); padding: 12px 28px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; }
+    .btn-logout:hover { background: var(--danger-color); color: white; }
+
+    /* --- MOBILE RESPONSIVE TWEAKS --- */
     @media (max-width: 768px) {
-      .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
+      .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); margin-left: 0; }
       .sidebar.active { left: 0; }
       .sidebar-overlay.active { display: block; }
       .main-content { padding: 20px; }
+      
       .sidebar-close-btn { display: block; }
       .sidebar-header { margin-bottom: 30px; }
-      .sidebar .logo { font-size: 1.3rem; }
+      .sidebar .logo { font-size: 1.4rem; }
       .nav-links li a { font-size: 0.85rem; padding: 10px 12px; }
       .theme-toggle-btn { font-size: 0.85rem; padding: 10px; }
+
       .header h1 { font-size: 1.5rem; }
-      
       .settings-card { padding: 20px; }
       .form-group label { font-size: 0.85rem; }
-      .form-group input, .form-group textarea { padding: 10px; font-size: 0.85rem; }
-      .btn-save { width: 100%; font-size: 0.95rem; }
+      .form-group input { padding: 12px; font-size: 0.85rem; }
+      .btn-save { font-size: 0.95rem; }
+
+      .danger-zone { flex-direction: column; align-items: flex-start; padding: 20px;}
+      .btn-logout { width: 100%; text-align: center; }
     }
   </style>
 </head>
 <body>
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
@@ -84,18 +118,19 @@
     </div>
     
     <ul class="nav-links">
-      <li><a href="analytics-dashboard.html">📊 Analytics Dashboard</a></li>
-      <li><a href="manage-availability.html">📅 Manage Availability</a></li>
-      <li><a href="upcoming-sessions.html">🎥 Upcoming Sessions</a></li>
-      <li><a href="earnings-payouts.html">💰 Earnings & Payouts</a></li>
-      <li><a href="client-messages.html">💬 Client Messages</a></li>
-      <li><a href="reviews-ratings.html">⭐ Reviews & Ratings</a></li>
-      <li><a href="advisor-notifications.html">🔔 Notifications Center</a></li>
-      <li><a href="achievements-badges.html">🏆 Achievements & Badges</a></li>
-      <li><a href="advisor-support.html">❓ Support & Help</a></li>
+      <li><a href="user-dashboard.html">📊 Dashboard</a></li>
+      <li><a href="find-advisors.html">🔍 Find Advisors</a></li>
+      <li><a href="my-sessions.html">📅 My Sessions</a></li>
+      <li><a href="messages.html">💬 Messages</a></li>
+      <li><a href="wallet-payment.html">💳 Wallet & Payment</a></li>
+      <li><a href="notifications.html">🔔 Notifications</a></li>
+      <li><a href="support-help.html">❓ Support & Help</a></li>
       <li><a href="profile-settings.html" class="active">⚙️ Profile Settings</a></li>
     </ul>
-    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">🌙 Switch to Dark Mode</button>
+
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">
+      🌙 Switch to Dark Mode
+    </button>
   </aside>
 
   <main class="main-content">
@@ -104,7 +139,9 @@
       <h1>Profile Settings</h1>
     </div>
 
+    <!-- Personal Info Settings -->
     <div class="settings-card">
+      <h2 class="section-title">Personal Information</h2>
       <form>
         <div class="form-group">
           <label>Full Name</label>
@@ -112,40 +149,75 @@
         </div>
         
         <div class="form-group">
-          <label>Professional Headline</label>
-          <input type="text" value="Senior Engineer & Mentor">
+          <label>Email Address</label>
+          <input type="email" value="ayush@example.com">
         </div>
 
         <div class="form-group">
-          <label>Hourly Mentorship Rate ($ USD)</label>
-          <input type="number" value="80">
+          <label>Current Course / Degree</label>
+          <input type="text" value="B.Tech in Electronics and Communication Engineering (ECE)">
         </div>
         
         <div class="form-group">
-          <label>LinkedIn URL</label>
-          <input type="url" value="https://linkedin.com/in/ayushbhat">
-        </div>
-
-        <div class="form-group">
-          <label>About Me (Bio)</label>
-          <textarea>I have over 10 years of industry experience and specialize in career transitions and technical interview prep...</textarea>
+          <label>Area of Interest</label>
+          <input type="text" value="VLSI front-end design and verification, Verilog">
         </div>
         
         <button type="button" class="btn-save">💾 Save Changes</button>
       </form>
     </div>
+
+    <!-- Account Actions / Logout -->
+    <div class="danger-zone">
+      <div class="danger-info">
+        <h3>Account Access</h3>
+        <p>Log out of your account on this device. You will need your password to log back in.</p>
+      </div>
+      <button class="btn-logout" onclick="logoutUser()">Log Out</button>
+    </div>
+
   </main>
 
   <script>
-    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); document.getElementById('sidebarOverlay').classList.toggle('active'); }
-    const themeToggleBtn = document.getElementById('themeToggleBtn');
-    if (localStorage.getItem('theme') === 'dark') themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
-    function toggleTheme() {
-      if (document.documentElement.getAttribute('data-theme') === 'dark') {
-        document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); themeToggleBtn.innerHTML = '🌙 Switch to Dark Mode';
+    // Sidebar Toggle Logic
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      
+      if (window.innerWidth <= 768) {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
       } else {
-        document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
+        sidebar.classList.toggle('collapsed');
       }
+    }
+
+    // Theme Toggle Logic
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    if (localStorage.getItem('theme') === 'dark') {
+      themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
+    }
+
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeToggleBtn.innerHTML = '🌙 Switch to Dark Mode';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
+      }
+    }
+
+    // Logout Functionality
+    function logoutUser() {
+      // Clears local session data (except theme preferences)
+      localStorage.removeItem('userSessionToken');
+      
+      // Redirects back to the main homepage seamlessly
+      window.location.href = 'index.html';
     }
   </script>
 </body>

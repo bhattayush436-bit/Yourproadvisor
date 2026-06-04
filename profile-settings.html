@@ -211,12 +211,9 @@
       }
     }
 
-    // Logout Functionality
+ // Logout Functionality
     function logoutUser() {
-      // Clears local session data (except theme preferences)
-      localStorage.removeItem('userSessionToken');
-      
-      // Redirects back to the main homepage seamlessly
+      localStorage.setItem('isLoggedIn', 'false'); // Revokes the pass!
       window.location.href = 'index.html';
     }
   </script>

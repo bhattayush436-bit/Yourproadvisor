@@ -27,37 +27,9 @@
     .logo { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--dark-blue); text-decoration: none; letter-spacing: -1px; }
     .logo .highlight { color: var(--primary-blue); font-family: 'Plus Jakarta Sans', sans-serif; }
     
-    /* AUTH BUTTON */
     .nav-buttons { display: flex; gap: 12px; align-items: center; }
     .btn-auth { padding: 10px 24px; border: none; border-radius: 8px; background: var(--primary-blue); color: white; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; }
     .btn-auth:hover { background: #2563eb; }
-
-    /* --- Modals (Popups) --- */
-    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
-    .modal-overlay.active { opacity: 1; visibility: visible; }
-    /* Added max-height and overflow-y so taller forms scroll neatly on mobile */
-    .modal-card { background: white; width: 90%; max-width: 420px; border-radius: 16px; padding: 40px 30px; position: relative; transform: translateY(20px); transition: transform 0.3s ease; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); max-height: 90vh; overflow-y: auto; }
-    .modal-overlay.active .modal-card { transform: translateY(0); }
-    .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #94a3b8; transition: color 0.2s; }
-    .modal-close:hover { color: #0f172a; }
-    .modal-title { font-size: 1.5rem; font-weight: 800; color: var(--dark-blue); margin-bottom: 8px; font-family: 'Plus Jakarta Sans', sans-serif; }
-    .modal-subtitle { color: var(--text-light); font-size: 0.9rem; margin-bottom: 25px; }
-    
-    .input-group { margin-bottom: 16px; text-align: left; }
-    .input-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--dark-blue); margin-bottom: 6px; }
-    .input-group input { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; outline: none; transition: border-color 0.2s; font-family: 'Inter', sans-serif; font-size: 0.95rem;}
-    .input-group input:focus { border-color: var(--primary-blue); }
-    .btn-submit { width: 100%; padding: 12px; background: var(--primary-blue); color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; margin-top: 10px; transition: background 0.2s;}
-    .btn-submit:hover { background: #2563eb; }
-    .modal-switch { text-align: center; margin-top: 20px; font-size: 0.85rem; color: var(--text-light); }
-    .modal-switch span { color: var(--primary-blue); font-weight: 600; cursor: pointer; }
-
-    /* Verification Spinner */
-    .spinner { border: 4px solid rgba(0,0,0,0.1); width: 48px; height: 48px; border-radius: 50%; border-left-color: var(--primary-blue); animation: spin 1s linear infinite; margin: 0 auto 20px; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .verify-screen { text-align: center; padding: 20px 0; }
-    .verify-screen h3 { color: var(--dark-blue); font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
-    .verify-screen p { color: var(--text-light); font-size: 0.95rem; }
 
     /* --- Hero Section --- */
     .hero-wrapper {
@@ -68,35 +40,31 @@
     .hero-container { display: flex; align-items: center; max-width: 1400px; margin: 0 auto; padding: 40px 5%; position: relative; z-index: 1; }
     .hero-content { flex: 1; max-width: 700px; }
 
-    /* --- Hero Elements --- */
     .badge { display: inline-flex; align-items: center; gap: 8px; background: var(--bg-blue-light); color: var(--primary-blue); padding: 8px 16px; border-radius: 30px; font-weight: 600; font-size: 0.9rem; margin-bottom: 24px; }
-    
     .hero-content h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 4rem; font-weight: 800; color: var(--dark-blue); line-height: 1.05; margin-bottom: 20px; letter-spacing: -1.5px; }
     .hero-content h1 .text-blue { color: var(--primary-blue); font-family: 'Plus Jakarta Sans', sans-serif; }
     .hero-content p { font-size: 1.1rem; color: var(--text-main); margin-bottom: 30px; line-height: 1.6; max-width: 480px; }
 
-    /* --- Action Buttons --- */
-    .button-group { display: flex; gap: 16px; margin-bottom: 30px; }
+    .button-group { display: flex; gap: 16px; margin-bottom: 40px; }
     .btn-main { background: var(--dark-blue); color: white; border: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.95rem; transition: opacity 0.2s; }
     .btn-main:hover { opacity: 0.9; }
     .btn-outline { background: var(--bg-white); color: var(--dark-blue); border: 1px solid var(--border-color); padding: 14px 28px; border-radius: 8px; font-weight: 600; display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.95rem; transition: background 0.2s; }
     .btn-outline:hover { background: var(--bg-offwhite); }
 
-    /* --- AI Search Bar --- */
-    .search-wrapper { display: flex; align-items: center; background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 50px; padding: 4px 4px 4px 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 40px; transition: box-shadow 0.2s; }
-    .search-wrapper:focus-within { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 10px 25px rgba(0,0,0,0.05); border-color: var(--primary-blue); }
-    .search-icon { color: #f59e0b; margin-right: 8px; font-size: 1rem; }
-    .search-wrapper input { flex: 1; border: none; outline: none; font-size: 0.85rem; color: var(--dark-blue); font-family: 'Inter', sans-serif;}
-    .search-wrapper input::placeholder { color: #94a3b8; }
-    .btn-ai { background: var(--primary-blue); color: white; border: none; padding: 10px 20px; border-radius: 40px; font-weight: 600; display: flex; align-items: center; gap: 6px; cursor: pointer; transition: background 0.2s; font-size: 0.85rem; }
-    .btn-ai:hover { background: #2563eb; }
-
-    /* --- Features List --- */
-    .features-list { display: flex; gap: 30px; flex-wrap: wrap; }
+    /* Features List */
+    .features-list { display: flex; gap: 30px; flex-wrap: wrap; margin-bottom: 40px;}
     .feature-item { display: flex; gap: 12px; align-items: flex-start; }
     .feature-icon { color: var(--primary-blue); background: var(--bg-blue-light); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
     .feature-text h4 { color: var(--dark-blue); font-size: 0.9rem; font-weight: 700; margin-bottom: 2px; }
     .feature-text p { color: var(--text-light); font-size: 0.8rem; margin: 0; max-width: none; }
+
+    /* NEW: How it Works Section (In Hero) */
+    .how-it-works { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.03); max-width: 650px;}
+    .how-it-works h3 { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--dark-blue); font-size: 1.2rem; margin-bottom: 15px; }
+    .steps-container { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
+    .step { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 150px; }
+    .step-num { width: 28px; height: 28px; background: var(--primary-blue); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0;}
+    .step p { font-size: 0.9rem; color: var(--text-heading); font-weight: 600; margin: 0; line-height: 1.3;}
 
     /* --- Trust Band --- */
     .trust-band { text-align: center; padding: 40px 5% 50px; max-width: 1400px; margin: 0 auto; }
@@ -104,8 +72,6 @@
     .logo-track { display: flex; justify-content: center; align-items: center; gap: 40px 50px; flex-wrap: wrap; }
     .trust-logo-img { height: 28px; width: auto; object-fit: contain; filter: grayscale(100%) opacity(60%); transition: all 0.3s ease; }
     .trust-logo-img:hover { filter: grayscale(0%) opacity(100%); transform: scale(1.05); }
-    .trust-logo-img.apple { height: 34px; }
-    .trust-logo-img.microsoft { height: 26px; }
 
     /* --- Stats Container --- */
     .stats-container { max-width: 1300px; margin: 0 auto 60px; padding: 0 5%; position: relative; z-index: 2; }
@@ -114,55 +80,115 @@
     .stat-item h3 { font-size: 2.2rem; font-weight: 800; color: var(--primary-blue); margin-bottom: 5px; font-family: 'Plus Jakarta Sans', sans-serif;}
     .stat-item p { font-size: 0.9rem; color: var(--dark-blue); font-weight: 600; }
 
+    /* --- NEW: Top Mentors Section --- */
+    .content-section { padding: 60px 5%; max-width: 1400px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 50px; }
+    .section-header h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; color: var(--dark-blue); margin-bottom: 15px; }
+    .section-header p { color: var(--text-light); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+    
+    .mentors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+    .mentor-card { background: var(--bg-white); border-radius: 16px; border: 1px solid var(--border-color); padding: 25px; text-align: center; transition: transform 0.2s, box-shadow 0.2s; }
+    .mentor-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.06); }
+    .mentor-img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin: 0 auto 15px; border: 3px solid var(--bg-offwhite); }
+    .mentor-card h3 { font-size: 1.2rem; color: var(--dark-blue); margin-bottom: 4px; font-weight: 700; }
+    .mentor-card .role { color: var(--text-light); font-size: 0.9rem; font-weight: 500; margin-bottom: 15px; }
+    .mentor-card .role span { color: var(--primary-blue); font-weight: 700; }
+    
+    .mentor-stats { display: flex; justify-content: space-around; background: var(--bg-offwhite); padding: 15px; border-radius: 12px; margin-bottom: 20px;}
+    .m-stat { display: flex; flex-direction: column; gap: 4px; }
+    .m-stat .val { font-weight: 800; color: var(--dark-blue); font-size: 1rem; }
+    .m-stat .lbl { font-size: 0.75rem; color: var(--text-light); text-transform: uppercase; font-weight: 600; }
+    
+    .rating-badge { display: inline-flex; align-items: center; gap: 5px; background: #fffbeb; color: #d97706; padding: 6px 12px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; }
+
+    /* --- NEW: Upcoming Live Events --- */
+    .bg-light { background-color: var(--bg-offwhite); padding: 80px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);}
+    .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1400px; margin: 0 auto; padding: 0 5%;}
+    .event-card { background: var(--bg-white); border-radius: 16px; border: 1px solid var(--border-color); padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); display: flex; flex-direction: column; }
+    .event-type { display: inline-block; background: var(--bg-blue-light); color: var(--primary-blue); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; margin-bottom: 15px; }
+    .event-title { font-size: 1.3rem; color: var(--dark-blue); font-weight: 700; margin-bottom: 15px; line-height: 1.4; }
+    .event-date { display: flex; align-items: center; gap: 8px; color: var(--text-main); font-weight: 600; font-size: 0.95rem; margin-bottom: 25px; }
+    .btn-register { margin-top: auto; width: 100%; background: transparent; border: 1px solid var(--primary-blue); color: var(--primary-blue); padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .btn-register:hover { background: var(--primary-blue); color: white; }
+
+    /* --- NEW: AI Career Assistance (Bottom) --- */
+    .ai-section { max-width: 900px; margin: 80px auto; padding: 0 5%; text-align: center; }
+    .ai-section h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.2rem; color: var(--dark-blue); margin-bottom: 30px; }
+    
+    .ai-search-wrapper { display: flex; align-items: center; background: var(--bg-white); border: 2px solid var(--primary-blue); border-radius: 50px; padding: 8px 8px 8px 24px; box-shadow: 0 15px 35px rgba(59, 130, 246, 0.1); margin-bottom: 25px; transition: box-shadow 0.2s; }
+    .ai-search-wrapper input { flex: 1; border: none; outline: none; font-size: 1.05rem; color: var(--dark-blue); font-family: 'Inter', sans-serif; }
+    .ai-search-wrapper input::placeholder { color: #94a3b8; }
+    .btn-ai-large { background: var(--primary-blue); color: white; border: none; padding: 14px 28px; border-radius: 40px; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: background 0.2s; font-size: 1rem; }
+    .btn-ai-large:hover { background: #2563eb; }
+
+    .prompt-chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+    .chip { background: var(--bg-offwhite); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: 0.2s; }
+    .chip:hover { background: var(--bg-blue-light); border-color: var(--primary-blue); color: var(--primary-blue); }
+
     /* --- Footer Section --- */
-    .footer { padding: 60px 5% 20px; max-width: 1400px; margin: 0 auto; }
+    .footer { padding: 60px 5% 20px; max-width: 1400px; margin: 0 auto; border-top: 1px solid var(--border-color);}
     .footer-top { margin-bottom: 40px; }
     .footer-tagline { color: var(--text-light); font-size: 0.95rem; margin: 15px 0 20px; font-weight: 500; }
-    .social-icons { display: flex; gap: 25px; font-size: 1.1rem; font-weight: 700; }
-    .social-icons a { color: var(--dark-blue); text-decoration: none; transition: color 0.2s; }
-    .social-icons a:hover { color: var(--primary-blue); }
-    
-    .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-bottom: 40px; border-top: 1px solid var(--border-color); padding-top: 50px;}
-    .footer-col h4 { color: var(--dark-blue); font-size: 1.05rem; font-weight: 700; margin-bottom: 25px; }
-    .footer-col ul { list-style: none; }
-    .footer-col ul li { margin-bottom: 15px; }
-    .footer-col ul li a { color: var(--text-light); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
-    .footer-col ul li a:hover { color: var(--primary-blue); }
     .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid var(--border-color); color: var(--text-light); font-size: 0.85rem; }
 
-    /* --- Responsive Design --- */
+    /* --- Modals (Popups) - Kept original styles with mobile scroll --- */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+    .modal-overlay.active { opacity: 1; visibility: visible; }
+    .modal-card { background: white; width: 90%; max-width: 420px; border-radius: 16px; padding: 40px 30px; position: relative; transform: translateY(20px); transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto; }
+    .modal-overlay.active .modal-card { transform: translateY(0); }
+    .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #94a3b8; }
+    .modal-title { font-size: 1.5rem; font-weight: 800; color: var(--dark-blue); margin-bottom: 8px; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .modal-subtitle { color: var(--text-light); font-size: 0.9rem; margin-bottom: 25px; }
+    .input-group { margin-bottom: 16px; text-align: left; }
+    .input-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--dark-blue); margin-bottom: 6px; }
+    .input-group input { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; outline: none; font-family: 'Inter', sans-serif; font-size: 0.95rem;}
+    .btn-submit { width: 100%; padding: 12px; background: var(--primary-blue); color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; margin-top: 10px;}
+    .modal-switch { text-align: center; margin-top: 20px; font-size: 0.85rem; color: var(--text-light); }
+    .modal-switch span { color: var(--primary-blue); font-weight: 600; cursor: pointer; }
+
+    /* --- MOBILE RESPONSIVE TWEAKS --- */
     @media (max-width: 1024px) { .hero-content h1 { font-size: 3.2rem; } }
     @media (max-width: 860px) {
       .hero-wrapper { background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 100%), url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; }
       .hero-container { flex-direction: column; text-align: center; padding-top: 20px; }
       .hero-content { max-width: 100%; display: flex; flex-direction: column; align-items: center; }
-      .features-list { justify-content: center; }
-      .search-wrapper { width: 100%; max-width: 500px; }
+      .features-list, .steps-container { justify-content: center; }
+      .how-it-works { text-align: left; }
       .stats-card { flex-direction: column; text-align: center; padding: 30px 20px; }
     }
+    
     @media (max-width: 600px) {
       .logo { font-size: 1.4rem; }
-      .nav-buttons { gap: 8px; }
       .btn-auth { padding: 6px 12px; font-size: 0.8rem; border-radius: 6px; }
       .hero-content h1 { font-size: 2.1rem; letter-spacing: -0.5px; line-height: 1.15; }
       .button-group { flex-direction: column; width: 100%; max-width: 400px; margin-bottom: 20px;}
       .btn-main, .btn-outline { justify-content: center; font-size: 0.85rem; padding: 12px 16px;}
-      .search-wrapper { flex-direction: column; border-radius: 12px; padding: 8px; background: transparent; border: none; box-shadow: none; gap: 8px;}
-      .search-wrapper input { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: white; text-align: center; font-size: 0.85rem;}
-      .btn-ai { width: 100%; justify-content: center; border-radius: 8px; padding: 10px; font-size: 0.85rem;}
+      
+      .how-it-works { padding: 20px 15px; }
+      .how-it-works h3 { font-size: 1.1rem; text-align: center;}
+      .step { min-width: 100%; margin-bottom: 10px; }
+      
       .trust-band { padding: 30px 5% 40px; }
       .logo-track { gap: 20px 25px; } 
       .trust-logo-img { height: 22px; }
-      .trust-logo-img.apple { height: 26px; }
-      .trust-logo-img.microsoft { height: 20px; }
+      
+      .section-header h2, .ai-section h2 { font-size: 1.8rem; }
+      .section-header p { font-size: 0.95rem; }
+      
+      .mentor-card h3 { font-size: 1.1rem; }
+      .mentor-card .role { font-size: 0.85rem; }
+      .m-stat .val { font-size: 0.95rem; }
+      .m-stat .lbl { font-size: 0.7rem; }
+      
+      .event-title { font-size: 1.15rem; }
+      .event-date { font-size: 0.85rem; }
+      
+      .ai-search-wrapper { flex-direction: column; padding: 8px; border-radius: 16px; gap: 10px; }
+      .ai-search-wrapper input { width: 100%; padding: 10px; text-align: center; font-size: 0.95rem; }
+      .btn-ai-large { width: 100%; justify-content: center; border-radius: 12px; padding: 12px; }
+      .chip { font-size: 0.8rem; padding: 6px 12px; }
+      
       .footer { padding: 40px 5% 20px; }
-      .footer-grid { grid-template-columns: 1fr; gap: 0; margin-bottom: 20px; padding-top: 30px;}
-      .footer-col { border-bottom: 1px solid var(--border-color); padding: 15px 0; }
-      .footer-col:first-child { border-top: none; }
-      .footer-col h4 { margin-bottom: 10px; font-size: 1rem; display: flex; justify-content: space-between; align-items: center;}
-      .footer-col h4::after { content: '⌄'; font-size: 1.4rem; color: var(--text-light); font-weight: 400; transform: translateY(-3px);}
-      .footer-col ul li { margin-bottom: 12px; }
-      .footer-col ul li a { font-size: 0.9rem; }
     }
   </style>
 </head>
@@ -179,7 +205,6 @@
   <!-- Hero Section -->
   <div class="hero-wrapper">
     <section class="hero-container">
-      
       <div class="hero-content">
         <div class="badge">✨ 1-on-1 Expert Mentorship</div>
         <h1>Strategic guidance <br> from top-tier <br> <span class="text-blue">professionals</span></h1>
@@ -187,23 +212,8 @@
 
         <!-- Action Buttons -->
         <div class="button-group">
-          <!-- Directs to the new find-advisors page -->
-          <button class="btn-main" onclick="window.location.href='find-advisors.html'">
-            👥 Browse All Advisors
-          </button>
-          <!-- Triggers the new Advisor Application Modal -->
-          <button class="btn-outline" onclick="openAdvisorModal()">
-            👤 Apply as an Advisor
-          </button>
-        </div>
-
-        <!-- AI Matchmaker -->
-        <div class="search-wrapper">
-          <span class="search-icon">✨</span>
-          <input type="text" placeholder="Describe your goal... e.g., 'I need help transitioning to Data Science'">
-          <button class="btn-ai" onclick="window.location.href='find-advisors.html'">
-            <span>✨</span> Ask AI Matchmaker
-          </button>
+          <button class="btn-main" onclick="window.location.href='find-advisors.html'">👥 Browse All Advisors</button>
+          <button class="btn-outline" onclick="openAdvisorModal()">👤 Apply as an Advisor</button>
         </div>
 
         <!-- Value Features -->
@@ -212,6 +222,26 @@
           <div class="feature-item"><div class="feature-icon">🎯</div><div class="feature-text"><h4>Personalized Guidance</h4><p>Tailored to your goals</p></div></div>
           <div class="feature-item"><div class="feature-icon">🚀</div><div class="feature-text"><h4>Career Growth</h4><p>Clarity. Confidence. Impact.</p></div></div>
         </div>
+
+        <!-- NEW: How it works section -->
+        <div class="how-it-works">
+          <h3>How it works</h3>
+          <div class="steps-container">
+            <div class="step">
+              <div class="step-num">1</div>
+              <p>Choose your goal</p>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <p>Connect with Expert</p>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <p>Book session & Grow</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   </div>
@@ -221,13 +251,10 @@
     <p>Our advisors are industry leaders from:</p>
     <div class="logo-track">
       <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="trust-logo-img">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" alt="Microsoft" class="trust-logo-img microsoft">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" alt="Microsoft" class="trust-logo-img">
       <img src="https://www.vectorlogo.zone/logos/intel/intel-ar21.svg" alt="Intel" class="trust-logo-img">
       <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" class="trust-logo-img">
       <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="Meta" class="trust-logo-img">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple" class="trust-logo-img apple">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix" class="trust-logo-img">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" alt="Stripe" class="trust-logo-img">
     </div>
   </div>
 
@@ -241,62 +268,135 @@
     </div>
   </div>
 
+  <!-- NEW: Top Mentors Section -->
+  <div class="content-section">
+    <div class="section-header">
+      <h2>Learn from the Best</h2>
+      <p>Book 1-on-1 sessions with verified industry leaders who have walked the path you want to take.</p>
+    </div>
+
+    <div class="mentors-grid">
+      <!-- Mentor 1 -->
+      <div class="mentor-card">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="Mentor" class="mentor-img">
+        <h3>Dr. Ananya Sharma</h3>
+        <p class="role">Senior Hardware Engineer @ <span>Intel</span></p>
+        <div class="mentor-stats">
+          <div class="m-stat"><span class="val">12 Yrs</span><span class="lbl">Experience</span></div>
+          <div class="m-stat"><span class="val">1,420</span><span class="lbl">Sessions</span></div>
+        </div>
+        <div class="rating-badge">⭐ 5.0 Rating</div>
+      </div>
+
+      <!-- Mentor 2 -->
+      <div class="mentor-card">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&q=80" alt="Mentor" class="mentor-img">
+        <h3>Michael Chen</h3>
+        <p class="role">Staff Software Engineer @ <span>Google</span></p>
+        <div class="mentor-stats">
+          <div class="m-stat"><span class="val">8 Yrs</span><span class="lbl">Experience</span></div>
+          <div class="m-stat"><span class="val">1,210</span><span class="lbl">Sessions</span></div>
+        </div>
+        <div class="rating-badge">⭐ 4.9 Rating</div>
+      </div>
+
+      <!-- Mentor 3 -->
+      <div class="mentor-card">
+        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&q=80" alt="Mentor" class="mentor-img">
+        <h3>Sarah Jenkins</h3>
+        <p class="role">Product Strategy Lead @ <span>Meta</span></p>
+        <div class="mentor-stats">
+          <div class="m-stat"><span class="val">10 Yrs</span><span class="lbl">Experience</span></div>
+          <div class="m-stat"><span class="val">890</span><span class="lbl">Sessions</span></div>
+        </div>
+        <div class="rating-badge">⭐ 4.8 Rating</div>
+      </div>
+
+      <!-- Mentor 4 -->
+      <div class="mentor-card">
+        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=150&q=80" alt="Mentor" class="mentor-img">
+        <h3>David Smith</h3>
+        <p class="role">Frontend Architecture @ <span>Netflix</span></p>
+        <div class="mentor-stats">
+          <div class="m-stat"><span class="val">9 Yrs</span><span class="lbl">Experience</span></div>
+          <div class="m-stat"><span class="val">750</span><span class="lbl">Sessions</span></div>
+        </div>
+        <div class="rating-badge">⭐ 5.0 Rating</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW: Upcoming Live Events Section -->
+  <div class="bg-light">
+    <div class="content-section" style="padding-top: 0; padding-bottom: 0;">
+      <div class="section-header">
+        <h2>Upcoming Live Events</h2>
+        <p>Join exclusive webinars, group workshops, and roadmap sessions hosted by top professionals.</p>
+      </div>
+
+      <div class="events-grid">
+        <!-- Event 1 -->
+        <div class="event-card">
+          <div>
+            <span class="event-type">Webinar</span>
+            <h3 class="event-title">Cracking the FAANG System Design Interview</h3>
+            <div class="event-date">📅 June 10, 2026 • 6:00 PM IST</div>
+          </div>
+          <button class="btn-register">Reserve Spot</button>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="event-card">
+          <div>
+            <span class="event-type">Workshop</span>
+            <h3 class="event-title">VLSI & Front-end Design: Industry Best Practices</h3>
+            <div class="event-date">📅 June 15, 2026 • 5:30 PM IST</div>
+          </div>
+          <button class="btn-register">Reserve Spot</button>
+        </div>
+
+        <!-- Event 3 -->
+        <div class="event-card">
+          <div>
+            <span class="event-type">Career Roadmap</span>
+            <h3 class="event-title">AI Career Roadmap 2026: Navigating the Future</h3>
+            <div class="event-date">📅 June 20, 2026 • 11:00 AM IST</div>
+          </div>
+          <button class="btn-register">Reserve Spot</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW: AI Career Assistance (Moved to Bottom) -->
+  <div class="ai-section">
+    <h2>Ask AI Career Assistance</h2>
+    <div class="ai-search-wrapper">
+      <span class="search-icon">✨</span>
+      <input type="text" placeholder="Describe your goal... e.g., 'I need a career roadmap for VLSI Design'">
+      <button class="btn-ai-large" onclick="window.location.href='find-advisors.html'">
+        Ask AI
+      </button>
+    </div>
+    
+    <div class="prompt-chips">
+      <span class="chip">Which skill should I learn?</span>
+      <span class="chip">Resume Review</span>
+      <span class="chip">Career Roadmap</span>
+      <span class="chip">Salary Guidance</span>
+    </div>
+  </div>
+
   <!-- Footer Section -->
   <footer class="footer">
     <div class="footer-top">
       <a href="#" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
       <p class="footer-tagline">Built with ❤️ in India for the world</p>
-      <div class="social-icons">
-        <a href="#" aria-label="LinkedIn">in</a>
-        <a href="#" aria-label="Facebook">f</a>
-        <a href="#" aria-label="Twitter">𝕏</a>
-        <a href="#" aria-label="YouTube">▶</a>
-      </div>
-    </div>
-
-    <div class="footer-grid">
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="#">About us</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">For Business</a></li>
-          <li><a href="#">Testimonials</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-col">
-        <h4>Help</h4>
-        <ul>
-          <li><a href="#">Support Center</a></li>
-          <li><a href="#">FAQs</a></li>
-          <li><a href="#">Contact Us</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Cookie Policy</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-col">
-        <h4>Mentorship by Experts</h4>
-        <ul>
-          <li><a href="#">Software Engineering</a></li>
-          <li><a href="#">Startup Strategy</a></li>
-          <li><a href="#">Financial Advisory</a></li>
-          <li><a href="#">Data Science</a></li>
-        </ul>
-      </div>
     </div>
     <div class="footer-bottom"><p>&copy; 2026 YourProAdvisor. All rights reserved.</p></div>
   </footer>
 
-  <!-- User Login/Signup Modal (Existing) -->
+  <!-- User Login/Signup Modal -->
   <div class="modal-overlay" id="authModalOverlay" onclick="closeAuthModal(event)">
     <div class="modal-card" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="forceCloseAuthModal()">&times;</button>
@@ -312,34 +412,15 @@
         <p class="modal-switch">New here? <span onclick="switchAuthModal('register')">Register an account</span></p>
       </div>
 
-      <!-- Updated Register Form -->
       <div id="registerForm" style="display: none;">
         <h2 class="modal-title">Create an Account</h2>
         <p class="modal-subtitle">Join us to accelerate your career</p>
         <form>
-          <div class="input-group">
-            <label>Full Name</label>
-            <input type="text" placeholder="e.g. John Doe" required>
-          </div>
-          <div class="input-group">
-            <label>Email Address</label>
-            <input type="email" placeholder="you@example.com" required>
-          </div>
-          
-          <!-- NEW FIELDS FOR REGISTRATION -->
-          <div class="input-group">
-            <label>Current Course / Degree</label>
-            <input type="text" placeholder="e.g., B.Tech in ECE" required>
-          </div>
-          <div class="input-group">
-            <label>Area of Interest</label>
-            <input type="text" placeholder="e.g., VLSI Design, Verilog" required>
-          </div>
-          
-          <div class="input-group">
-            <label>Create Password</label>
-            <input type="password" placeholder="••••••••" required>
-          </div>
+          <div class="input-group"><label>Full Name</label><input type="text" placeholder="e.g. John Doe" required></div>
+          <div class="input-group"><label>Email Address</label><input type="email" placeholder="you@example.com" required></div>
+          <div class="input-group"><label>Current Course / Degree</label><input type="text" placeholder="e.g., B.Tech in ECE" required></div>
+          <div class="input-group"><label>Area of Interest</label><input type="text" placeholder="e.g., VLSI Design, Verilog" required></div>
+          <div class="input-group"><label>Create Password</label><input type="password" placeholder="••••••••" required></div>
           <button type="button" class="btn-submit" onclick="window.location.href='user-dashboard.html'">Register</button>
         </form>
         <p class="modal-switch">Already have an account? <span onclick="switchAuthModal('login')">Log in</span></p>
@@ -351,39 +432,24 @@
   <div class="modal-overlay" id="advisorModalOverlay" onclick="closeAdvisorModal(event)">
     <div class="modal-card" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="forceCloseAdvisorModal()">&times;</button>
-      
       <div id="advisorFormContent">
         <h2 class="modal-title">Become an Advisor</h2>
         <p class="modal-subtitle">Share your expertise and get paid to mentor.</p>
         <form onsubmit="submitAdvisorApplication(event)">
-          <div class="input-group">
-            <label>Full Name</label>
-            <input type="text" placeholder="e.g. John Doe" required>
-          </div>
-          <div class="input-group">
-            <label>Professional Email</label>
-            <input type="email" placeholder="name@company.com" required>
-          </div>
-          <div class="input-group">
-            <label>LinkedIn Profile URL</label>
-            <input type="url" placeholder="https://linkedin.com/in/yourprofile" required>
-          </div>
+          <div class="input-group"><label>Full Name</label><input type="text" placeholder="e.g. John Doe" required></div>
+          <div class="input-group"><label>Professional Email</label><input type="email" placeholder="name@company.com" required></div>
+          <div class="input-group"><label>LinkedIn Profile URL</label><input type="url" placeholder="https://linkedin.com/in/yourprofile" required></div>
           <button type="submit" class="btn-submit">Submit Application</button>
         </form>
       </div>
-
-      <div id="advisorVerifyScreen" class="verify-screen" style="display: none;">
-        <div class="spinner"></div>
-        <h3>Verifying Details</h3>
-        <p>We are cross-referencing your credentials with LinkedIn. Please do not close this window...</p>
+      <div id="advisorVerifyScreen" style="display: none; text-align: center; padding: 20px 0;">
+        <h3 style="color: var(--dark-blue); font-size: 1.2rem; margin-bottom: 8px;">Verifying Details...</h3>
+        <p style="color: var(--text-light); font-size: 0.95rem;">Please do not close this window.</p>
       </div>
-
     </div>
   </div>
 
-  <!-- Javascript Logic for Modals -->
   <script>
-    /* Existing User Auth Logic */
     function openAuthModal(type) { document.getElementById('authModalOverlay').classList.add('active'); switchAuthModal(type); }
     function closeAuthModal(event) { if(event.target.id === 'authModalOverlay') document.getElementById('authModalOverlay').classList.remove('active'); }
     function forceCloseAuthModal() { document.getElementById('authModalOverlay').classList.remove('active'); }
@@ -391,27 +457,18 @@
       if(type === 'login') { document.getElementById('loginForm').style.display = 'block'; document.getElementById('registerForm').style.display = 'none'; } 
       else { document.getElementById('loginForm').style.display = 'none'; document.getElementById('registerForm').style.display = 'block'; }
     }
-
-    /* Advisor Application Logic */
     function openAdvisorModal() {
       document.getElementById('advisorModalOverlay').classList.add('active');
       document.getElementById('advisorFormContent').style.display = 'block';
       document.getElementById('advisorVerifyScreen').style.display = 'none';
     }
-    function closeAdvisorModal(event) {
-      if(event.target.id === 'advisorModalOverlay') document.getElementById('advisorModalOverlay').classList.remove('active');
-    }
-    function forceCloseAdvisorModal() {
-      document.getElementById('advisorModalOverlay').classList.remove('active');
-    }
-
+    function closeAdvisorModal(event) { if(event.target.id === 'advisorModalOverlay') document.getElementById('advisorModalOverlay').classList.remove('active'); }
+    function forceCloseAdvisorModal() { document.getElementById('advisorModalOverlay').classList.remove('active'); }
     function submitAdvisorApplication(event) {
       event.preventDefault(); 
       document.getElementById('advisorFormContent').style.display = 'none';
       document.getElementById('advisorVerifyScreen').style.display = 'block';
-      setTimeout(() => {
-        window.location.href = 'analytics-dashboard.html';
-      }, 2500);
+      setTimeout(() => { window.location.href = 'analytics-dashboard.html'; }, 2500);
     }
   </script>
 

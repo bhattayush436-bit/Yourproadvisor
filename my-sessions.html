@@ -4,117 +4,146 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Sessions | YourProAdvisor</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    /* --- Premium Corporate Variables --- */
-    :root { 
-      --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; 
-      --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; --success-green: #16a34a; 
-      --warning-gold: #f59e0b; --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
     }
-    
+  </script>
+
+  <style>
+    /* Default Light Mode Variables */
+    :root { 
+      --bg-color: #f8fafc; 
+      --sidebar-bg: #ffffff; 
+      --text-heading: #0f172a; 
+      --text-sub: #475569; 
+      --primary-btn: #2563eb; 
+      --card-bg: #ffffff; 
+      --border-color: #e2e8f0; 
+      --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); 
+    }
+
+    /* Dark Mode Variables */
+    [data-theme="dark"] {
+      --bg-color: #0f172a;
+      --sidebar-bg: #1e293b;
+      --text-heading: #f8fafc;
+      --text-sub: #94a3b8;
+      --card-bg: #1e293b;
+      --border-color: #334155;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; }
+    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; transition: background-color 0.3s ease; }
     
-    /* Sidebar */
-    .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; padding-right: 15px; }
-    .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; }
-    .sidebar.hidden { margin-left: -260px; }
+    .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; transition: color 0.2s; padding-right: 15px; }
+    
+    /* Sidebar setup */
+    .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; overflow-y: auto;}
+    .sidebar.collapsed { margin-left: -260px; }
     .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; backdrop-filter: blur(2px); }
-    .sidebar .logo { font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
-    .sidebar .logo .highlight { background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
-    .nav-links li a.active, .nav-links li a:hover { background-color: #f1f5f9; color: var(--primary-btn); }
     
+    .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+    .sidebar .logo { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; letter-spacing: -0.5px; }
+    .sidebar .logo .highlight { color: var(--primary-btn); }
+    .sidebar-close-btn { display: none; background: none; border: none; font-size: 2rem; color: var(--text-sub); cursor: pointer; line-height: 1; }
+    
+    /* User Nav Links */
+    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 14px; border-radius: 6px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
+    .nav-links li a.active, .nav-links li a:hover { background-color: var(--border-color); color: var(--primary-btn); }
+    
+    .theme-toggle-btn { margin-top: 20px; padding: 12px 14px; background: transparent; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-weight: 600; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; width: 100%; }
+    .theme-toggle-btn:hover { background: var(--border-color); }
+
     /* Main Content */
     .main-content { flex: 1; padding: 40px; overflow-y: auto; }
     .header { display: flex; align-items: center; margin-bottom: 30px; }
-    .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800; letter-spacing: -0.5px;}
-
-    /* Reminder Banner */
-    .reminder-banner {
-      background: var(--primary-gradient);
-      border-radius: 12px;
-      padding: 20px 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: white;
-      margin-bottom: 40px;
-      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
-    }
-    .reminder-info { display: flex; align-items: center; gap: 15px; }
-    .reminder-icon { font-size: 2rem; background: rgba(255,255,255,0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
-    .reminder-text h3 { font-size: 1.2rem; margin-bottom: 5px; font-weight: 700; }
-    .reminder-text p { font-size: 0.95rem; opacity: 0.9; }
-    .btn-join-now { background: white; color: var(--primary-btn); border: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: transform 0.2s; font-size: 0.95rem;}
-    .btn-join-now:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-
-    /* Section Titles */
-    .section-title { color: var(--text-heading); margin-bottom: 20px; font-size: 1.3rem; font-weight: 700; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
+    .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .section-title { color: var(--text-heading); margin-bottom: 20px; font-size: 1.3rem; font-weight: 700; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-top: 30px;}
     
-    /* Session Lists */
-    .session-list { display: flex; flex-direction: column; gap: 20px; margin-bottom: 40px; }
+    /* Session Cards Layout */
+    .session-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 24px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; transition: box-shadow 0.2s; }
+    .session-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
     
-    .session-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
-      transition: border 0.2s;
-    }
-    .session-card:hover { border-color: #cbd5e1; }
+    .advisor-info { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 250px;}
+    .avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--bg-color); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+    .advisor-details h3 { color: var(--text-heading); font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+    .advisor-details p { color: var(--text-sub); font-size: 0.9rem; font-weight: 500;}
+    .advisor-details span.topic { display: inline-block; background: var(--bg-color); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-top: 8px; color: var(--text-sub);}
     
-    .session-details { display: flex; gap: 20px; align-items: center; }
-    .session-date { background: #f1f5f9; padding: 10px 15px; border-radius: 8px; text-align: center; min-width: 80px; }
-    .date-month { display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-sub); text-transform: uppercase; }
-    .date-day { display: block; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); }
+    .session-time { background: var(--bg-color); border: 1px solid var(--border-color); padding: 12px 20px; border-radius: 8px; text-align: center; }
+    .session-time .date { color: var(--primary-btn); font-weight: 700; font-size: 0.95rem; display: block; margin-bottom: 4px;}
+    .session-time .time { color: var(--text-heading); font-weight: 600; font-size: 0.85rem; display: block; }
     
-    .session-meta h4 { color: var(--text-heading); font-size: 1.1rem; margin-bottom: 5px; font-weight: 700; }
-    .session-meta p { color: var(--text-sub); font-size: 0.9rem; margin-bottom: 5px; }
-    .session-meta .topic { color: var(--primary-btn); font-weight: 600; font-size: 0.85rem; }
+    /* Action Buttons */
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center;}
+    .btn-join { background: #10b981; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; }
+    .btn-join:hover { background: #059669; }
+    .btn-reschedule { background: transparent; color: var(--text-sub); border: 1px solid var(--border-color); padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: 0.2s; }
+    .btn-reschedule:hover { background: var(--bg-color); color: var(--text-heading); }
+    
+    .btn-record { background: transparent; color: var(--primary-btn); border: 1px solid var(--primary-btn); padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px;}
+    .btn-record:hover { background: var(--primary-btn); color: white; }
 
-    .session-actions { display: flex; gap: 10px; }
-    .btn-secondary { background: white; border: 1px solid var(--border-color); color: var(--text-heading); padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 0.9rem; }
-    .btn-secondary:hover { background: #f8fafc; border-color: #cbd5e1; }
+    /* Past Sessions specific styling */
+    .past-session .session-time .date { color: var(--text-sub); }
 
-    /* Past Sessions Styling */
-    .past-session { border-left: 4px solid #cbd5e1; opacity: 0.8; }
-    .status-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
-    .status-completed { background: #dcfce7; color: #166534; }
-
+    /* --- MOBILE RESPONSIVE TWEAKS --- */
     @media (max-width: 768px) {
-      .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
-      .sidebar.active { left: 0; margin-left: 0; }
+      .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); margin-left: 0; }
+      .sidebar.active { left: 0; }
       .sidebar-overlay.active { display: block; }
       .main-content { padding: 20px; }
-      .header h1 { font-size: 1.6rem; }
-      .reminder-banner { flex-direction: column; text-align: center; gap: 20px; }
-      .session-card { flex-direction: column; align-items: flex-start; gap: 20px; }
-      .session-actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+      
+      .sidebar-close-btn { display: block; }
+      .sidebar-header { margin-bottom: 30px; }
+      .sidebar .logo { font-size: 1.4rem; }
+      .nav-links li a { font-size: 0.85rem; padding: 10px 12px; }
+      .theme-toggle-btn { font-size: 0.85rem; padding: 10px; }
+
+      .header h1 { font-size: 1.5rem; }
+      .section-title { font-size: 1.15rem; margin-bottom: 15px; padding-bottom: 8px; margin-top: 20px;}
+      
+      /* Mobile Sessions Layout */
+      .session-card { flex-direction: column; align-items: flex-start; padding: 16px; gap: 16px;}
+      .advisor-info { width: 100%; min-width: 100%; }
+      .advisor-details h3 { font-size: 1.05rem; }
+      .advisor-details p { font-size: 0.85rem; }
+      
+      .session-time { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; }
+      .session-time .date { margin-bottom: 0; }
+      
+      .actions { width: 100%; display: flex; }
+      .btn-join, .btn-reschedule, .btn-record { flex: 1; text-align: center; justify-content: center; padding: 10px; font-size: 0.85rem;}
     }
   </style>
 </head>
 <body>
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
+  
   <aside class="sidebar" id="sidebar">
-    <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+    <div class="sidebar-header">
+      <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+      <button class="sidebar-close-btn" onclick="toggleSidebar()">&times;</button>
+    </div>
+    
     <ul class="nav-links">
       <li><a href="user-dashboard.html">📊 Dashboard</a></li>
       <li><a href="find-advisors.html">🔍 Find Advisors</a></li>
       <li><a href="my-sessions.html" class="active">📅 My Sessions</a></li>
-      <li><a href="user-messages.html">💬 Messages</a></li>
+      <li><a href="messages.html">💬 Messages</a></li>
       <li><a href="wallet-payment.html">💳 Wallet & Payment</a></li>
       <li><a href="notifications.html">🔔 Notifications</a></li>
       <li><a href="support-help.html">❓ Support & Help</a></li>
-      <li><a href="user-settings.html">⚙️ Profile Settings</a></li>
+      <li><a href="profile-settings.html">⚙️ Profile Settings</a></li>
     </ul>
+
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">
+      🌙 Switch to Dark Mode
+    </button>
   </aside>
 
   <main class="main-content">
@@ -122,98 +151,99 @@
       <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
       <h1>My Sessions</h1>
     </div>
-
-    <!-- Active Reminder Banner -->
-    <div class="reminder-banner">
-      <div class="reminder-info">
-        <div class="reminder-icon">⏱️</div>
-        <div class="reminder-text">
-          <h3>Upcoming Session in 45 Minutes</h3>
-          <p>VLSI Front-end Design Consultation with Dr. Ananya Sharma.</p>
-        </div>
-      </div>
-      <button class="btn-join-now">Join Video Room</button>
-    </div>
-
-    <!-- Upcoming Sessions -->
+    
     <h2 class="section-title">Upcoming Sessions</h2>
-    <div class="session-list">
-      
-      <!-- Session 1 -->
-      <div class="session-card" style="border-left: 4px solid var(--primary-btn);">
-        <div class="session-details">
-          <div class="session-date">
-            <span class="date-month">Jun</span>
-            <span class="date-day">03</span>
-          </div>
-          <div class="session-meta">
-            <h4>Dr. Ananya Sharma</h4>
-            <p>Today, 11:30 AM - 12:30 PM IST</p>
-            <span class="topic">Topic: Verilog Testbenches & Verification Flow</span>
-          </div>
-        </div>
-        <div class="session-actions">
-          <button class="btn-secondary">Reschedule</button>
-          <button class="btn-secondary" style="color: #ef4444;">Cancel</button>
+    
+    <!-- Upcoming Session -->
+    <div class="session-card">
+      <div class="advisor-info">
+        <div class="avatar">💻</div>
+        <div class="advisor-details">
+          <h3>Michael Chen</h3>
+          <p>Staff Software Engineer @ Google</p>
+          <span class="topic">System Design Interview Prep</span>
         </div>
       </div>
-
-      <!-- Session 2 -->
-      <div class="session-card">
-        <div class="session-details">
-          <div class="session-date">
-            <span class="date-month">Jun</span>
-            <span class="date-day">08</span>
-          </div>
-          <div class="session-meta">
-            <h4>Sarah Jenkins</h4>
-            <p>Monday, 02:00 PM - 02:30 PM IST</p>
-            <span class="topic">Topic: Startup Strategy & Pitching</span>
-          </div>
-        </div>
-        <div class="session-actions">
-          <button class="btn-secondary">Reschedule</button>
-          <button class="btn-secondary" style="color: #ef4444;">Cancel</button>
-        </div>
+      <div class="session-time">
+        <span class="date">Tomorrow</span>
+        <span class="time">06:00 PM - 07:00 PM</span>
+      </div>
+      <div class="actions">
+        <button class="btn-reschedule">Reschedule</button>
+        <button class="btn-join">🎥 Join Meeting</button>
       </div>
     </div>
 
-    <!-- Past / Attended Sessions -->
-    <h2 class="section-title">Past Sessions</h2>
-    <div class="session-list">
-      
-      <!-- Past Session 1 -->
-      <div class="session-card past-session">
-        <div class="session-details">
-          <div class="session-date" style="background: #e2e8f0;">
-            <span class="date-month">May</span>
-            <span class="date-day">25</span>
-          </div>
-          <div class="session-meta">
-            <span class="status-badge status-completed">Completed</span>
-            <h4>Michael Chen</h4>
-            <p>10:00 AM - 11:00 AM IST</p>
-            <span class="topic">Topic: Backend Software Architecture Review</span>
-          </div>
-        </div>
-        <div class="session-actions">
-          <button class="btn-secondary">View Notes</button>
-          <button class="btn-secondary">Book Again</button>
+    <h2 class="section-title">Past Sessions & Recordings</h2>
+
+    <!-- Past Session 1 -->
+    <div class="session-card past-session">
+      <div class="advisor-info">
+        <div class="avatar">⚙️</div>
+        <div class="advisor-details">
+          <h3>Dr. Ananya Sharma</h3>
+          <p>Senior Hardware Engineer @ Intel</p>
+          <span class="topic">VLSI Resume Review</span>
         </div>
       </div>
-      
+      <div class="session-time">
+        <span class="date">May 28, 2026</span>
+        <span class="time">Completed (1 Hr)</span>
+      </div>
+      <div class="actions">
+        <button class="btn-record">▶ Watch Recording</button>
+      </div>
     </div>
+
+    <!-- Past Session 2 -->
+    <div class="session-card past-session">
+      <div class="advisor-info">
+        <div class="avatar">🚀</div>
+        <div class="advisor-details">
+          <h3>Sarah Jenkins</h3>
+          <p>Product Strategy Lead @ Meta</p>
+          <span class="topic">Behavioral Mock Interview</span>
+        </div>
+      </div>
+      <div class="session-time">
+        <span class="date">May 15, 2026</span>
+        <span class="time">Completed (45 Min)</span>
+      </div>
+      <div class="actions">
+        <button class="btn-record">▶ Watch Recording</button>
+      </div>
+    </div>
+
   </main>
 
   <script>
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
       const overlay = document.getElementById('sidebarOverlay');
-      if (window.innerWidth <= 768) { 
-        sidebar.classList.toggle('active'); 
-        overlay.classList.toggle('active'); 
-      } else { 
-        sidebar.classList.toggle('hidden'); 
+      
+      if (window.innerWidth <= 768) {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+      } else {
+        sidebar.classList.toggle('collapsed');
+      }
+    }
+
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    if (localStorage.getItem('theme') === 'dark') {
+      themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
+    }
+
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeToggleBtn.innerHTML = '🌙 Switch to Dark Mode';
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
       }
     }
   </script>

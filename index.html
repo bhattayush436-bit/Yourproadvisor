@@ -51,20 +51,32 @@
     .btn-outline { background: var(--bg-white); color: var(--dark-blue); border: 1px solid var(--border-color); padding: 14px 28px; border-radius: 8px; font-weight: 600; display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.95rem; transition: background 0.2s; }
     .btn-outline:hover { background: var(--bg-offwhite); }
 
-    /* Features List */
     .features-list { display: flex; gap: 30px; flex-wrap: wrap; margin-bottom: 40px;}
     .feature-item { display: flex; gap: 12px; align-items: flex-start; }
     .feature-icon { color: var(--primary-blue); background: var(--bg-blue-light); width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
     .feature-text h4 { color: var(--dark-blue); font-size: 0.9rem; font-weight: 700; margin-bottom: 2px; }
     .feature-text p { color: var(--text-light); font-size: 0.8rem; margin: 0; max-width: none; }
 
-    /* NEW: How it Works Section (In Hero) */
-    .how-it-works { background: var(--bg-white); border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.03); max-width: 650px;}
-    .how-it-works h3 { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--dark-blue); font-size: 1.2rem; margin-bottom: 15px; }
-    .steps-container { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
-    .step { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 150px; }
-    .step-num { width: 28px; height: 28px; background: var(--primary-blue); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0;}
-    .step p { font-size: 0.9rem; color: var(--text-heading); font-weight: 600; margin: 0; line-height: 1.3;}
+    /* --- NEW PREMIUM "HOW IT WORKS" --- */
+    .how-it-works-wrapper {
+      background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1920&q=80') center/cover fixed;
+      padding: 80px 5%;
+      color: white;
+      text-align: center;
+    }
+    .how-it-works-wrapper h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.5rem; margin-bottom: 15px; color: white;}
+    .how-it-works-wrapper > p { color: #cbd5e1; font-size: 1.1rem; max-width: 600px; margin: 0 auto 50px; }
+    
+    .how-steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+    .how-step-card {
+      background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 40px 30px;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .how-step-card:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 0.1); }
+    .step-icon-large { width: 60px; height: 60px; background: var(--primary-blue); color: white; border-radius: 16px; display: flex; justify-content: center; align-items: center; font-weight: 800; font-size: 1.5rem; margin: 0 auto 20px; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);}
+    .how-step-card h3 { font-size: 1.3rem; margin-bottom: 10px; font-weight: 700; color: white;}
+    .how-step-card p { color: #94a3b8; font-size: 0.95rem; line-height: 1.5; margin: 0; }
 
     /* --- Trust Band --- */
     .trust-band { text-align: center; padding: 40px 5% 50px; max-width: 1400px; margin: 0 auto; }
@@ -80,7 +92,7 @@
     .stat-item h3 { font-size: 2.2rem; font-weight: 800; color: var(--primary-blue); margin-bottom: 5px; font-family: 'Plus Jakarta Sans', sans-serif;}
     .stat-item p { font-size: 0.9rem; color: var(--dark-blue); font-weight: 600; }
 
-    /* --- NEW: Top Mentors Section --- */
+    /* --- Top Mentors Section --- */
     .content-section { padding: 60px 5%; max-width: 1400px; margin: 0 auto; }
     .section-header { text-align: center; margin-bottom: 50px; }
     .section-header h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.4rem; color: var(--dark-blue); margin-bottom: 15px; }
@@ -98,40 +110,58 @@
     .m-stat { display: flex; flex-direction: column; gap: 4px; }
     .m-stat .val { font-weight: 800; color: var(--dark-blue); font-size: 1rem; }
     .m-stat .lbl { font-size: 0.75rem; color: var(--text-light); text-transform: uppercase; font-weight: 600; }
-    
     .rating-badge { display: inline-flex; align-items: center; gap: 5px; background: #fffbeb; color: #d97706; padding: 6px 12px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; }
 
-    /* --- NEW: Upcoming Live Events --- */
+    /* --- NEW PREMIUM: Upcoming Live Events --- */
     .bg-light { background-color: var(--bg-offwhite); padding: 80px 0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);}
     .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1400px; margin: 0 auto; padding: 0 5%;}
-    .event-card { background: var(--bg-white); border-radius: 16px; border: 1px solid var(--border-color); padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); display: flex; flex-direction: column; }
-    .event-type { display: inline-block; background: var(--bg-blue-light); color: var(--primary-blue); font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; margin-bottom: 15px; }
-    .event-title { font-size: 1.3rem; color: var(--dark-blue); font-weight: 700; margin-bottom: 15px; line-height: 1.4; }
-    .event-date { display: flex; align-items: center; gap: 8px; color: var(--text-main); font-weight: 600; font-size: 0.95rem; margin-bottom: 25px; }
-    .btn-register { margin-top: auto; width: 100%; background: transparent; border: 1px solid var(--primary-blue); color: var(--primary-blue); padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-    .btn-register:hover { background: var(--primary-blue); color: white; }
-
-    /* --- NEW: AI Career Assistance (Bottom) --- */
-    .ai-section { max-width: 900px; margin: 80px auto; padding: 0 5%; text-align: center; }
-    .ai-section h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.2rem; color: var(--dark-blue); margin-bottom: 30px; }
     
-    .ai-search-wrapper { display: flex; align-items: center; background: var(--bg-white); border: 2px solid var(--primary-blue); border-radius: 50px; padding: 8px 8px 8px 24px; box-shadow: 0 15px 35px rgba(59, 130, 246, 0.1); margin-bottom: 25px; transition: box-shadow 0.2s; }
-    .ai-search-wrapper input { flex: 1; border: none; outline: none; font-size: 1.05rem; color: var(--dark-blue); font-family: 'Inter', sans-serif; }
-    .ai-search-wrapper input::placeholder { color: #94a3b8; }
-    .btn-ai-large { background: var(--primary-blue); color: white; border: none; padding: 14px 28px; border-radius: 40px; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: background 0.2s; font-size: 1rem; }
+    /* Event Cards with Overlays */
+    .event-card { 
+      position: relative; border-radius: 16px; padding: 40px 30px; display: flex; flex-direction: column; 
+      overflow: hidden; z-index: 1; min-height: 320px; justify-content: flex-end; box-shadow: 0 10px 20px rgba(0,0,0,0.08); transition: transform 0.3s;
+    }
+    .event-card:hover { transform: translateY(-5px); }
+    .event-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 10%, rgba(15, 23, 42, 0.3) 100%); z-index: -1; }
+    
+    /* Background Images for Events */
+    .event-1 { background: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80') center/cover; }
+    .event-2 { background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80') center/cover; }
+    .event-3 { background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80') center/cover; }
+
+    .event-type { align-self: flex-start; background: var(--primary-blue); color: white; font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 6px; text-transform: uppercase; margin-bottom: 15px; }
+    .event-title { font-size: 1.4rem; color: white; font-weight: 800; margin-bottom: 10px; line-height: 1.3; font-family: 'Plus Jakarta Sans', sans-serif;}
+    .event-date { display: flex; align-items: center; gap: 8px; color: #cbd5e1; font-weight: 500; font-size: 0.9rem; margin-bottom: 25px; }
+    .btn-register { width: 100%; background: rgba(255,255,255,0.1); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .btn-register:hover { background: white; color: var(--dark-blue); }
+
+    /* --- NEW PREMIUM: AI Career Assistance (Bottom) --- */
+    .ai-banner { 
+      background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80') center/cover fixed; 
+      padding: 100px 5%; text-align: center; color: white; 
+    }
+    .ai-banner-content { max-width: 900px; margin: 0 auto; }
+    .ai-banner h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.8rem; margin-bottom: 15px; color: white;}
+    .ai-banner p { color: #94a3b8; font-size: 1.1rem; margin-bottom: 40px;}
+    
+    .ai-search-wrapper { display: flex; align-items: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 50px; padding: 8px 8px 8px 24px; margin-bottom: 30px; transition: 0.2s; }
+    .ai-search-wrapper:focus-within { background: rgba(255,255,255,0.15); border-color: var(--primary-blue); box-shadow: 0 0 30px rgba(59, 130, 246, 0.3); }
+    .ai-search-wrapper input { flex: 1; border: none; outline: none; background: transparent; font-size: 1.05rem; color: white; font-family: 'Inter', sans-serif; }
+    .ai-search-wrapper input::placeholder { color: #cbd5e1; }
+    .btn-ai-large { background: var(--primary-blue); color: white; border: none; padding: 14px 32px; border-radius: 40px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 1rem; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);}
     .btn-ai-large:hover { background: #2563eb; }
 
     .prompt-chips { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
-    .chip { background: var(--bg-offwhite); border: 1px solid var(--border-color); color: var(--text-main); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: 0.2s; }
-    .chip:hover { background: var(--bg-blue-light); border-color: var(--primary-blue); color: var(--primary-blue); }
+    .chip { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: #e2e8f0; padding: 8px 18px; border-radius: 20px; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: 0.2s; backdrop-filter: blur(5px);}
+    .chip:hover { background: var(--primary-blue); border-color: var(--primary-blue); color: white; }
 
     /* --- Footer Section --- */
-    .footer { padding: 60px 5% 20px; max-width: 1400px; margin: 0 auto; border-top: 1px solid var(--border-color);}
+    .footer { padding: 60px 5% 20px; max-width: 1400px; margin: 0 auto;}
     .footer-top { margin-bottom: 40px; }
     .footer-tagline { color: var(--text-light); font-size: 0.95rem; margin: 15px 0 20px; font-weight: 500; }
     .footer-bottom { text-align: center; padding-top: 25px; border-top: 1px solid var(--border-color); color: var(--text-light); font-size: 0.85rem; }
 
-    /* --- Modals (Popups) - Kept original styles with mobile scroll --- */
+    /* --- Modals (Popups) --- */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
     .modal-overlay.active { opacity: 1; visibility: visible; }
     .modal-card { background: white; width: 90%; max-width: 420px; border-radius: 16px; padding: 40px 30px; position: relative; transform: translateY(20px); transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto; }
@@ -152,8 +182,7 @@
       .hero-wrapper { background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 100%), url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; }
       .hero-container { flex-direction: column; text-align: center; padding-top: 20px; }
       .hero-content { max-width: 100%; display: flex; flex-direction: column; align-items: center; }
-      .features-list, .steps-container { justify-content: center; }
-      .how-it-works { text-align: left; }
+      .features-list { justify-content: center; }
       .stats-card { flex-direction: column; text-align: center; padding: 30px 20px; }
     }
     
@@ -164,15 +193,19 @@
       .button-group { flex-direction: column; width: 100%; max-width: 400px; margin-bottom: 20px;}
       .btn-main, .btn-outline { justify-content: center; font-size: 0.85rem; padding: 12px 16px;}
       
-      .how-it-works { padding: 20px 15px; }
-      .how-it-works h3 { font-size: 1.1rem; text-align: center;}
-      .step { min-width: 100%; margin-bottom: 10px; }
+      .how-it-works-wrapper { padding: 50px 5%; }
+      .how-it-works-wrapper h2 { font-size: 1.8rem; }
+      .how-it-works-wrapper > p { font-size: 0.95rem; margin-bottom: 30px;}
+      .how-step-card { padding: 30px 20px; }
+      .step-icon-large { width: 50px; height: 50px; font-size: 1.2rem; }
+      .how-step-card h3 { font-size: 1.1rem; }
+      .how-step-card p { font-size: 0.85rem; }
       
       .trust-band { padding: 30px 5% 40px; }
       .logo-track { gap: 20px 25px; } 
       .trust-logo-img { height: 22px; }
       
-      .section-header h2, .ai-section h2 { font-size: 1.8rem; }
+      .section-header h2 { font-size: 1.8rem; }
       .section-header p { font-size: 0.95rem; }
       
       .mentor-card h3 { font-size: 1.1rem; }
@@ -180,12 +213,15 @@
       .m-stat .val { font-size: 0.95rem; }
       .m-stat .lbl { font-size: 0.7rem; }
       
-      .event-title { font-size: 1.15rem; }
+      .event-title { font-size: 1.2rem; }
       .event-date { font-size: 0.85rem; }
       
-      .ai-search-wrapper { flex-direction: column; padding: 8px; border-radius: 16px; gap: 10px; }
+      .ai-banner { padding: 60px 5%; }
+      .ai-banner h2 { font-size: 1.8rem; }
+      .ai-banner p { font-size: 0.95rem; margin-bottom: 25px;}
+      .ai-search-wrapper { flex-direction: column; padding: 8px; border-radius: 16px; gap: 10px; background: rgba(255,255,255,0.05); }
       .ai-search-wrapper input { width: 100%; padding: 10px; text-align: center; font-size: 0.95rem; }
-      .btn-ai-large { width: 100%; justify-content: center; border-radius: 12px; padding: 12px; }
+      .btn-ai-large { width: 100%; justify-content: center; border-radius: 12px; padding: 12px; font-size: 0.95rem;}
       .chip { font-size: 0.8rem; padding: 6px 12px; }
       
       .footer { padding: 40px 5% 20px; }
@@ -222,28 +258,32 @@
           <div class="feature-item"><div class="feature-icon">🎯</div><div class="feature-text"><h4>Personalized Guidance</h4><p>Tailored to your goals</p></div></div>
           <div class="feature-item"><div class="feature-icon">🚀</div><div class="feature-text"><h4>Career Growth</h4><p>Clarity. Confidence. Impact.</p></div></div>
         </div>
-
-        <!-- NEW: How it works section -->
-        <div class="how-it-works">
-          <h3>How it works</h3>
-          <div class="steps-container">
-            <div class="step">
-              <div class="step-num">1</div>
-              <p>Choose your goal</p>
-            </div>
-            <div class="step">
-              <div class="step-num">2</div>
-              <p>Connect with Expert</p>
-            </div>
-            <div class="step">
-              <div class="step-num">3</div>
-              <p>Book session & Grow</p>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
+  </div>
+
+  <!-- NEW PREMIUM: How It Works -->
+  <div class="how-it-works-wrapper">
+    <h2>How it Works</h2>
+    <p>Accelerate your career trajectory in three simple steps. We handle the logistics so you can focus on growing.</p>
+    
+    <div class="how-steps-grid">
+      <div class="how-step-card">
+        <div class="step-icon-large">1</div>
+        <h3>Choose your goal</h3>
+        <p>Select your target industry, role, or specific challenge like interview prep or resume review.</p>
+      </div>
+      <div class="how-step-card">
+        <div class="step-icon-large">2</div>
+        <h3>Connect with Expert</h3>
+        <p>Browse profiles of verified leaders from top companies and find your perfect mentor match.</p>
+      </div>
+      <div class="how-step-card">
+        <div class="step-icon-large">3</div>
+        <h3>Book session & Grow</h3>
+        <p>Schedule a 1-on-1 video call, get actionable advice, and achieve your career milestones.</p>
+      </div>
+    </div>
   </div>
 
   <!-- Trust Band -->
@@ -268,7 +308,7 @@
     </div>
   </div>
 
-  <!-- NEW: Top Mentors Section -->
+  <!-- Top Mentors Section -->
   <div class="content-section">
     <div class="section-header">
       <h2>Learn from the Best</h2>
@@ -326,7 +366,7 @@
     </div>
   </div>
 
-  <!-- NEW: Upcoming Live Events Section -->
+  <!-- NEW PREMIUM: Upcoming Live Events Section -->
   <div class="bg-light">
     <div class="content-section" style="padding-top: 0; padding-bottom: 0;">
       <div class="section-header">
@@ -336,54 +376,52 @@
 
       <div class="events-grid">
         <!-- Event 1 -->
-        <div class="event-card">
-          <div>
-            <span class="event-type">Webinar</span>
-            <h3 class="event-title">Cracking the FAANG System Design Interview</h3>
-            <div class="event-date">📅 June 10, 2026 • 6:00 PM IST</div>
-          </div>
+        <div class="event-card event-1">
+          <span class="event-type">Webinar</span>
+          <h3 class="event-title">Cracking the FAANG System Design Interview</h3>
+          <div class="event-date">📅 June 10, 2026 • 6:00 PM IST</div>
           <button class="btn-register">Reserve Spot</button>
         </div>
 
         <!-- Event 2 -->
-        <div class="event-card">
-          <div>
-            <span class="event-type">Workshop</span>
-            <h3 class="event-title">VLSI & Front-end Design: Industry Best Practices</h3>
-            <div class="event-date">📅 June 15, 2026 • 5:30 PM IST</div>
-          </div>
+        <div class="event-card event-2">
+          <span class="event-type">Workshop</span>
+          <h3 class="event-title">VLSI & Front-end Design: Industry Best Practices</h3>
+          <div class="event-date">📅 June 15, 2026 • 5:30 PM IST</div>
           <button class="btn-register">Reserve Spot</button>
         </div>
 
         <!-- Event 3 -->
-        <div class="event-card">
-          <div>
-            <span class="event-type">Career Roadmap</span>
-            <h3 class="event-title">AI Career Roadmap 2026: Navigating the Future</h3>
-            <div class="event-date">📅 June 20, 2026 • 11:00 AM IST</div>
-          </div>
+        <div class="event-card event-3">
+          <span class="event-type">Career Roadmap</span>
+          <h3 class="event-title">AI Career Roadmap 2026: Navigating the Future</h3>
+          <div class="event-date">📅 June 20, 2026 • 11:00 AM IST</div>
           <button class="btn-register">Reserve Spot</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- NEW: AI Career Assistance (Moved to Bottom) -->
-  <div class="ai-section">
-    <h2>Ask AI Career Assistance</h2>
-    <div class="ai-search-wrapper">
-      <span class="search-icon">✨</span>
-      <input type="text" placeholder="Describe your goal... e.g., 'I need a career roadmap for VLSI Design'">
-      <button class="btn-ai-large" onclick="window.location.href='find-advisors.html'">
-        Ask AI
-      </button>
-    </div>
-    
-    <div class="prompt-chips">
-      <span class="chip">Which skill should I learn?</span>
-      <span class="chip">Resume Review</span>
-      <span class="chip">Career Roadmap</span>
-      <span class="chip">Salary Guidance</span>
+  <!-- NEW PREMIUM: AI Career Assistance -->
+  <div class="ai-banner">
+    <div class="ai-banner-content">
+      <h2>Ask AI Career Assistance</h2>
+      <p>Not sure where to start? Let our AI Matchmaker guide your next step.</p>
+      
+      <div class="ai-search-wrapper">
+        <span class="search-icon" style="color: white; margin-right: 12px; font-size: 1.2rem;">✨</span>
+        <input type="text" placeholder="Describe your goal... e.g., 'I need a career roadmap for VLSI Design'">
+        <button class="btn-ai-large" onclick="window.location.href='find-advisors.html'">
+          Ask AI
+        </button>
+      </div>
+      
+      <div class="prompt-chips">
+        <span class="chip" onclick="document.querySelector('.ai-search-wrapper input').value='Which skill should I learn?';">Which skill should I learn?</span>
+        <span class="chip" onclick="document.querySelector('.ai-search-wrapper input').value='Resume Review';">Resume Review</span>
+        <span class="chip" onclick="document.querySelector('.ai-search-wrapper input').value='Career Roadmap';">Career Roadmap</span>
+        <span class="chip" onclick="document.querySelector('.ai-search-wrapper input').value='Salary Guidance';">Salary Guidance</span>
+      </div>
     </div>
   </div>
 

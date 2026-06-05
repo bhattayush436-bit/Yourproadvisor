@@ -44,6 +44,13 @@
     .advisor-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.06); border-color: #cbd5e1; }
     
     .top-badge { position: absolute; top: -12px; right: 20px; background: #f59e0b; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);}
+    
+    /* --- NEW: Availability Badges --- */
+    .availability-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-bottom: 15px; align-self: flex-start; text-transform: uppercase; letter-spacing: 0.5px;}
+    .avail-today { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+    .avail-tomorrow { background: rgba(245, 158, 11, 0.1); color: #d97706; }
+    .avail-booked { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+
     .advisor-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
     .avatar { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-color); flex-shrink: 0;}
     
@@ -60,12 +67,21 @@
     
     .advisor-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
     .tag { background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-sub); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+    .tag-rating { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
     
-    .advisor-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid var(--border-color); padding-top: 15px; }
-    .rating { color: #f59e0b; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 4px; }
-    .price { color: var(--text-heading); font-weight: 800; font-size: 1rem; }
-    .btn-book { width: 100%; padding: 12px; background: var(--primary-btn); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 15px; transition: background 0.2s; }
+    /* --- NEW: Pricing Options Grid --- */
+    .pricing-options { display: flex; gap: 10px; margin-bottom: 20px; margin-top: auto;}
+    .price-pill { flex: 1; background: var(--bg-color); border: 1px solid var(--border-color); padding: 10px 8px; border-radius: 8px; text-align: center; cursor: pointer; transition: 0.2s; }
+    .price-pill:hover { border-color: var(--primary-btn); background: rgba(59, 130, 246, 0.05); }
+    .price-pill.active { border-color: var(--primary-btn); background: var(--primary-btn); }
+    .price-pill .dur { display: block; font-size: 0.75rem; color: var(--text-sub); font-weight: 600; margin-bottom: 4px; }
+    .price-pill .cost { display: block; font-size: 1rem; color: var(--text-heading); font-weight: 800; }
+    .price-pill.active .dur, .price-pill.active .cost { color: white; }
+
+    .btn-book { width: 100%; padding: 12px; background: var(--primary-btn); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 0.95rem;}
     .btn-book:hover { background: #1d4ed8; }
+    .btn-disabled { background: var(--bg-color); color: var(--text-sub); border: 1px solid var(--border-color); cursor: not-allowed; }
+    .btn-disabled:hover { background: var(--bg-color); }
 
     /* Security Modal */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
@@ -94,6 +110,8 @@
       .main-content h3 { font-size: 1.05rem !important; }
       .main-content button { font-size: 0.9rem !important; padding: 10px 14px !important; }
       .header h1 { font-size: 1.4rem !important; }
+      
+      .price-pill { padding: 8px 4px; }
     }
   </style>
 </head>
@@ -133,8 +151,11 @@
     <h2 class="section-title">Verified Platform Leaders</h2>
     <div class="advisor-grid">
       
+      <!-- Expert 1: Available Today -->
       <div class="advisor-card">
         <div class="top-badge">Top 1% Mentor</div>
+        <div class="availability-badge avail-today">🟢 Available Today</div>
+        
         <div class="advisor-header">
           <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="Avatar" class="avatar">
           <div class="advisor-info">
@@ -142,16 +163,31 @@
             <p>Senior Hardware Engineer @ <span class="company">Intel</span></p>
           </div>
         </div>
+        
         <div class="advisor-stats">
           <div class="stat"><span>950+</span><span>Hours</span></div><div class="stat-divider"></div>
           <div class="stat"><span>1,420</span><span>Sessions</span></div>
         </div>
-        <div class="advisor-tags"><span class="tag">VLSI Design</span><span class="tag">Verilog</span><span class="tag">ASIC</span></div>
-        <div class="advisor-footer"><div class="rating">⭐ 5.0 (124 reviews)</div><div class="price">$80/hr</div></div>
+        
+        <div class="advisor-tags">
+          <span class="tag tag-rating">⭐ 5.0 (124)</span>
+          <span class="tag">VLSI Design</span>
+          <span class="tag">Verilog</span>
+        </div>
+
+        <div class="pricing-options">
+          <div class="price-pill" onclick="selectPricing(this)"><span class="dur">15 Min</span><span class="cost">$20</span></div>
+          <div class="price-pill" onclick="selectPricing(this)"><span class="dur">30 Min</span><span class="cost">$40</span></div>
+          <div class="price-pill active" onclick="selectPricing(this)"><span class="dur">60 Min</span><span class="cost">$80</span></div>
+        </div>
+
         <button class="btn-book">Book Session</button>
       </div>
 
+      <!-- Expert 2: Available Tomorrow -->
       <div class="advisor-card">
+        <div class="availability-badge avail-tomorrow">🟡 Available Tomorrow</div>
+        
         <div class="advisor-header">
           <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&q=80" alt="Avatar" class="avatar">
           <div class="advisor-info">
@@ -159,13 +195,57 @@
             <p>Staff Software Engineer @ <span class="company">Google</span></p>
           </div>
         </div>
+        
         <div class="advisor-stats">
           <div class="stat"><span>840+</span><span>Hours</span></div><div class="stat-divider"></div>
           <div class="stat"><span>1,210</span><span>Sessions</span></div>
         </div>
-        <div class="advisor-tags"><span class="tag">System Design</span><span class="tag">Data Structures</span><span class="tag">React</span></div>
-        <div class="advisor-footer"><div class="rating">⭐ 4.9 (89 reviews)</div><div class="price">$120/hr</div></div>
+        
+        <div class="advisor-tags">
+          <span class="tag tag-rating">⭐ 4.9 (89)</span>
+          <span class="tag">System Design</span>
+          <span class="tag">React</span>
+        </div>
+
+        <div class="pricing-options">
+          <div class="price-pill active" onclick="selectPricing(this)"><span class="dur">15 Min</span><span class="cost">$30</span></div>
+          <div class="price-pill" onclick="selectPricing(this)"><span class="dur">30 Min</span><span class="cost">$60</span></div>
+          <div class="price-pill" onclick="selectPricing(this)"><span class="dur">60 Min</span><span class="cost">$120</span></div>
+        </div>
+
         <button class="btn-book">Book Session</button>
+      </div>
+
+      <!-- Expert 3: Fully Booked -->
+      <div class="advisor-card">
+        <div class="availability-badge avail-booked">🔴 Fully Booked</div>
+        
+        <div class="advisor-header">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=150&q=80" alt="Avatar" class="avatar">
+          <div class="advisor-info">
+            <h3>Sarah Jenkins <span class="verified-badge">✔️</span></h3>
+            <p>Product Strategy Lead @ <span class="company">Meta</span></p>
+          </div>
+        </div>
+        
+        <div class="advisor-stats">
+          <div class="stat"><span>700+</span><span>Hours</span></div><div class="stat-divider"></div>
+          <div class="stat"><span>890</span><span>Sessions</span></div>
+        </div>
+        
+        <div class="advisor-tags">
+          <span class="tag tag-rating">⭐ 4.8 (210)</span>
+          <span class="tag">Product Mgmt</span>
+          <span class="tag">Strategy</span>
+        </div>
+
+        <div class="pricing-options">
+          <div class="price-pill" onclick="selectPricing(this)"><span class="dur">15 Min</span><span class="cost">$25</span></div>
+          <div class="price-pill active" onclick="selectPricing(this)"><span class="dur">30 Min</span><span class="cost">$50</span></div>
+          <div class="price-pill" onclick="selectPricing(this)"><span class="dur">60 Min</span><span class="cost">$100</span></div>
+        </div>
+
+        <button class="btn-book btn-disabled" disabled>Currently Unavailable</button>
       </div>
 
     </div>
@@ -188,11 +268,21 @@
   </div>
 
   <script>
+    // Handles clicking the pricing options
+    function selectPricing(element) {
+      // Find the parent container
+      const parent = element.parentElement;
+      // Remove 'active' class from all siblings
+      const pills = parent.querySelectorAll('.price-pill');
+      pills.forEach(pill => pill.classList.remove('active'));
+      // Add 'active' class to the clicked pill
+      element.classList.add('active');
+    }
+
     // SECURITY GATEKEEPER LOGIC
     document.addEventListener("DOMContentLoaded", function() {
       const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
       if (!isLoggedIn) {
-        // If not logged in, clicking any sidebar link (except this page) triggers the popup
         const protectedLinks = document.querySelectorAll('.nav-links a:not(.active)');
         protectedLinks.forEach(link => {
           link.addEventListener('click', function(event) {
@@ -218,6 +308,7 @@
       if (window.innerWidth <= 768) { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); } 
       else { sidebar.classList.toggle('collapsed'); }
     }
+    
     function toggleTheme() {
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark', btn = document.getElementById('themeToggleBtn');
       if (isDark) { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); if(btn) btn.innerHTML = '🌙 Switch to Dark Mode'; } 

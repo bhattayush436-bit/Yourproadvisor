@@ -5,37 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Find Advisors | YourProAdvisor</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
-  
-  <script>
-    if (localStorage.getItem('theme') === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
-  </script>
-
+  <script>if (localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');</script>
   <style>
-    /* Default Light Mode Variables */
-    :root { 
-      --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; 
-      --text-sub: #475569; --primary-btn: #2563eb; --card-bg: #ffffff; 
-      --border-color: #e2e8f0; --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); 
-    }
-
-    /* Dark Mode Variables */
-    [data-theme="dark"] {
-      --bg-color: #0f172a; --sidebar-bg: #1e293b; --text-heading: #f8fafc;
-      --text-sub: #94a3b8; --card-bg: #1e293b; --border-color: #334155;
-    }
-
+    :root { --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+    [data-theme="dark"] { --bg-color: #0f172a; --sidebar-bg: #1e293b; --text-heading: #f8fafc; --text-sub: #94a3b8; --card-bg: #1e293b; --border-color: #334155; }
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
     body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; transition: background-color 0.3s ease; }
     
     .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; transition: color 0.2s; padding-right: 15px; }
-    
-    /* Sidebar setup */
     .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; overflow-y: auto;}
     .sidebar.collapsed { margin-left: -260px; }
     .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; backdrop-filter: blur(2px); }
-    
     .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
     .sidebar .logo { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; letter-spacing: -0.5px; }
     .sidebar .logo .highlight { color: var(--primary-btn); }
@@ -44,23 +24,19 @@
     .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
     .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 14px; border-radius: 6px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
     .nav-links li a.active, .nav-links li a:hover { background-color: var(--border-color); color: var(--primary-btn); }
-    
     .theme-toggle-btn { margin-top: 20px; padding: 12px 14px; background: transparent; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-weight: 600; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; width: 100%; }
     .theme-toggle-btn:hover { background: var(--border-color); }
 
-    /* Main Content Area */
     .main-content { flex: 1; padding: 40px; overflow-y: auto; }
     .header { display: flex; align-items: center; margin-bottom: 30px; }
     .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif;}
 
-    /* Search & Filter Bar */
     .search-filter-bar { display: flex; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
     .search-box { flex: 1; min-width: 250px; display: flex; align-items: center; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px 15px; }
     .search-box input { border: none; outline: none; background: transparent; width: 100%; color: var(--text-heading); font-size: 0.95rem; margin-left: 10px; }
     .btn-filter { padding: 12px 20px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-weight: 600; cursor: pointer; transition: 0.2s; }
     .btn-filter:hover { background: var(--border-color); }
 
-    /* Top Advisors Grid */
     .section-title { color: var(--text-heading); margin-bottom: 20px; font-size: 1.3rem; font-weight: 700; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
     .advisor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; margin-bottom: 40px; }
     
@@ -73,7 +49,6 @@
     
     .advisor-info h3 { display: flex; align-items: center; gap: 6px; color: var(--text-heading); font-size: 1.15rem; font-weight: 800; margin-bottom: 4px; }
     .verified-badge { color: #3b82f6; font-size: 1.1rem; }
-    
     .advisor-info p { color: var(--text-sub); font-size: 0.85rem; font-weight: 600; }
     .advisor-info .company { color: var(--primary-btn); font-weight: 700; }
 
@@ -89,11 +64,10 @@
     .advisor-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid var(--border-color); padding-top: 15px; }
     .rating { color: #f59e0b; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 4px; }
     .price { color: var(--text-heading); font-weight: 800; font-size: 1rem; }
-    
     .btn-book { width: 100%; padding: 12px; background: var(--primary-btn); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 15px; transition: background 0.2s; }
     .btn-book:hover { background: #1d4ed8; }
 
-    /* --- Auth Modals (Popups for Security) --- */
+    /* Security Modal */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
     .modal-overlay.active { opacity: 1; visibility: visible; }
     .modal-card { background: var(--card-bg); width: 90%; max-width: 420px; border-radius: 16px; padding: 40px 30px; position: relative; transform: translateY(20px); transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto; border: 1px solid var(--border-color); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
@@ -106,8 +80,6 @@
     .input-group input { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; outline: none; font-family: 'Inter', sans-serif; font-size: 0.95rem; background: var(--bg-color); color: var(--text-heading);}
     .input-group input:focus { border-color: var(--primary-btn); }
     .btn-submit { width: 100%; padding: 12px; background: var(--primary-btn); color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; margin-top: 10px;}
-    .modal-switch { text-align: center; margin-top: 20px; font-size: 0.85rem; color: var(--text-sub); }
-    .modal-switch span { color: var(--primary-btn); font-weight: 600; cursor: pointer; }
 
     @media (max-width: 768px) {
       .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); margin-left: 0; }
@@ -115,19 +87,23 @@
       .sidebar-overlay.active { display: block; }
       .main-content { padding: 20px; }
       .sidebar-close-btn { display: block; }
+      
+      /* AUTOMATIC MOBILE TEXT SHRINKING */
+      .main-content p, .main-content span, .main-content td, .main-content th, .main-content input, .main-content textarea { font-size: 0.85rem !important; }
+      .main-content h2 { font-size: 1.2rem !important; }
+      .main-content h3 { font-size: 1.05rem !important; }
+      .main-content button { font-size: 0.9rem !important; padding: 10px 14px !important; }
+      .header h1 { font-size: 1.4rem !important; }
     }
   </style>
 </head>
 <body>
-  <!-- Clicking this overlay still closes the menu -->
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-  
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
       <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
       <button class="sidebar-close-btn" onclick="toggleSidebar()">&times;</button>
     </div>
-    
     <ul class="nav-links">
       <li><a href="user-dashboard.html">📊 Dashboard</a></li>
       <li><a href="find-advisors.html" class="active">🔍 Find Advisors</a></li>
@@ -138,10 +114,7 @@
       <li><a href="support-help.html">❓ Support & Help</a></li>
       <li><a href="profile-settings.html">⚙️ Profile Settings</a></li>
     </ul>
-
-    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">
-      🌙 Switch to Dark Mode
-    </button>
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">🌙 Switch to Dark Mode</button>
   </aside>
 
   <main class="main-content">
@@ -150,87 +123,58 @@
       <h1>Browse Top Advisors</h1>
     </div>
 
-    <!-- Search and Filter -->
     <div class="search-filter-bar">
-      <div class="search-box">
-        <span>🔍</span>
-        <input type="text" placeholder="Search by skill, title, or company...">
-      </div>
+      <div class="search-box"><span>🔍</span><input type="text" placeholder="Search by skill, title, or company..."></div>
       <button class="btn-filter">⚙️ Filters</button>
       <button class="btn-filter">🏢 Companies</button>
       <button class="btn-filter">💰 Price Range</button>
     </div>
 
     <h2 class="section-title">Verified Platform Leaders</h2>
-    
-    <!-- Advisor Grid -->
     <div class="advisor-grid">
       
-      <!-- Expert 1 -->
       <div class="advisor-card">
         <div class="top-badge">Top 1% Mentor</div>
         <div class="advisor-header">
           <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="Avatar" class="avatar">
           <div class="advisor-info">
-            <h3>Dr. Ananya Sharma <span class="verified-badge" title="Identity & Employment Verified">✔️</span></h3>
+            <h3>Dr. Ananya Sharma <span class="verified-badge">✔️</span></h3>
             <p>Senior Hardware Engineer @ <span class="company">Intel</span></p>
           </div>
         </div>
-        
         <div class="advisor-stats">
-          <div class="stat"><span>950+</span><span>Hours Invested</span></div>
-          <div class="stat-divider"></div>
-          <div class="stat"><span>1,420</span><span>Sessions Taken</span></div>
+          <div class="stat"><span>950+</span><span>Hours</span></div><div class="stat-divider"></div>
+          <div class="stat"><span>1,420</span><span>Sessions</span></div>
         </div>
-
-        <div class="advisor-tags">
-          <span class="tag">VLSI Design</span>
-          <span class="tag">Verilog</span>
-          <span class="tag">ASIC</span>
-        </div>
-        <div class="advisor-footer">
-          <div class="rating">⭐ 5.0 (124 reviews)</div>
-          <div class="price">$80/hr</div>
-        </div>
+        <div class="advisor-tags"><span class="tag">VLSI Design</span><span class="tag">Verilog</span><span class="tag">ASIC</span></div>
+        <div class="advisor-footer"><div class="rating">⭐ 5.0 (124 reviews)</div><div class="price">$80/hr</div></div>
         <button class="btn-book">Book Session</button>
       </div>
 
-      <!-- Expert 2 -->
       <div class="advisor-card">
         <div class="advisor-header">
           <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&q=80" alt="Avatar" class="avatar">
           <div class="advisor-info">
-            <h3>Michael Chen <span class="verified-badge" title="Identity & Employment Verified">✔️</span></h3>
+            <h3>Michael Chen <span class="verified-badge">✔️</span></h3>
             <p>Staff Software Engineer @ <span class="company">Google</span></p>
           </div>
         </div>
-
         <div class="advisor-stats">
-          <div class="stat"><span>840+</span><span>Hours Invested</span></div>
-          <div class="stat-divider"></div>
-          <div class="stat"><span>1,210</span><span>Sessions Taken</span></div>
+          <div class="stat"><span>840+</span><span>Hours</span></div><div class="stat-divider"></div>
+          <div class="stat"><span>1,210</span><span>Sessions</span></div>
         </div>
-
-        <div class="advisor-tags">
-          <span class="tag">System Design</span>
-          <span class="tag">Data Structures</span>
-          <span class="tag">React</span>
-        </div>
-        <div class="advisor-footer">
-          <div class="rating">⭐ 4.9 (89 reviews)</div>
-          <div class="price">$120/hr</div>
-        </div>
+        <div class="advisor-tags"><span class="tag">System Design</span><span class="tag">Data Structures</span><span class="tag">React</span></div>
+        <div class="advisor-footer"><div class="rating">⭐ 4.9 (89 reviews)</div><div class="price">$120/hr</div></div>
         <button class="btn-book">Book Session</button>
       </div>
 
     </div>
   </main>
 
-  <!-- SECURITY MODAL: Hidden Login Popup -->
+  <!-- Security Login Popup -->
   <div class="modal-overlay" id="authModalOverlay" onclick="closeAuthModal(event)">
     <div class="modal-card" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="forceCloseAuthModal()">&times;</button>
-      
       <div id="loginForm">
         <h2 class="modal-title">Please Log In First</h2>
         <p class="modal-subtitle">You need an account to access the dashboard features.</p>
@@ -244,56 +188,40 @@
   </div>
 
   <script>
-    // --- SECURITY LOGIC (The Gatekeeper) ---
+    // SECURITY GATEKEEPER LOGIC
     document.addEventListener("DOMContentLoaded", function() {
-      // 1. Check if the user is verified as logged in
       const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-      
       if (!isLoggedIn) {
-        // 2. If NOT logged in, select all sidebar links EXCEPT the 'Find Advisors' tab
+        // If not logged in, clicking any sidebar link (except this page) triggers the popup
         const protectedLinks = document.querySelectorAll('.nav-links a:not(.active)');
-        
-        // 3. Force those links to trigger the popup instead of changing the page
         protectedLinks.forEach(link => {
           link.addEventListener('click', function(event) {
-            event.preventDefault(); // STOPS the navigation
-            document.getElementById('authModalOverlay').classList.add('active'); // SHOWS the login popup
+            event.preventDefault();
+            document.getElementById('authModalOverlay').classList.add('active');
           });
         });
       }
+      const btn = document.getElementById('themeToggleBtn');
+      if (localStorage.getItem('theme') === 'dark' && btn) btn.innerHTML = '☀️ Switch to Light Mode';
     });
 
-    // --- POPUP LOGIC ---
     function closeAuthModal(event) { if(event.target.id === 'authModalOverlay') document.getElementById('authModalOverlay').classList.remove('active'); }
     function forceCloseAuthModal() { document.getElementById('authModalOverlay').classList.remove('active'); }
     
-    // --- LOGIN SUCCESS ---
     function loginUser() {
-      // Grants the security pass
       localStorage.setItem('isLoggedIn', 'true');
-      // Redirects securely to the dashboard
       window.location.href = 'user-dashboard.html';
     }
 
-    // --- STANDARD SIDEBAR & THEME LOGIC ---
     function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('sidebarOverlay');
-      if (window.innerWidth <= 768) {
-        sidebar.classList.toggle('active'); overlay.classList.toggle('active');
-      } else { sidebar.classList.toggle('collapsed'); }
+      const sidebar = document.getElementById('sidebar'), overlay = document.getElementById('sidebarOverlay');
+      if (window.innerWidth <= 768) { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); } 
+      else { sidebar.classList.toggle('collapsed'); }
     }
-
-    const themeToggleBtn = document.getElementById('themeToggleBtn');
-    if (localStorage.getItem('theme') === 'dark') { themeToggleBtn.innerHTML = '☀️ Switch to Light Mode'; }
-
     function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      if (currentTheme === 'dark') {
-        document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); themeToggleBtn.innerHTML = '🌙 Switch to Dark Mode';
-      } else {
-        document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
-      }
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark', btn = document.getElementById('themeToggleBtn');
+      if (isDark) { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); if(btn) btn.innerHTML = '🌙 Switch to Dark Mode'; } 
+      else { document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); if(btn) btn.innerHTML = '☀️ Switch to Light Mode'; }
     }
   </script>
 </body>

@@ -6,7 +6,7 @@
   <title>User Dashboard | YourProAdvisor</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
   
-  <!-- Prevents a white flash on load if dark mode is active -->
+  <!-- Early Dark Mode Check to prevent flashing -->
   <script>
     if (localStorage.getItem('theme') === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
@@ -43,18 +43,19 @@
     
     /* Sidebar setup */
     .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; overflow-y: auto;}
-    .sidebar.hidden { margin-left: -260px; }
+    .sidebar.collapsed { margin-left: -260px; }
     .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; backdrop-filter: blur(2px); }
     
-    .sidebar .logo { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; margin-bottom: 40px; text-align: center; letter-spacing: -0.5px; }
+    .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+    .sidebar .logo { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; letter-spacing: -0.5px; }
     .sidebar .logo .highlight { color: var(--primary-btn); }
+    .sidebar-close-btn { display: none; background: none; border: none; font-size: 2rem; color: var(--text-sub); cursor: pointer; line-height: 1; }
     
-    /* Updated Nav Links to match your original sections */
+    /* User Nav Links */
     .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
     .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 14px; border-radius: 6px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
     .nav-links li a.active, .nav-links li a:hover { background-color: var(--border-color); color: var(--primary-btn); }
     
-    /* Dark Mode Toggle Button */
     .theme-toggle-btn { margin-top: 20px; padding: 12px 14px; background: transparent; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-weight: 600; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; width: 100%; }
     .theme-toggle-btn:hover { background: var(--border-color); }
 
@@ -62,55 +63,65 @@
     .main-content { flex: 1; padding: 40px; overflow-y: auto; }
     .header { display: flex; align-items: center; margin-bottom: 30px; }
     .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif;}
-    
-    .welcome-banner { background: var(--primary-gradient); border-radius: 16px; padding: 30px; color: white; margin-bottom: 40px; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15); }
-    .welcome-banner h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 10px; font-family: 'Plus Jakarta Sans', sans-serif;}
-    .welcome-banner p { font-size: 1rem; opacity: 0.9; max-width: 600px; }
 
-    /* Search & Filter Bar */
-    .search-filter-bar { display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
-    .search-box { flex: 1; min-width: 250px; display: flex; align-items: center; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px 15px; }
-    .search-box input { border: none; outline: none; background: transparent; width: 100%; color: var(--text-heading); font-size: 0.95rem; margin-left: 10px; }
-    .btn-filter { padding: 12px 20px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-weight: 600; cursor: pointer; transition: 0.2s; }
-    .btn-filter:hover { background: var(--border-color); }
+    /* Welcome Banner */
+    .welcome-banner { background: var(--primary-gradient); padding: 30px; border-radius: 16px; color: white; margin-bottom: 30px; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);}
+    .welcome-banner h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.8rem; margin-bottom: 8px; }
+    .welcome-banner p { font-size: 1rem; opacity: 0.9; }
 
-    /* Advisor Grid */
-    .section-title { color: var(--text-heading); margin-bottom: 20px; font-size: 1.3rem; font-weight: 700; }
-    .advisor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px; }
+    /* Widgets Grid */
+    .widget-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px; }
     
-    .advisor-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 24px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; }
-    .advisor-card:hover { transform: translateY(-3px); box-shadow: 0 12px 20px rgba(0,0,0,0.05); }
+    /* Standard Card */
+    .dashboard-card { background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border-color); padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+    .dashboard-card h3 { color: var(--text-heading); font-size: 1.15rem; font-weight: 700; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;}
     
-    .advisor-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
-    .avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;}
-    .advisor-info h3 { color: var(--text-heading); font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
-    .advisor-info p { color: var(--text-sub); font-size: 0.85rem; font-weight: 500; }
+    /* Upcoming Session UI */
+    .session-info { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+    .avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-color);}
+    .session-details h4 { color: var(--text-heading); font-size: 1.05rem; margin-bottom: 4px; }
+    .session-details p { color: var(--text-sub); font-size: 0.85rem; font-weight: 500; }
+    .session-time { background: var(--bg-color); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: 600; color: var(--text-heading); font-size: 0.9rem;}
     
-    .advisor-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-    .tag { background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-sub); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
-    
-    .advisor-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid var(--border-color); padding-top: 15px; }
-    .rating { color: #f59e0b; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 4px; }
-    .price { color: var(--text-heading); font-weight: 800; font-size: 1rem; }
-    
-    .btn-book { width: 100%; padding: 12px; background: var(--primary-btn); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 15px; transition: background 0.2s; }
-    .btn-book:hover { background: #1d4ed8; }
+    .btn-action { width: 100%; padding: 12px; background: var(--primary-btn); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 0.95rem;}
+    .btn-action:hover { background: #1d4ed8; }
 
+    /* Quick Stats */
+    .stat-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
+    .stat-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .stat-label { color: var(--text-sub); font-weight: 500; font-size: 0.95rem; }
+    .stat-value { color: var(--text-heading); font-weight: 800; font-size: 1.1rem; }
+
+    /* --- MOBILE RESPONSIVE TWEAKS --- */
     @media (max-width: 768px) {
-      .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
+      .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); margin-left: 0; }
       .sidebar.active { left: 0; }
       .sidebar-overlay.active { display: block; }
       .main-content { padding: 20px; }
-      .welcome-banner h2 { font-size: 1.5rem; }
+      .sidebar-close-btn { display: block; }
+
+      /* SHRINKS ALL TEXT FOR MOBILE AUTOMATICALLY */
+      .main-content p, .main-content span, .main-content td, .main-content th, .main-content input, .main-content textarea { font-size: 0.85rem !important; }
+      .main-content h2 { font-size: 1.2rem !important; }
+      .main-content h3 { font-size: 1.05rem !important; }
+      .main-content h4 { font-size: 1rem !important; }
+      .main-content button { font-size: 0.9rem !important; padding: 10px 14px !important; }
+      .header h1 { font-size: 1.4rem !important; }
+      
+      .welcome-banner { padding: 20px; }
+      .dashboard-card { padding: 15px; }
     }
   </style>
 </head>
 <body>
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  
   <aside class="sidebar" id="sidebar">
-    <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+    <div class="sidebar-header">
+      <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+      <button class="sidebar-close-btn" onclick="toggleSidebar()">&times;</button>
+    </div>
     
-    <!-- RESTORED & LINKED: Original Sidebar Navigation Items -->
     <ul class="nav-links">
       <li><a href="user-dashboard.html" class="active">📊 Dashboard</a></li>
       <li><a href="find-advisors.html">🔍 Find Advisors</a></li>
@@ -122,7 +133,6 @@
       <li><a href="profile-settings.html">⚙️ Profile Settings</a></li>
     </ul>
 
-    <!-- Dark Mode Toggle Button -->
     <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">
       🌙 Switch to Dark Mode
     </button>
@@ -131,99 +141,105 @@
   <main class="main-content">
     <div class="header">
       <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-      <h1>Dashboard</h1>
+      <h1>Dashboard Overview</h1>
     </div>
-    
+
+    <!-- Welcome Section -->
     <div class="welcome-banner">
       <h2>Welcome back, Ayush! 👋</h2>
-      <p>Ready to take the next step in your career? Browse our top-tier experts and book your next 1-on-1 session today.</p>
+      <p>Ready to take the next step in your VLSI and Verilog journey?</p>
     </div>
 
-    <!-- Search and Filter -->
-    <div class="search-filter-bar">
-      <div class="search-box">
-        <span>🔍</span>
-        <input type="text" placeholder="Search by skill, company, or role...">
-      </div>
-      <button class="btn-filter">⚙️ Filters</button>
-      <button class="btn-filter">🏢 Companies</button>
-    </div>
-
-    <h2 class="section-title">Recommended for You</h2>
-    
-    <!-- Advisor Grid -->
-    <div class="advisor-grid">
-      
-      <!-- Card 1 -->
-      <div class="advisor-card">
-        <div class="advisor-header">
-          <div class="avatar">⚙️</div>
-          <div class="advisor-info">
-            <h3>Dr. Ananya Sharma</h3>
+    <div class="widget-grid">
+      <!-- Next Upcoming Session -->
+      <div class="dashboard-card">
+        <h3>Next Scheduled Session <span style="font-size: 0.8rem; background: var(--bg-color); padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-color);">Tomorrow</span></h3>
+        
+        <div class="session-info">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="Avatar" class="avatar">
+          <div class="session-details">
+            <h4>Dr. Ananya Sharma</h4>
             <p>Senior Hardware Engineer @ Intel</p>
           </div>
         </div>
-        <div class="advisor-tags">
-          <span class="tag">VLSI Design</span>
-          <span class="tag">Verilog</span>
-          <span class="tag">ASIC</span>
+        
+        <div class="session-time">
+          <span>📅 Jun 6, 2026</span>
+          <span>🕒 6:00 PM IST</span>
         </div>
-        <div class="advisor-footer">
-          <div class="rating">⭐ 5.0 (124 reviews)</div>
-          <div class="price">$80/hr</div>
-        </div>
-        <button class="btn-book">View Profile</button>
+        
+        <button class="btn-action" style="background: #10b981;">🎥 Join Meeting</button>
       </div>
 
-      <!-- Card 2 -->
-      <div class="advisor-card">
-        <div class="advisor-header">
-          <div class="avatar">💻</div>
-          <div class="advisor-info">
-            <h3>Michael Chen</h3>
-            <p>Staff Software Engineer @ Google</p>
-          </div>
+      <!-- Quick Stats -->
+      <div class="dashboard-card">
+        <h3>Your Learning Journey</h3>
+        
+        <div class="stat-row">
+          <span class="stat-label">Total Sessions Completed</span>
+          <span class="stat-value">4</span>
         </div>
-        <div class="advisor-tags">
-          <span class="tag">System Design</span>
-          <span class="tag">Algorithms</span>
-          <span class="tag">React</span>
+        <div class="stat-row">
+          <span class="stat-label">Advisors Connected</span>
+          <span class="stat-value">2</span>
         </div>
-        <div class="advisor-footer">
-          <div class="rating">⭐ 4.9 (89 reviews)</div>
-          <div class="price">$120/hr</div>
+        <div class="stat-row">
+          <span class="stat-label">Upcoming Bookings</span>
+          <span class="stat-value">1</span>
         </div>
-        <button class="btn-book">View Profile</button>
+        <div class="stat-row">
+          <span class="stat-label">Wallet Balance</span>
+          <span class="stat-value" style="color: #10b981;">$150.00</span>
+        </div>
+        
+        <button class="btn-action" onclick="window.location.href='find-advisors.html'" style="margin-top: 25px; background: transparent; color: var(--primary-btn); border: 2px solid var(--primary-btn);">🔍 Find a New Advisor</button>
       </div>
-
     </div>
   </main>
 
   <script>
-    // Sidebar toggle logic for mobile
+    // --- SECURITY LOGIC (Kick out if not logged in) ---
+    document.addEventListener("DOMContentLoaded", function() {
+      // Check if the user is verified as logged in
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      
+      // If they don't have the pass, redirect them instantly back to the homepage
+      if (!isLoggedIn) {
+        window.location.href = 'index.html';
+      }
+    });
+
+    // --- STANDARD SIDEBAR LOGIC ---
     function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('active');
-      document.getElementById('sidebarOverlay').classList.toggle('active');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      if (window.innerWidth <= 768) {
+        sidebar.classList.toggle('active'); overlay.classList.toggle('active');
+      } else { 
+        sidebar.classList.toggle('collapsed'); 
+      }
     }
 
-    // Theme toggle logic (Dark/Light Mode)
-    const themeToggleBtn = document.getElementById('themeToggleBtn');
-    
-    if (localStorage.getItem('theme') === 'dark') {
-      themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
-    }
+    // --- THEME INITIALIZATION AND TOGGLE ---
+    document.addEventListener("DOMContentLoaded", function() {
+      const btn = document.getElementById('themeToggleBtn');
+      if (localStorage.getItem('theme') === 'dark' && btn) {
+        btn.innerHTML = '☀️ Switch to Light Mode';
+      }
+    });
 
     function toggleTheme() {
       const currentTheme = document.documentElement.getAttribute('data-theme');
+      const themeToggleBtn = document.getElementById('themeToggleBtn');
       
       if (currentTheme === 'dark') {
         document.documentElement.removeAttribute('data-theme');
         localStorage.setItem('theme', 'light');
-        themeToggleBtn.innerHTML = '🌙 Switch to Dark Mode';
+        if(themeToggleBtn) themeToggleBtn.innerHTML = '🌙 Switch to Dark Mode';
       } else {
         document.documentElement.setAttribute('data-theme', 'dark');
         localStorage.setItem('theme', 'dark');
-        themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
+        if(themeToggleBtn) themeToggleBtn.innerHTML = '☀️ Switch to Light Mode';
       }
     }
   </script>

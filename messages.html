@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages | YourProAdvisor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  
+  <script>if (localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');</script>
+
+  <style>
+    :root { --bg-color: #f8fafc; --sidebar-bg: #ffffff; --text-heading: #0f172a; --text-sub: #475569; --primary-btn: #2563eb; --card-bg: #ffffff; --border-color: #e2e8f0; --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+    [data-theme="dark"] { --bg-color: #0f172a; --sidebar-bg: #1e293b; --text-heading: #f8fafc; --text-sub: #94a3b8; --card-bg: #1e293b; --border-color: #334155; }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { background-color: var(--bg-color); display: flex; height: 100vh; overflow: hidden; transition: background-color 0.3s ease; }
+    .menu-toggle { background: none; border: none; font-size: 1.8rem; color: var(--text-heading); cursor: pointer; transition: color 0.2s; padding-right: 15px; }
+    
+    .sidebar { width: 260px; background: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 24px 20px; display: flex; flex-direction: column; flex-shrink: 0; transition: all 0.3s ease; z-index: 100; overflow-y: auto;}
+    .sidebar.collapsed { margin-left: -260px; }
+    .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.5); z-index: 90; backdrop-filter: blur(2px); }
+    .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+    .sidebar .logo { display: block; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--text-heading); text-decoration: none; letter-spacing: -0.5px; }
+    .sidebar .logo .highlight { color: var(--primary-btn); }
+    .sidebar-close-btn { display: none; background: none; border: none; font-size: 2rem; color: var(--text-sub); cursor: pointer; line-height: 1; }
+    
+    .nav-links { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .nav-links li a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 0.95rem; padding: 12px 14px; border-radius: 6px; display: flex; align-items: center; gap: 12px; transition: 0.2s;}
+    .nav-links li a.active, .nav-links li a:hover { background-color: var(--border-color); color: var(--primary-btn); }
+    .theme-toggle-btn { margin-top: 20px; padding: 12px 14px; background: transparent; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-heading); font-weight: 600; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.2s; width: 100%; }
+    .theme-toggle-btn:hover { background: var(--border-color); }
+
+    .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+    .header { display: flex; align-items: center; margin-bottom: 30px; }
+    .header h1 { color: var(--text-heading); font-size: 2rem; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif;}
+
+    .message-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); padding: 20px; margin-bottom: 12px; display: flex; gap: 15px; cursor: pointer; transition: 0.2s; align-items: center;}
+    .message-card:hover { border-color: var(--primary-btn); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+    .message-card.unread { background: var(--bg-color); border-left: 4px solid var(--primary-btn); }
+    
+    .avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-color); flex-shrink: 0; }
+    .msg-content { flex: 1; }
+    .msg-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .msg-name { color: var(--text-heading); font-weight: 700; font-size: 1.05rem; }
+    .msg-time { color: var(--text-sub); font-size: 0.8rem; font-weight: 500; }
+    .msg-preview { color: var(--text-sub); font-size: 0.9rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 90%;}
+    .message-card.unread .msg-name, .message-card.unread .msg-preview { color: var(--text-heading); font-weight: 700; }
+
+    @media (max-width: 768px) {
+      .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); margin-left: 0; }
+      .sidebar.active { left: 0; }
+      .sidebar-overlay.active { display: block; }
+      .main-content { padding: 20px; }
+      .sidebar-close-btn { display: block; }
+      
+      /* AUTOMATIC MOBILE TEXT SHRINKING */
+      .main-content p, .main-content span, .main-content td, .main-content th, .main-content input, .main-content textarea { font-size: 0.85rem !important; }
+      .main-content h2 { font-size: 1.2rem !important; }
+      .main-content h3 { font-size: 1.05rem !important; }
+      .main-content button { font-size: 0.9rem !important; padding: 10px 14px !important; }
+      .header h1 { font-size: 1.4rem !important; }
+
+      .message-card { padding: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="logo">Your<span class="highlight">Pro</span>Advisor</a>
+      <button class="sidebar-close-btn" onclick="toggleSidebar()">&times;</button>
+    </div>
+    <ul class="nav-links">
+      <li><a href="user-dashboard.html">📊 Dashboard</a></li>
+      <li><a href="find-advisors.html">🔍 Find Advisors</a></li>
+      <li><a href="my-sessions.html">📅 My Sessions</a></li>
+      <li><a href="messages.html" class="active">💬 Messages</a></li>
+      <li><a href="wallet-payment.html">💳 Wallet & Payment</a></li>
+      <li><a href="notifications.html">🔔 Notifications</a></li>
+      <li><a href="support-help.html">❓ Support & Help</a></li>
+      <li><a href="profile-settings.html">⚙️ Profile Settings</a></li>
+    </ul>
+    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">🌙 Switch to Dark Mode</button>
+  </aside>
+
+  <main class="main-content">
+    <div class="header">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h1>Messages</h1>
+    </div>
+
+    <!-- Unread Message -->
+    <div class="message-card unread">
+      <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="Avatar" class="avatar">
+      <div class="msg-content">
+        <div class="msg-header">
+          <span class="msg-name">Dr. Ananya Sharma</span>
+          <span class="msg-time">10:42 AM</span>
+        </div>
+        <div class="msg-preview">Hi Ayush! For our session tomorrow, please share the Verilog code snippet you wanted me to review.</div>
+      </div>
+    </div>
+
+    <!-- Read Message -->
+    <div class="message-card">
+      <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=150&q=80" alt="Avatar" class="avatar">
+      <div class="msg-content">
+        <div class="msg-header">
+          <span class="msg-name">Michael Chen</span>
+          <span class="msg-time">Yesterday</span>
+        </div>
+        <div class="msg-preview">Great connecting with you! I've attached the roadmap we discussed. Best of luck with your B.Tech finals.</div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      if (localStorage.getItem('isLoggedIn') !== 'true') window.location.href = 'index.html';
+      const btn = document.getElementById('themeToggleBtn');
+      if (localStorage.getItem('theme') === 'dark' && btn) btn.innerHTML = '☀️ Switch to Light Mode';
+    });
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar'), overlay = document.getElementById('sidebarOverlay');
+      if (window.innerWidth <= 768) { sidebar.classList.toggle('active'); overlay.classList.toggle('active'); } 
+      else { sidebar.classList.toggle('collapsed'); }
+    }
+    function toggleTheme() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark', btn = document.getElementById('themeToggleBtn');
+      if (isDark) { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); if(btn) btn.innerHTML = '🌙 Switch to Dark Mode'; } 
+      else { document.documentElement.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); if(btn) btn.innerHTML = '☀️ Switch to Light Mode'; }
+    }
+  </script>
+</body>
+</html>

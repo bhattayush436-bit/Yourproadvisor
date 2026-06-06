@@ -45,7 +45,7 @@
     
     .top-badge { position: absolute; top: -12px; right: 20px; background: #f59e0b; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);}
     
-    /* --- NEW: Availability Badges --- */
+    /* --- Availability Badges --- */
     .availability-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-bottom: 15px; align-self: flex-start; text-transform: uppercase; letter-spacing: 0.5px;}
     .avail-today { background: rgba(16, 185, 129, 0.1); color: #10b981; }
     .avail-tomorrow { background: rgba(245, 158, 11, 0.1); color: #d97706; }
@@ -69,7 +69,7 @@
     .tag { background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-sub); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
     .tag-rating { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
     
-    /* --- NEW: Pricing Options Grid --- */
+    /* --- Pricing Options Grid --- */
     .pricing-options { display: flex; gap: 10px; margin-bottom: 20px; margin-top: auto;}
     .price-pill { flex: 1; background: var(--bg-color); border: 1px solid var(--border-color); padding: 10px 8px; border-radius: 8px; text-align: center; cursor: pointer; transition: 0.2s; }
     .price-pill:hover { border-color: var(--primary-btn); background: rgba(59, 130, 246, 0.05); }
@@ -97,6 +97,34 @@
     .input-group input:focus { border-color: var(--primary-btn); }
     .btn-submit { width: 100%; padding: 12px; background: var(--primary-btn); color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; margin-top: 10px;}
 
+    /* --- NEW: Monthly Mentorship Section --- */
+    .mentorship-section { margin-top: 60px; margin-bottom: 40px; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; }
+    
+    .pricing-card { background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border-color); padding: 35px 30px; transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; position: relative; }
+    .pricing-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.05); border-color: var(--primary-btn); }
+    
+    .pricing-card.popular { border: 2px solid var(--primary-btn); transform: scale(1.02); }
+    .pricing-card.popular:hover { transform: scale(1.02) translateY(-5px); }
+    .popular-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--primary-btn); color: white; padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;}
+    
+    .pricing-header { text-align: center; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 25px; }
+    .pricing-title { font-size: 1.25rem; color: var(--text-heading); font-weight: 800; margin-bottom: 10px; }
+    .pricing-price { font-size: 2.5rem; color: var(--primary-btn); font-weight: 800; margin-bottom: 5px; }
+    .pricing-duration { color: var(--text-sub); font-size: 0.9rem; font-weight: 600; text-transform: uppercase; }
+    
+    .pricing-features { list-style: none; margin-bottom: 30px; flex: 1; }
+    .pricing-features li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 15px; color: var(--text-sub); font-size: 0.95rem; font-weight: 500; line-height: 1.4;}
+    .pricing-features li::before { content: '✓'; color: #10b981; font-weight: 800; font-size: 1.1rem;}
+    .pricing-features li.highlight { color: var(--text-heading); font-weight: 700; }
+    
+    .btn-select-plan { width: 100%; padding: 14px; background: transparent; color: var(--primary-btn); border: 2px solid var(--primary-btn); border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 1rem; }
+    .btn-select-plan:hover { background: var(--primary-btn); color: white; }
+    .pricing-card.popular .btn-select-plan { background: var(--primary-btn); color: white; }
+    .pricing-card.popular .btn-select-plan:hover { background: #1d4ed8; }
+    
+    .plan-note { text-align: center; font-size: 0.85rem; color: var(--text-sub); margin-top: 15px; font-weight: 600; background: var(--bg-color); padding: 6px; border-radius: 6px;}
+
     @media (max-width: 768px) {
       .sidebar { position: fixed; left: -260px; height: 100vh; box-shadow: 2px 0 10px rgba(0,0,0,0.1); margin-left: 0; }
       .sidebar.active { left: 0; }
@@ -112,6 +140,8 @@
       .header h1 { font-size: 1.4rem !important; }
       
       .price-pill { padding: 8px 4px; }
+      .pricing-card.popular { transform: scale(1); }
+      .pricing-card.popular:hover { transform: translateY(-5px); }
     }
   </style>
 </head>
@@ -249,6 +279,71 @@
       </div>
 
     </div>
+
+    <!-- NEW: Monthly Mentorship Section -->
+    <div class="mentorship-section">
+      <h2 class="section-title">Long-Term Mentorship Programs</h2>
+      
+      <div class="pricing-grid">
+        
+        <!-- Basic Plan -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <div class="pricing-title">Basic Mentorship</div>
+            <div class="pricing-price">₹4,999</div>
+            <div class="pricing-duration">per month</div>
+          </div>
+          <ul class="pricing-features">
+            <li class="highlight">20 Sessions (30 mins each)</li>
+            <li>Max 2 sessions a day</li>
+            <li>Chat support (Business hours only)</li>
+            <li>Personalized guidance</li>
+            <li>Session recordings access</li>
+          </ul>
+          <button class="btn-select-plan">Choose Advisor</button>
+          <div class="plan-note">🎓 Best for College freshers</div>
+        </div>
+
+        <!-- Professional Plan -->
+        <div class="pricing-card popular">
+          <div class="popular-badge">Most Popular</div>
+          <div class="pricing-header">
+            <div class="pricing-title">Professional Mentorship</div>
+            <div class="pricing-price">₹8,999</div>
+            <div class="pricing-duration">per month</div>
+          </div>
+          <ul class="pricing-features">
+            <li class="highlight">20 Sessions (45 mins each)</li>
+            <li>Max 1 session a day</li>
+            <li>Priority chat support</li>
+            <li>Resume & Profile review</li>
+            <li>Weekly progress tracking</li>
+            <li>Session recordings access</li>
+          </ul>
+          <button class="btn-select-plan">Choose Advisor</button>
+        </div>
+
+        <!-- Premium Plan -->
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <div class="pricing-title">Premium Mentorship</div>
+            <div class="pricing-price">₹14,999</div>
+            <div class="pricing-duration">per month</div>
+          </div>
+          <ul class="pricing-features">
+            <li class="highlight">20 Sessions (60 mins each)</li>
+            <li>Unlimited chat support</li>
+            <li>Personalized career roadmap</li>
+            <li>Mock interviews</li>
+            <li>Industry networking guidance</li>
+            <li>Session recordings access</li>
+          </ul>
+          <button class="btn-select-plan">Choose Advisor</button>
+        </div>
+
+      </div>
+    </div>
+
   </main>
 
   <!-- Security Login Popup -->
